@@ -1,0 +1,45 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Rulează Server",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Server/main_server",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/Server",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Încarcă simbolurile pentru a asista depanarea.",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Compilare Server"
+        },
+        {
+            "name": "Rulează Client",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/Client/main_client",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/Client",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Încarcă simbolurile pentru a asista depanarea.",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Compilare Client"
+        }
+    ]
+}
