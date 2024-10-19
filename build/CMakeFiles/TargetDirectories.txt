@@ -1,0 +1,3 @@
+/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles/RPC.dir
+/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles/edit_cache.dir
+/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles/rebuild_cache.dir

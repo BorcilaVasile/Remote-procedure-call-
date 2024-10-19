@@ -3,10 +3,14 @@
 
 class Server{
 private: 
-    Socket server_socket;
+    Socket* server_socket;
 
 public: 
     Server();
+    void acceptConnectionsOnServer();
     void receiveFunction(); 
     void sendResult();
+    ~Server(){
+        free(server_socket);
+    }
 };
