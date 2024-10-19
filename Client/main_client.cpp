@@ -5,7 +5,7 @@
 #include <unistd.h> 
 #include <arpa/inet.h> 
 #include <string.h> 
-#include "../Shared/Errors.h"
+#include <RPC/errors.h>
 
 int main(){
 
@@ -16,7 +16,7 @@ int main(){
     struct sockaddr_in address;
     address.sin_family=AF_INET;
     address.sin_addr.s_addr=inet_addr("127.0.0.1");
-    address.sin_port=htons(8090);
+    address.sin_port=htons(8080);
 
     if(connect(socket_fd, (struct sockaddr *)&address, sizeof(address))==-1)
     {

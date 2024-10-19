@@ -33,8 +33,6 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
-                "-I",
-                "${workspaceFolder}/Shared/",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
