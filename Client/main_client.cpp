@@ -11,33 +11,14 @@ int main(){
 
     Client* client=new Client();
     client->connectToServer();
-    free(client);
-    // if(connect(socket_fd, (struct sockaddr *)&address, sizeof(address))==-1)
-    // {
-    //     close(socket_fd);
-    //     fail("Error at connecting with the server");
-    // }
 
+    char message[1024];
+    strcpy(message,"Hello from the client\0");
+    client->sendData(message,strlen(message));
 
-    // char buffer[255]="Hello from client!";
-    // send(socket_fd, buffer, strlen(buffer), 0); 
-    // while(strcmp(buffer,"exit\n")!=0)
-    // {
-    //     fgets(buffer, sizeof(buffer),stdin);
-    //     send(socket_fd, buffer, strlen(buffer), 0); 
-    // }
-
-
-    // char response[255];
-    // int bytes_received=recv(socket_fd, response, sizeof(response)-1, 0);
-    // if(bytes_received==-1){
-    //     close(socket_fd);
-    //     fail("Error at receiving data from the client");
-    // }
-    
-    // response[bytes_received]='\0';
-    // printf("Server: %s", response); 
-    
-    // close(socket_fd);
+    char response[1024]={0};
+    client->receiveData(response, sizeof(response)-1);
+    printf("Received from the server: %s", response);
+    delete client;
     return 0; 
 }

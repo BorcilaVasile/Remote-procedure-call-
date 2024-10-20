@@ -41,5 +41,14 @@
             ],
             "preLaunchTask": "Compilare Client"
         }
+    ],
+    "compounds": [
+        {
+            "name": "Rulează Server și apoi Client",
+            "configurations": [
+                "Rulează Server",
+                "Rulează Client"
+            ]
+        }
     ]
 }

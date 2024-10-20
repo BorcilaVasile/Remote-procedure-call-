@@ -7,37 +7,19 @@
 #include <RPC/rpc_server.h>
 
 
-int main(){
-   
-    Server* server=new Server();
+int main() {
+    Server* server = new Server();
     server->acceptConnectionsOnServer();
-    free(server);
-    // char buffer[255]; 
-    // ssize_t bytes_received=recv(client_fd, buffer, sizeof(buffer)-1, 0);
-    // if(bytes_received==-1){
-    //     close(client_fd);
-    //     close(socket_fd);
-    //     fail("Error at receiving data from the client");
-    // }
-    
-    // buffer[bytes_received]='\0';
-    // printf("Client: %s", buffer); 
 
-    // while(strcmp(buffer,"exit\n")!=0){
-    //     bytes_received=recv(client_fd, buffer, sizeof(buffer)-1, 0);
-    //     if(bytes_received==-1){
-    //          close(client_fd);
-    //         close(socket_fd);
-    //         fail("Error at receiving data from the client");
-    //     }
-    //     buffer[bytes_received]='\0';
-    //     printf("Client: %s", buffer); 
-    // }
+    char message[1024] = {0}; 
+    server->receiveMessage(message, sizeof(message) - 1);
+    printf("Received from client: %s\n", message);
 
-    // // const char *response="Hello from server!"; 
-    // // send(client_fd, response, strlen(response),0);
+    char response[1024];
+    strcpy(response, "Hello from the server");
+    server->sendMessage(response, strlen(response));
 
-    // close(client_fd); 
-    // close(socket_fd);
+    // Eliberare memorie și închidere server
+    delete server;
     return 0;
 }

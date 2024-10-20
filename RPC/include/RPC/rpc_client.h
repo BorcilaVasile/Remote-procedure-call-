@@ -8,7 +8,9 @@ private:
 public: 
     Client();
     void connectToServer();
+    void sendData(char* message, int length);
+    void receiveData(char* message, int length);
     ~Client(){
-        free(client_socket);
+        delete client_socket;
     }
 };
