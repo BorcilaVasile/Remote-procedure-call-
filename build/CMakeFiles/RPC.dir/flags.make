@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DRPC_EXPORTS
 
-CXX_INCLUDES = -I/home/vasile/Desktop/Remote-procedure-call-/RPC/include
+CXX_INCLUDES = -I/home/vasile/Desktop/Remote-procedure-call-/RPC/usr/include -I/home/vasile/Desktop/Remote-procedure-call-/RPC/include
 
 CXX_FLAGS = -fPIC -std=gnu++11
 

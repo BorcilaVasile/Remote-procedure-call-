@@ -140,6 +140,7 @@ lib/libRPC.so: CMakeFiles/RPC.dir/src/common/errors.cpp.o
 lib/libRPC.so: CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o
 lib/libRPC.so: CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o
 lib/libRPC.so: CMakeFiles/RPC.dir/build.make
+lib/libRPC.so: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 lib/libRPC.so: CMakeFiles/RPC.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library lib/libRPC.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RPC.dir/link.txt --verbose=$(VERBOSE)

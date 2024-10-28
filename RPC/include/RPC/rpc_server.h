@@ -1,5 +1,7 @@
 #include <unistd.h>
 #include <RPC/socket_connection.h>
+#include <RPC/procedure_format.pb.h>
+
 
 class Server{
 private: 
@@ -12,7 +14,10 @@ public:
     void receiveFunction(); 
     void sendResult();
     void receiveMessage(char* message, int length);
+    RPC::Response processRequest(RPC::Request& request);
     void sendMessage(char* message,int length);
+    void sendResult(RPC::Response& response);
+    void closeConnection();
     ~Server(){
         delete server_socket;
         if(client_socket!=nullptr)

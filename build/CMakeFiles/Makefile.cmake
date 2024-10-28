@@ -40,6 +40,9 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.25/Modules/CMakeTestCXXCompiler.cmake"
   "/usr/share/cmake-3.25/Modules/CMakeTestCompilerCommon.cmake"
   "/usr/share/cmake-3.25/Modules/CMakeUnixFindMake.cmake"
+  "/usr/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake"
+  "/usr/share/cmake-3.25/Modules/CheckIncludeFile.cmake"
+  "/usr/share/cmake-3.25/Modules/CheckLibraryExists.cmake"
   "/usr/share/cmake-3.25/Modules/Compiler/ADSP-DetermineCompiler.cmake"
   "/usr/share/cmake-3.25/Modules/Compiler/ARMCC-DetermineCompiler.cmake"
   "/usr/share/cmake-3.25/Modules/Compiler/ARMClang-DetermineCompiler.cmake"
@@ -96,6 +99,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.25/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake"
   "/usr/share/cmake-3.25/Modules/Compiler/zOS-C-DetermineCompiler.cmake"
   "/usr/share/cmake-3.25/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake"
+  "/usr/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake"
+  "/usr/share/cmake-3.25/Modules/FindPackageMessage.cmake"
+  "/usr/share/cmake-3.25/Modules/FindProtobuf.cmake"
+  "/usr/share/cmake-3.25/Modules/FindThreads.cmake"
+  "/usr/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake"
   "/usr/share/cmake-3.25/Modules/Internal/FeatureTesting.cmake"
   "/usr/share/cmake-3.25/Modules/Platform/Linux-Determine-CXX.cmake"
   "/usr/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake"
@@ -103,6 +111,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake"
   "/usr/share/cmake-3.25/Modules/Platform/Linux.cmake"
   "/usr/share/cmake-3.25/Modules/Platform/UnixPaths.cmake"
+  "/usr/share/cmake-3.25/Modules/SelectLibraryConfigurations.cmake"
   )
 
 # The corresponding makefile is:

@@ -30,12 +30,16 @@
             "label": "C/C++: gcc build active file",
             "command": "/usr/bin/gcc",
             "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
-            ],
+                    "-fdiagnostics-color=always",
+                    "-g",
+                    "${file}",
+                    "-o",
+                    "${fileDirname}/${fileBasenameNoExtension}",
+                    "-L${workspaceFolder}/build/lib/",
+                    "-lprotobuf",
+                    "-lRPC",
+                    "-Wl,-rpath,${workspaceFolder}/build/lib/"
+                ],
             "options": {
                 "cwd": "${fileDirname}"
             },

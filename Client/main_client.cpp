@@ -8,17 +8,21 @@
 #include <RPC/rpc_client.h>
 
 int main(){
-
-    Client* client=new Client();
+    Client* client=new Client;
     client->connectToServer();
 
-    char message[1024];
-    strcpy(message,"Hello from the client\0");
-    client->sendData(message,strlen(message));
+    RPC::Argument arg;
+    arg.set_string_val("World");
 
-    char response[1024]={0};
-    client->receiveData(response, sizeof(response)-1);
-    printf("Received from the server: %s", response);
+    RPC::Response response = client->callFunction("sayHello", {arg});
+
+    // Verificăm răspunsul
+    if (response.return_value().status() == RPC::Status::OK) {
+        std::cout << "Response from server: " << response.return_value().string_result() << std::endl;
+    } else {
+        std::cout << "Error: " << response.return_value().message() << std::endl;
+    }
+
+    return 0;
     delete client;
-    return 0; 
 }

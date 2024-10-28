@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package RPC;
+
+// Enum pentru diferite tipuri de rezultate și statusuri
+enum Status {
+  OK = 0;                 // Succes
+  ERROR = 1;              // Eroare generală
+  INVALID_ARGUMENT = 2;   // Argument invalid
+  NOT_FOUND = 3;          // Funcția nu a fost găsită
+  PERMISSION_DENIED = 4;  // Acces nepermis
+  INTERNAL_ERROR = 5;     // Eroare internă a serverului
+}
+
+// Mesaj pentru Argument - pentru a gestiona tipuri variate de date
+message Argument {
+  string name = 1;                // Numele argumentului (opțional, pentru identificare)
+  oneof value {                   // Valoarea poate fi de diferite tipuri
+    int32 int_val = 2;
+    double double_val = 3;
+    string string_val = 4;
+    bytes binary_val = 5;
+    bool bool_val = 6;
+  }
+}
+
+// Mesaj pentru rezultat - Returnează date sau erori către client
+message ReturnValue {
+  Status status = 1;              // Statusul apelului RPC
+  string message = 2;             // Mesaj informativ (de ex., detalii despre eroare)
+  oneof result {                  // Valoarea returnată, de tip dinamic
+    int32 int_result = 3;
+    double double_result = 4;
+    string string_result = 5;
+    bytes binary_result = 6;
+    bool bool_result = 7;
+  }
+}
+
+// Mesaj pentru Request - specifică funcția și parametrii
+message Request {
+  string function_name = 1;        // Numele funcției care va fi apelată
+  repeated Argument args = 2;      // Lista de argumente pentru apelul RPC
+  string client_id = 3;            // ID-ul clientului pentru autentificare
+  string token = 4;                // Token pentru autorizare (opțional)
+}
+
+// Mesaj pentru Response - trimis înapoi de server după executarea funcției
+message Response {
+  ReturnValue return_value = 1;    // Rezultatul sau eroarea
+}
+
+// Mesaj pentru autentificare - structura pentru autentificarea clientului
+message AuthRequest {
+  string client_id = 1;            // ID-ul clientului
+  string client_secret = 2;        // Secretul clientului pentru autentificare
+}
+
+// Mesaj pentru răspunsul la autentificare
+message AuthResponse {
+  Status status = 1;               // Statusul autentificării (OK sau eroare)
+  string token = 2;                // Token generat dacă autentificarea este reușită
+  string message = 3;              // Mesaj informativ despre eroare sau succes
+}
+
+// Serviciul principal pentru RPC - expune metodele pentru apeluri și autentificare
+service RPCService {
+  // Metodă de autentificare pentru client
+  rpc Authenticate (AuthRequest) returns (AuthResponse);
+
+  // Metoda principală de apel pentru funcții
+  rpc CallFunction (Request) returns (Response);
+}

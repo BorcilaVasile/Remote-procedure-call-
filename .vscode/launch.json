@@ -6,10 +6,25 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/Server/main_server",
-            "args": [],
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-L${workspaceFolder}/build/lib/",
+                "-lprotobuf",
+                "-lRPC",
+                "-Wl,-rpath,${workspaceFolder}/build/lib/"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/Server",
-            "environment": [],
+           "environment": [
+                    {
+                        "name": "LD_LIBRARY_PATH",
+                        "value": "${workspaceFolder}/build/lib/:${env:LD_LIBRARY_PATH}"
+                    }
+                ],
             "externalConsole": true,
             "MIMode": "gdb",
             "setupCommands": [
@@ -26,10 +41,25 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/Client/main_client",
-            "args": [],
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-L${workspaceFolder}/build/lib/",
+                "-lprotobuf",
+                "-lRPC",
+                "-Wl,-rpath,${workspaceFolder}/build/lib/"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/Client",
-            "environment": [],
+            "environment": [
+                    {
+                        "name": "LD_LIBRARY_PATH",
+                        "value": "${workspaceFolder}/build/lib/:${env:LD_LIBRARY_PATH}"
+                    }
+                ],
             "externalConsole": true,
             "MIMode": "gdb",
             "setupCommands": [
