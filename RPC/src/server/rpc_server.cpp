@@ -61,7 +61,7 @@ RPC::Response Server::processRequest(RPC::Request& request){
         //configurare mesaj de raspuns
         RPC::ReturnValue* return_value=response.mutable_return_value();
         return_value->set_status(RPC::Status::OK);
-        return_value->set_string_result("Hello"+argument_value);
+        return_value->set_string_result("Hello "+argument_value);
     }
     else{
         response.mutable_return_value()->set_status(RPC::Status::NOT_FOUND);

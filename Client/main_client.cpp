@@ -12,7 +12,7 @@ int main(){
     client->connectToServer();
 
     RPC::Argument arg;
-    arg.set_string_val("World");
+    arg.set_string_val("My dear friend Jasmine");
 
     RPC::Response response = client->callFunction("sayHello", {arg});
 

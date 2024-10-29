@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <cerrno> 
+#include <string>
+#include <cstring>
 #include <arpa/inet.h>
 #include <RPC/errors.h>
 
@@ -15,10 +17,11 @@ private:
     socketType type;
     struct sockaddr_in address;
 private: 
-    void setUpServerSocket();
-    void setUpClientSocket();
+    void setUpServerSocket(uint16_t port=8080);
+    void setUpClientSocket(std::string ip="127.0.0.1", uint16_t port=8080);
 public:
-    Socket(socketType type);
+    Socket(socketType type,std::string ip="127.0.0.1", uint16_t port=8080);
+    void setAdress(std::string ip, uint16_t port);
     void bindSocket();
     void listenForConnections();
     void connectToServer();

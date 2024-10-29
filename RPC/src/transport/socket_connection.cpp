@@ -1,33 +1,38 @@
 #include <RPC/socket_connection.h>
 
-Socket::Socket(socketType type): type(type){
+Socket::Socket(socketType type,std::string ip="127.0.0.1", uint16_t port=8080): type(type){
     //create a socket 
     this->file_descriptor=socket(AF_INET,SOCK_STREAM, 0);
     if(this->file_descriptor==-1)
         fail("Error at socket creation for server");
+    //initialize address structure
+    memset(&address, 0, sizeof(address));
     //set up the type of the socket 
     if(this->type== socketType::SERVER)
-        setUpServerSocket();
+        setUpServerSocket(port);
     if(type==socketType::CLIENT)
-        setUpClientSocket();
+        setUpClientSocket(ip, port);
+}
+void Socket::setAdress(std::string ip, uint16_t port)
+{
+    address.sin_family=AF_INET;
+    address.sin_port=htons(port);
+    if(inet_pton(AF_INET, ip.c_str(), &address.sin_addr.s_addr)<=0)
+        fail("Invalid IP address");
+
 }
 
-
-void Socket::setUpServerSocket(){
+void Socket::setUpServerSocket(uint16_t port=8080){
     //set up the server socket so his port and adress can be reused 
     int opt = 1;
     if(setsockopt(file_descriptor, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1) 
         fail("Error setting the socket options"); 
 
-    address.sin_family=AF_INET;
-    address.sin_addr.s_addr=INADDR_ANY;
-    address.sin_port=htons(8080);
-}
+    setAdress("0.0.0.0",port);
+}   
 
-void Socket::setUpClientSocket(){
-    address.sin_family=AF_INET;
-    address.sin_addr.s_addr=inet_addr("127.0.0.1");
-    address.sin_port=htons(8080);
+void Socket::setUpClientSocket(std::string ip="127.0.0.1", uint16_t port=8080){
+   setAdress(ip, port);
 }
 
 void Socket::bindSocket(){
