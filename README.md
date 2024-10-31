@@ -110,7 +110,8 @@ Dezvoltarea unei biblioteci RPC care să permită efectuarea de apeluri de func�
 
 ### 5.1 Diagramă de arhitectură
 
-> Diagrama va fi adăugată ulterior creării sub-proiectelor și claselor din componența proiectului RPC.
+![Basic RPC Architecture](./images/rpc_architecture.png)
+
 
 ### 5.2 Componente principale
 
@@ -143,10 +144,6 @@ Dezvoltarea unei biblioteci RPC care să permită efectuarea de apeluri de func�
     - Gestionarea excepțiilor interne și returnarea unor mesaje corespunzătoare.
     - Trimiterea de mesaje de eroare către utilizator în cazul în care RPC a eșuat.
     - Implementarea unor mecanisme de retry sau fallback (opțional).
-
-6. **Client stub**
-
-7. **Server stub**
 
 ---
 
