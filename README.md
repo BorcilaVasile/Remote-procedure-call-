@@ -110,7 +110,7 @@ Dezvoltarea unei biblioteci RPC care să permită efectuarea de apeluri de func�
 
 ### 5.1 Diagramă de arhitectură
 
-![Basic RPC Architecture](./images/rpc_architecture.png)
+![Basic RPC Architecture](diagram.png)
 
 
 ### 5.2 Componente principale
