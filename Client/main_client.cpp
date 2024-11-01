@@ -10,19 +10,8 @@
 int main(){
     Client* client=new Client;
     client->connectToServer();
-
-    RPC::Argument arg;
-    arg.set_string_val("My dear friend Jasmine");
-
-    RPC::Response response = client->callFunction("sayHello", {arg});
-
-    // Verificăm răspunsul
-    if (response.return_value().status() == RPC::Status::OK) {
-        std::cout << "Response from server: " << response.return_value().string_result() << std::endl;
-    } else {
-        std::cout << "Error: " << response.return_value().message() << std::endl;
-    }
-
-    return 0;
+    //apel catre functia sayHello 
+    std::cout<<client->sayHello("Jasmine");
     delete client;
+    return 0;
 }

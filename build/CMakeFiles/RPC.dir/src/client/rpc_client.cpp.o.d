@@ -75,37 +75,23 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
- /usr/include/arpa/inet.h \
- /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/errors.h \
- /usr/include/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
- /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
- /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
- /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
- /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/x86_64-linux-gnu/bits/floatn.h \
- /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
- /usr/include/c++/12/stdlib.h /usr/include/c++/12/cstdlib \
- /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
- /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
- /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/12/bits/std_abs.h \
- /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/procedure_format.pb.h \
- /usr/include/c++/12/limits /usr/include/c++/12/string \
- /usr/include/c++/12/bits/stringfwd.h \
+ /usr/include/c++/12/string /usr/include/c++/12/bits/stringfwd.h \
  /usr/include/c++/12/bits/memoryfwd.h \
  /usr/include/c++/12/bits/char_traits.h \
  /usr/include/c++/12/bits/postypes.h /usr/include/c++/12/cwchar \
- /usr/include/wchar.h /usr/include/x86_64-linux-gnu/bits/wchar.h \
+ /usr/include/wchar.h \
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
  /usr/include/c++/12/type_traits /usr/include/c++/12/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/c++/12/bits/allocator.h \
@@ -144,12 +130,25 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /usr/include/c++/12/ext/alloc_traits.h \
  /usr/include/c++/12/bits/alloc_traits.h \
  /usr/include/c++/12/bits/stl_construct.h \
- /usr/include/c++/12/ext/string_conversions.h /usr/include/c++/12/cstdio \
+ /usr/include/c++/12/ext/string_conversions.h /usr/include/c++/12/cstdlib \
+ /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/alloca.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/c++/12/cstdio \
+ /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/c++/12/bits/charconv.h \
  /usr/include/c++/12/bits/functional_hash.h \
  /usr/include/c++/12/bits/hash_bytes.h \
- /usr/include/c++/12/bits/basic_string.tcc \
- /usr/include/google/protobuf/port_def.inc \
+ /usr/include/c++/12/bits/basic_string.tcc /usr/include/c++/12/cstring \
+ /usr/include/string.h /usr/include/strings.h /usr/include/arpa/inet.h \
+ /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/errors.h \
+ /usr/include/c++/12/stdlib.h \
+ /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/procedure_format.pb.h \
+ /usr/include/c++/12/limits /usr/include/google/protobuf/port_def.inc \
  /usr/include/google/protobuf/port_undef.inc \
  /usr/include/google/protobuf/io/coded_stream.h /usr/include/assert.h \
  /usr/include/c++/12/atomic /usr/include/c++/12/bits/atomic_base.h \
@@ -164,7 +163,6 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
  /usr/include/x86_64-linux-gnu/bits/uio_lim.h /usr/include/c++/12/cstddef \
- /usr/include/c++/12/cstring /usr/include/string.h /usr/include/strings.h \
  /usr/include/c++/12/utility /usr/include/c++/12/bits/stl_relops.h \
  /usr/include/google/protobuf/stubs/common.h \
  /usr/include/c++/12/algorithm /usr/include/c++/12/bits/stl_algo.h \
@@ -280,4 +278,5 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /usr/include/google/protobuf/map.h /usr/include/c++/12/functional \
  /usr/include/c++/12/bits/std_function.h \
  /usr/include/google/protobuf/map_type_handler.h \
- /usr/include/google/protobuf/extension_set.h /usr/include/c++/12/cassert
+ /usr/include/google/protobuf/extension_set.h /usr/include/c++/12/cassert \
+ /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/functions.h

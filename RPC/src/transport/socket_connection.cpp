@@ -1,6 +1,6 @@
 #include <RPC/socket_connection.h>
 
-Socket::Socket(socketType type,std::string ip="127.0.0.1", uint16_t port=8080): type(type){
+Socket::Socket(socketType type,std::string ip, uint16_t port): type(type){
     //create a socket 
     this->file_descriptor=socket(AF_INET,SOCK_STREAM, 0);
     if(this->file_descriptor==-1)
@@ -22,7 +22,7 @@ void Socket::setAdress(std::string ip, uint16_t port)
 
 }
 
-void Socket::setUpServerSocket(uint16_t port=8080){
+void Socket::setUpServerSocket(uint16_t port){
     //set up the server socket so his port and adress can be reused 
     int opt = 1;
     if(setsockopt(file_descriptor, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1) 
@@ -31,7 +31,7 @@ void Socket::setUpServerSocket(uint16_t port=8080){
     setAdress("0.0.0.0",port);
 }   
 
-void Socket::setUpClientSocket(std::string ip="127.0.0.1", uint16_t port=8080){
+void Socket::setUpClientSocket(std::string ip, uint16_t port){
    setAdress(ip, port);
 }
 

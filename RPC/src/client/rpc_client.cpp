@@ -23,6 +23,23 @@ RPC::Response Client::callFunction(std::string function_name, std::vector<RPC::A
     return receiveResponse();
 }
 
+std::string Client::sayHello(std::string name){
+
+    RPC::Argument arg;
+    arg.set_string_val(name);
+
+    RPC::Response response =callFunction("sayHello", {arg});
+
+
+    // Verificăm răspunsul
+    if (response.return_value().status() == RPC::Status::OK) {
+        return "Response from server: "+response.return_value().string_result()+"\n";
+    } else {
+        fail("Error calling the requested function");
+    }
+    return std::string();
+
+}
 void Client::sendData(char *message, int length)
 {
     if(client_socket->sendData(message,length)==-1)
