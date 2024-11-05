@@ -20,6 +20,7 @@ public:
     RPC::Response callFunction(std::string function_name, std::vector<RPC::Argument> args);
 
     std::string sayHello(std::string name);
+    std::string disconnect();
     ~Client(){
         delete client_socket;
     }

@@ -12,6 +12,9 @@ int main(){
     client->connectToServer();
     //apel catre functia sayHello 
     std::cout<<client->sayHello("Jasmine");
+
+    sleep(10);
+    std::cout<<client->disconnect();
     delete client;
     return 0;
 }

@@ -10,10 +10,9 @@
 int main() {
     Server* server = new Server();
 
-    while(true){
-        server->acceptConnectionsOnServer();
-        server->receiveFunction();
-    }
+    server->acceptConnectionsOnServer();
+    server->start();
+    
     delete server;
     return 0;
 }

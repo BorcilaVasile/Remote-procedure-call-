@@ -40,6 +40,21 @@ std::string Client::sayHello(std::string name){
     return std::string();
 
 }
+
+std::string Client::disconnect()
+{
+    RPC::Argument arg;
+    RPC::Response response =callFunction("disconnect",{arg});
+
+    // Verificăm răspunsul
+    if (response.return_value().status() == RPC::Status::OK) {
+        return "Response from server: "+response.return_value().string_result()+"\n";
+    } else {
+        fail("Error calling the requested function");
+    }
+    return std::string();
+}
+
 void Client::sendData(char *message, int length)
 {
     if(client_socket->sendData(message,length)==-1)
