@@ -111,10 +111,38 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPC.dir/src/server/rpc_server.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vasile/Desktop/Remote-procedure-call-/RPC/src/server/rpc_server.cpp -o CMakeFiles/RPC.dir/src/server/rpc_server.cpp.s
 
+CMakeFiles/RPC.dir/src/transport/client_socket.cpp.o: CMakeFiles/RPC.dir/flags.make
+CMakeFiles/RPC.dir/src/transport/client_socket.cpp.o: /home/vasile/Desktop/Remote-procedure-call-/RPC/src/transport/client_socket.cpp
+CMakeFiles/RPC.dir/src/transport/client_socket.cpp.o: CMakeFiles/RPC.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RPC.dir/src/transport/client_socket.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPC.dir/src/transport/client_socket.cpp.o -MF CMakeFiles/RPC.dir/src/transport/client_socket.cpp.o.d -o CMakeFiles/RPC.dir/src/transport/client_socket.cpp.o -c /home/vasile/Desktop/Remote-procedure-call-/RPC/src/transport/client_socket.cpp
+
+CMakeFiles/RPC.dir/src/transport/client_socket.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPC.dir/src/transport/client_socket.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vasile/Desktop/Remote-procedure-call-/RPC/src/transport/client_socket.cpp > CMakeFiles/RPC.dir/src/transport/client_socket.cpp.i
+
+CMakeFiles/RPC.dir/src/transport/client_socket.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPC.dir/src/transport/client_socket.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vasile/Desktop/Remote-procedure-call-/RPC/src/transport/client_socket.cpp -o CMakeFiles/RPC.dir/src/transport/client_socket.cpp.s
+
+CMakeFiles/RPC.dir/src/transport/server_socket.cpp.o: CMakeFiles/RPC.dir/flags.make
+CMakeFiles/RPC.dir/src/transport/server_socket.cpp.o: /home/vasile/Desktop/Remote-procedure-call-/RPC/src/transport/server_socket.cpp
+CMakeFiles/RPC.dir/src/transport/server_socket.cpp.o: CMakeFiles/RPC.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RPC.dir/src/transport/server_socket.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPC.dir/src/transport/server_socket.cpp.o -MF CMakeFiles/RPC.dir/src/transport/server_socket.cpp.o.d -o CMakeFiles/RPC.dir/src/transport/server_socket.cpp.o -c /home/vasile/Desktop/Remote-procedure-call-/RPC/src/transport/server_socket.cpp
+
+CMakeFiles/RPC.dir/src/transport/server_socket.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPC.dir/src/transport/server_socket.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vasile/Desktop/Remote-procedure-call-/RPC/src/transport/server_socket.cpp > CMakeFiles/RPC.dir/src/transport/server_socket.cpp.i
+
+CMakeFiles/RPC.dir/src/transport/server_socket.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPC.dir/src/transport/server_socket.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vasile/Desktop/Remote-procedure-call-/RPC/src/transport/server_socket.cpp -o CMakeFiles/RPC.dir/src/transport/server_socket.cpp.s
+
 CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o: CMakeFiles/RPC.dir/flags.make
 CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o: /home/vasile/Desktop/Remote-procedure-call-/RPC/src/transport/socket_connection.cpp
 CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o: CMakeFiles/RPC.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o -MF CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o.d -o CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o -c /home/vasile/Desktop/Remote-procedure-call-/RPC/src/transport/socket_connection.cpp
 
 CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.i: cmake_force
@@ -130,6 +158,8 @@ RPC_OBJECTS = \
 "CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o" \
 "CMakeFiles/RPC.dir/src/common/errors.cpp.o" \
 "CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o" \
+"CMakeFiles/RPC.dir/src/transport/client_socket.cpp.o" \
+"CMakeFiles/RPC.dir/src/transport/server_socket.cpp.o" \
 "CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o"
 
 # External object files for target RPC
@@ -138,11 +168,13 @@ RPC_EXTERNAL_OBJECTS =
 lib/libRPC.so: CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o
 lib/libRPC.so: CMakeFiles/RPC.dir/src/common/errors.cpp.o
 lib/libRPC.so: CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o
+lib/libRPC.so: CMakeFiles/RPC.dir/src/transport/client_socket.cpp.o
+lib/libRPC.so: CMakeFiles/RPC.dir/src/transport/server_socket.cpp.o
 lib/libRPC.so: CMakeFiles/RPC.dir/src/transport/socket_connection.cpp.o
 lib/libRPC.so: CMakeFiles/RPC.dir/build.make
 lib/libRPC.so: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 lib/libRPC.so: CMakeFiles/RPC.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library lib/libRPC.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX shared library lib/libRPC.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RPC.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

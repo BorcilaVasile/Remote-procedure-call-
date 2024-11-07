@@ -1,16 +1,16 @@
 #include <unistd.h>
-#include <RPC/socket_connection.h>
+#include <RPC/client_socket.h>
 #include <RPC/procedure_format.pb.h>
 #include <RPC/functions.h>
 
 class Client: public RemoteFunction{
 private: 
-    Socket* client_socket;
+    ClientSocket* client_socket;
 
 public: 
 
     Client();
-    void connectToServer();
+    void connectToServer(std::string ip="0.0.0.0",uint16_t port=8080);
 
     void sendData(char* message, int length);
     void sendData(RPC::Request& request);

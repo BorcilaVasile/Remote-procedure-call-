@@ -12,20 +12,24 @@ enum class socketType{
     SERVER, CLIENT
 };
 class Socket{ 
-private: 
-    int file_descriptor;
+protected: 
     socketType type;
     struct sockaddr_in address;
+
+public: 
+    int file_descriptor;
+
 private: 
-    void setUpServerSocket(uint16_t port=8080);
+    void setUpServerSocket(std::string ip="0.0.0.0",uint16_t port=8080);
     void setUpClientSocket(std::string ip="127.0.0.1", uint16_t port=8080);
+    
+protected: 
+
 public:
     Socket(socketType type,std::string ip="127.0.0.1", uint16_t port=8080);
-    void setAdress(std::string ip, uint16_t port);
-    void bindSocket();
-    void listenForConnections();
-    void connectToServer();
-    Socket* acceptConnections();
+    void setAddress(std::string ip, uint16_t port);
+    void setAddress(struct sockaddr_in address);
+
     void shutdownSocket(int);
     bool isValidSocket();
     int receiveData(void* data, ssize_t length);

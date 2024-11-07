@@ -201,6 +201,54 @@ src/server/rpc_server.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/server/rpc_server.cpp.s
 .PHONY : src/server/rpc_server.cpp.s
 
+src/transport/client_socket.o: src/transport/client_socket.cpp.o
+.PHONY : src/transport/client_socket.o
+
+# target to build an object file
+src/transport/client_socket.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/transport/client_socket.cpp.o
+.PHONY : src/transport/client_socket.cpp.o
+
+src/transport/client_socket.i: src/transport/client_socket.cpp.i
+.PHONY : src/transport/client_socket.i
+
+# target to preprocess a source file
+src/transport/client_socket.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/transport/client_socket.cpp.i
+.PHONY : src/transport/client_socket.cpp.i
+
+src/transport/client_socket.s: src/transport/client_socket.cpp.s
+.PHONY : src/transport/client_socket.s
+
+# target to generate assembly for a file
+src/transport/client_socket.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/transport/client_socket.cpp.s
+.PHONY : src/transport/client_socket.cpp.s
+
+src/transport/server_socket.o: src/transport/server_socket.cpp.o
+.PHONY : src/transport/server_socket.o
+
+# target to build an object file
+src/transport/server_socket.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/transport/server_socket.cpp.o
+.PHONY : src/transport/server_socket.cpp.o
+
+src/transport/server_socket.i: src/transport/server_socket.cpp.i
+.PHONY : src/transport/server_socket.i
+
+# target to preprocess a source file
+src/transport/server_socket.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/transport/server_socket.cpp.i
+.PHONY : src/transport/server_socket.cpp.i
+
+src/transport/server_socket.s: src/transport/server_socket.cpp.s
+.PHONY : src/transport/server_socket.s
+
+# target to generate assembly for a file
+src/transport/server_socket.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/transport/server_socket.cpp.s
+.PHONY : src/transport/server_socket.cpp.s
+
 src/transport/socket_connection.o: src/transport/socket_connection.cpp.o
 .PHONY : src/transport/socket_connection.o
 
@@ -243,6 +291,12 @@ help:
 	@echo "... src/server/rpc_server.o"
 	@echo "... src/server/rpc_server.i"
 	@echo "... src/server/rpc_server.s"
+	@echo "... src/transport/client_socket.o"
+	@echo "... src/transport/client_socket.i"
+	@echo "... src/transport/client_socket.s"
+	@echo "... src/transport/server_socket.o"
+	@echo "... src/transport/server_socket.i"
+	@echo "... src/transport/server_socket.s"
 	@echo "... src/transport/socket_connection.o"
 	@echo "... src/transport/socket_connection.i"
 	@echo "... src/transport/socket_connection.s"

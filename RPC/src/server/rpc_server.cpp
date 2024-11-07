@@ -1,7 +1,7 @@
 #include <RPC/rpc_server.h>
 
-Server::Server(size_t pool_size){
-    server_socket=new Socket(socketType::SERVER);
+Server::Server(size_t pool_size,std::string ip, uint16_t port){
+    server_socket=new ServerSocket(ip, port);
     server_socket->bindSocket();
     server_socket->listenForConnections();
     printf("\nSocket on the server is listening for connections\n"); 

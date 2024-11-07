@@ -9,11 +9,22 @@
 
 int main(){
     Client* client=new Client;
-    client->connectToServer();
+    client->connectToServer("0.0.0.0",8080);
+    
     //apel catre functia sayHello 
     std::cout<<client->sayHello("Jasmine");
 
     sleep(10);
+
+
+
+
+
+
+
+
+
+    
     std::cout<<client->disconnect();
     delete client;
     return 0;

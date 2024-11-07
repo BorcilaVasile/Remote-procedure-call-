@@ -1,14 +1,14 @@
 #include <unistd.h>
 #include <thread>
 #include <queue>
-#include <RPC/socket_connection.h>
+#include <RPC/server_socket.h>
 #include <condition_variable>
 #include <RPC/procedure_format.pb.h>
 
 
 class Server{
 private: 
-    Socket* server_socket;
+    ServerSocket* server_socket;
     std::vector<std::thread> thread_pool; 
     std::queue<std::pair<Socket*, int>> client_queue;
     std::mutex mutexLock;
@@ -16,7 +16,7 @@ private:
     bool shutdown_request=false; 
     int countClients=0;
 public: 
-    Server(size_t pool_size=10);
+    Server(size_t pool_size=10,std::string ip="0.0.0.0", uint16_t port=8080);
     void start();
     void acceptConnectionsOnServer();
     void sendResult(Socket* client_socket,RPC::Response& response);

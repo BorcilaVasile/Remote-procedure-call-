@@ -120,6 +120,7 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o: \
  /usr/include/c++/12/bits/stl_bvector.h \
  /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
  /usr/include/c++/12/bits/stl_queue.h \
+ /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/server_socket.h \
  /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/socket_connection.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \

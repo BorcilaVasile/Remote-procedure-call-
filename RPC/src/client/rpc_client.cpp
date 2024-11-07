@@ -1,12 +1,12 @@
 #include <RPC/rpc_client.h>
 
 Client::Client(){
-    client_socket=new Socket(socketType::CLIENT);
+    client_socket=new ClientSocket();
     printf("\nThe client is ready to connect to the server\n"); 
 }
 
-void Client::connectToServer(){
-    client_socket->connectToServer();
+void Client::connectToServer(std::string ip,uint16_t port){
+    client_socket->connectToServer(ip,port);
     printf("The client connected succesfully to the server\n");
 }
 

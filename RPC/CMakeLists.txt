@@ -19,6 +19,8 @@ file(GLOB_RECURSE SOURCES
     src/common/errors.cpp
     src/server/rpc_server.cpp
     src/transport/socket_connection.cpp
+    src/transport/server_socket.cpp 
+    src/transport/client_socket.cpp
     ${PROTO_SRCS}
 )
 
@@ -27,6 +29,8 @@ file(GLOB_RECURSE HEADERS
     include/RPC/rpc_client.h
     include/RPC/rpc_server.h
     include/RPC/socket_connection.h
+    include/RPC/server_socket.h 
+    include/RPC/client_socket.h 
     ${PROTO_HDRS}
 )
 

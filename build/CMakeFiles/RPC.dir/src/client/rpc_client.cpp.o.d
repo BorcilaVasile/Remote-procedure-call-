@@ -21,6 +21,7 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h \
+ /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/client_socket.h \
  /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/socket_connection.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \

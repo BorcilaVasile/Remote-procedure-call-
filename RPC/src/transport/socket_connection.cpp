@@ -9,44 +9,36 @@ Socket::Socket(socketType type,std::string ip, uint16_t port): type(type){
     memset(&address, 0, sizeof(address));
     //set up the type of the socket 
     if(this->type== socketType::SERVER)
-        setUpServerSocket(port);
+        setUpServerSocket(ip,port);
     if(type==socketType::CLIENT)
         setUpClientSocket(ip, port);
 }
-void Socket::setAdress(std::string ip, uint16_t port)
+void Socket::setAddress(std::string ip, uint16_t port)
 {
     address.sin_family=AF_INET;
     address.sin_port=htons(port);
-    if(inet_pton(AF_INET, ip.c_str(), &address.sin_addr.s_addr)<=0)
+    if(inet_pton(AF_INET, ip.c_str(), &address.sin_addr.s_addr)<=0) 
         fail("Invalid IP address");
 
 }
 
-void Socket::setUpServerSocket(uint16_t port){
+void Socket::setAddress(sockaddr_in address)
+{
+    this->address=address;
+}
+
+void Socket::setUpServerSocket(std::string ip, uint16_t port)
+{
     //set up the server socket so his port and adress can be reused 
     int opt = 1;
     if(setsockopt(file_descriptor, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1) 
         fail("Error setting the socket options"); 
 
-    setAdress("0.0.0.0",port);
-}   
+    setAddress(ip,port);
+}
 
 void Socket::setUpClientSocket(std::string ip, uint16_t port){
-   setAdress(ip, port);
-}
-
-void Socket::bindSocket(){
-    if(bind(file_descriptor,(struct sockaddr*)&address, sizeof(address))==-1)
-        fail("Error at binding the socket on the server");
-}
-
-
-void Socket::listenForConnections(){ 
-     if(listen(file_descriptor, SOMAXCONN)==-1)
-    {
-        close(file_descriptor);
-        fail("Error at listening on the server socket");
-    }
+   setAddress(ip, port);
 }
 
 bool Socket::isValidSocket(){
@@ -58,28 +50,6 @@ bool Socket::isValidSocket(){
             fail("Error at fcntl");
     }
     return true; 
-}
-
-void Socket::connectToServer(){
-    if(connect(file_descriptor, (struct sockaddr *)&address, sizeof(address))==-1)
-    {
-        close(file_descriptor);
-        fail("Error at connecting with the server");
-    }
-}
-
-Socket* Socket::acceptConnections() {
-    socklen_t address_len = sizeof(address);
-    int client_fd = accept(file_descriptor, (struct sockaddr*)&address, &address_len);
-    if (client_fd == -1) {
-        fail("Error at accepting connections on the socket server");
-        return nullptr;
-    }
-
-    Socket* clientSocket = new Socket(socketType::CLIENT);
-    clientSocket->file_descriptor = client_fd;
-    clientSocket->address = address;
-    return clientSocket;
 }
 
 
