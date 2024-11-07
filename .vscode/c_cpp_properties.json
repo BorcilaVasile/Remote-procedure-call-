@@ -7,9 +7,9 @@
                 "${workspaceFolder}/RPC/include/",
                 "${workspaceFolder}/build/lib/",
                 "/usr/include",
-                "/usr/include/c++/12",  // sau versiunea ta de GCC, de exemplu c++/11, c++/10
-                "/usr/include/x86_64-linux-gnu/c++/12", // pentru versiunea ta de arhitectură și GCC
-                "/usr/include/google/protobuf" // calea către Protobuf
+                "/usr/include/c++/12",  
+                "/usr/include/x86_64-linux-gnu/c++/12", 
+                "/usr/include/google/protobuf" 
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
