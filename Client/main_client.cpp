@@ -15,15 +15,6 @@ int main(){
     std::cout<<client->sayHello("Jasmine");
 
     sleep(10);
-
-
-
-
-
-
-
-
-
     
     std::cout<<client->disconnect();
     delete client;

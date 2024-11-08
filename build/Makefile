@@ -129,6 +129,30 @@ RPC/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/build
 .PHONY : RPC/fast
 
+src/client/base_client.o: src/client/base_client.cpp.o
+.PHONY : src/client/base_client.o
+
+# target to build an object file
+src/client/base_client.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/base_client.cpp.o
+.PHONY : src/client/base_client.cpp.o
+
+src/client/base_client.i: src/client/base_client.cpp.i
+.PHONY : src/client/base_client.i
+
+# target to preprocess a source file
+src/client/base_client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/base_client.cpp.i
+.PHONY : src/client/base_client.cpp.i
+
+src/client/base_client.s: src/client/base_client.cpp.s
+.PHONY : src/client/base_client.s
+
+# target to generate assembly for a file
+src/client/base_client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/base_client.cpp.s
+.PHONY : src/client/base_client.cpp.s
+
 src/client/rpc_client.o: src/client/rpc_client.cpp.o
 .PHONY : src/client/rpc_client.o
 
@@ -282,6 +306,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... RPC"
+	@echo "... src/client/base_client.o"
+	@echo "... src/client/base_client.i"
+	@echo "... src/client/base_client.s"
 	@echo "... src/client/rpc_client.o"
 	@echo "... src/client/rpc_client.i"
 	@echo "... src/client/rpc_client.s"

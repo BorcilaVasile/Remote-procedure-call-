@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/RPC.dir/src/client/base_client.cpp.o"
+  "CMakeFiles/RPC.dir/src/client/base_client.cpp.o.d"
   "CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o"
   "CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o.d"
   "CMakeFiles/RPC.dir/src/common/errors.cpp.o"

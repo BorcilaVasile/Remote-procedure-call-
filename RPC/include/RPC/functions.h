@@ -6,4 +6,5 @@
 class RemoteFunction{
     public: 
         virtual std::string sayHello(std::string name)=0;
+        virtual std::string disconnect()=0;
 };

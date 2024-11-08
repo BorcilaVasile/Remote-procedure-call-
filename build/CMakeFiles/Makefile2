@@ -81,12 +81,12 @@ clean: CMakeFiles/RPC.dir/clean
 CMakeFiles/RPC.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target RPC"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target RPC"
 .PHONY : CMakeFiles/RPC.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/RPC.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/RPC.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vasile/Desktop/Remote-procedure-call-/build/CMakeFiles 0
 .PHONY : CMakeFiles/RPC.dir/rule

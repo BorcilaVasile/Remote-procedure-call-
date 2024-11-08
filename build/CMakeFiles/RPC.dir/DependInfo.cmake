@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/vasile/Desktop/Remote-procedure-call-/RPC/src/client/base_client.cpp" "CMakeFiles/RPC.dir/src/client/base_client.cpp.o" "gcc" "CMakeFiles/RPC.dir/src/client/base_client.cpp.o.d"
   "/home/vasile/Desktop/Remote-procedure-call-/RPC/src/client/rpc_client.cpp" "CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o" "gcc" "CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o.d"
   "/home/vasile/Desktop/Remote-procedure-call-/RPC/src/common/errors.cpp" "CMakeFiles/RPC.dir/src/common/errors.cpp.o" "gcc" "CMakeFiles/RPC.dir/src/common/errors.cpp.o.d"
   "/home/vasile/Desktop/Remote-procedure-call-/RPC/src/server/rpc_server.cpp" "CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o" "gcc" "CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o.d"
