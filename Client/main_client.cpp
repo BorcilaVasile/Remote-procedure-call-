@@ -1,22 +1,22 @@
+#include <iostream>
 #include <stdio.h> 
 #include <stdlib.h>
-#include <sys/socket.h> 
-#include <netinet/in.h>
-#include <unistd.h> 
-#include <arpa/inet.h> 
-#include <string.h> 
 #include <RPC/rpc_client.h>
 
 int main(){
-    Client* client=new Client;
-    client->connectToServer("0.0.0.0",8080);
+    Client* client = new Client();
+    std::future<void> connectFuture = client->connectToServerAsync("0.0.0.0", 8080);
     
-    //apel catre functia sayHello 
-    std::cout<<client->sayHello("Jasmine");
+    connectFuture.get();
+    
+    std::future<std::string> sayHelloFuture = client->sayHelloAsync("Jasmine");
+    
+    std::future<std::string> disconnectFuture = client->disconnectAsync();
+    
+    std::cout << "sayHelloAsync result: " << sayHelloFuture.get() << std::endl;
+    std::cout << "disconnectAsync result: " << disconnectFuture.get() << std::endl;
 
-    sleep(10);
-    
-    std::cout<<client->disconnect();
     delete client;
+
     return 0;
 }

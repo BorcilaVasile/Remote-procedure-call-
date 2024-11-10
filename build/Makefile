@@ -153,6 +153,30 @@ src/client/base_client.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/base_client.cpp.s
 .PHONY : src/client/base_client.cpp.s
 
+src/client/base_client_async.o: src/client/base_client_async.cpp.o
+.PHONY : src/client/base_client_async.o
+
+# target to build an object file
+src/client/base_client_async.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/base_client_async.cpp.o
+.PHONY : src/client/base_client_async.cpp.o
+
+src/client/base_client_async.i: src/client/base_client_async.cpp.i
+.PHONY : src/client/base_client_async.i
+
+# target to preprocess a source file
+src/client/base_client_async.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/base_client_async.cpp.i
+.PHONY : src/client/base_client_async.cpp.i
+
+src/client/base_client_async.s: src/client/base_client_async.cpp.s
+.PHONY : src/client/base_client_async.s
+
+# target to generate assembly for a file
+src/client/base_client_async.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/base_client_async.cpp.s
+.PHONY : src/client/base_client_async.cpp.s
+
 src/client/rpc_client.o: src/client/rpc_client.cpp.o
 .PHONY : src/client/rpc_client.o
 
@@ -176,6 +200,30 @@ src/client/rpc_client.s: src/client/rpc_client.cpp.s
 src/client/rpc_client.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/rpc_client.cpp.s
 .PHONY : src/client/rpc_client.cpp.s
+
+src/client/rpc_client_async.o: src/client/rpc_client_async.cpp.o
+.PHONY : src/client/rpc_client_async.o
+
+# target to build an object file
+src/client/rpc_client_async.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/rpc_client_async.cpp.o
+.PHONY : src/client/rpc_client_async.cpp.o
+
+src/client/rpc_client_async.i: src/client/rpc_client_async.cpp.i
+.PHONY : src/client/rpc_client_async.i
+
+# target to preprocess a source file
+src/client/rpc_client_async.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/rpc_client_async.cpp.i
+.PHONY : src/client/rpc_client_async.cpp.i
+
+src/client/rpc_client_async.s: src/client/rpc_client_async.cpp.s
+.PHONY : src/client/rpc_client_async.s
+
+# target to generate assembly for a file
+src/client/rpc_client_async.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RPC.dir/build.make CMakeFiles/RPC.dir/src/client/rpc_client_async.cpp.s
+.PHONY : src/client/rpc_client_async.cpp.s
 
 src/common/errors.o: src/common/errors.cpp.o
 .PHONY : src/common/errors.o
@@ -309,9 +357,15 @@ help:
 	@echo "... src/client/base_client.o"
 	@echo "... src/client/base_client.i"
 	@echo "... src/client/base_client.s"
+	@echo "... src/client/base_client_async.o"
+	@echo "... src/client/base_client_async.i"
+	@echo "... src/client/base_client_async.s"
 	@echo "... src/client/rpc_client.o"
 	@echo "... src/client/rpc_client.i"
 	@echo "... src/client/rpc_client.s"
+	@echo "... src/client/rpc_client_async.o"
+	@echo "... src/client/rpc_client_async.i"
+	@echo "... src/client/rpc_client_async.s"
 	@echo "... src/common/errors.o"
 	@echo "... src/common/errors.i"
 	@echo "... src/common/errors.s"

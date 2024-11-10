@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <future>
 #include <RPC/client_socket.h>
 #include <RPC/procedure_format.pb.h>
 
@@ -8,11 +9,15 @@ protected:
     ClientSocket* client_socket;
 
 public: 
+    // connect synchronous to server
     void connectToServer(std::string ip="0.0.0.0",uint16_t port=8080);
+    // connect asynchronous to server
+    std::future<void> connectToServerAsync(std::string ip="0.0.0.0", uint16_t port=8080);
 
 protected: 
     BaseClient();
 
+    //synchronous calls
     void sendData(char* message, int length);
     void sendData(RPC::Request& request);
     void receiveData(char* message, int length);
@@ -34,6 +39,35 @@ protected:
             fail("Error calling the requested function");
         }
     }
+
+    //asynchronous calls
+    std::future<void> sendDataAsync(char* message, int length); 
+    std::future<void> sendDataAsync(RPC::Request& request); 
+    std::future<void> receiveDataAsync(char* message, int length); 
+    std::future<RPC::Response> receiveResponseAsync();
+
+    template<typename ReturnType, typename... Args>
+    std::future<ReturnType> callRemoteFunctionAsync(const std::string& function_name, Args... args){ 
+        return std::async(std::launch::async, [this, function_name, args...]()-> ReturnType{
+        RPC::Request request;
+        request.set_function_name(function_name); 
+
+        (void)std::initializer_list<int>{(addArgument(request, args), 0)...};
+
+
+        auto send_future=sendDataAsync(request);
+        send_future.get();
+
+        auto response_future=receiveResponseAsync();
+        RPC::Response response=response_future.get();
+        
+        if (response.return_value().status() == RPC::Status::OK) {
+            return extractResult<ReturnType>(response.return_value());
+        } else {
+            fail("Error calling the requested function");
+        } 
+    });
+}
 
 private: 
     template <typename T>

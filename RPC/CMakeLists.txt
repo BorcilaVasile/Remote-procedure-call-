@@ -22,7 +22,8 @@ file(GLOB_RECURSE SOURCES
     src/transport/server_socket.cpp 
     src/transport/client_socket.cpp
     src/client/base_client.cpp 
-
+    src/client/base_client_async.cpp 
+    src/client/rpc_client_async.cpp
     ${PROTO_SRCS}
 )
 

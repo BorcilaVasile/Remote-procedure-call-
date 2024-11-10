@@ -122,7 +122,48 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /usr/include/linux/close_range.h \
+ /usr/include/linux/close_range.h /usr/include/c++/12/future \
+ /usr/include/c++/12/mutex /usr/include/c++/12/tuple \
+ /usr/include/c++/12/bits/uses_allocator.h /usr/include/c++/12/exception \
+ /usr/include/c++/12/bits/exception_ptr.h \
+ /usr/include/c++/12/bits/cxxabi_init_exception.h \
+ /usr/include/c++/12/typeinfo /usr/include/c++/12/bits/nested_exception.h \
+ /usr/include/c++/12/system_error \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/error_constants.h \
+ /usr/include/c++/12/stdexcept /usr/include/c++/12/bits/chrono.h \
+ /usr/include/c++/12/ratio /usr/include/c++/12/limits \
+ /usr/include/c++/12/ctime /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+ /usr/include/c++/12/bits/parse_numbers.h \
+ /usr/include/c++/12/bits/std_mutex.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/gthr.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/sched.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
+ /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
+ /usr/include/x86_64-linux-gnu/bits/setjmp.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
+ /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
+ /usr/include/c++/12/bits/unique_lock.h \
+ /usr/include/c++/12/ext/atomicity.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/atomic_word.h \
+ /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
+ /usr/include/c++/12/condition_variable \
+ /usr/include/c++/12/bits/shared_ptr.h \
+ /usr/include/c++/12/bits/shared_ptr_base.h \
+ /usr/include/c++/12/bits/allocated_ptr.h \
+ /usr/include/c++/12/bits/unique_ptr.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/ext/concurrence.h \
+ /usr/include/c++/12/bits/atomic_base.h \
+ /usr/include/c++/12/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/12/bits/atomic_futex.h /usr/include/c++/12/atomic \
+ /usr/include/c++/12/bits/std_function.h \
+ /usr/include/c++/12/bits/std_thread.h \
  /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/client_socket.h \
  /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/socket_connection.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
@@ -151,18 +192,15 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/errors.h \
  /usr/include/c++/12/stdlib.h \
  /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/procedure_format.pb.h \
- /usr/include/c++/12/limits /usr/include/google/protobuf/port_def.inc \
+ /usr/include/google/protobuf/port_def.inc \
  /usr/include/google/protobuf/port_undef.inc \
  /usr/include/google/protobuf/io/coded_stream.h /usr/include/assert.h \
- /usr/include/c++/12/atomic /usr/include/c++/12/bits/atomic_base.h \
- /usr/include/c++/12/bits/atomic_lockfree_defines.h \
  /usr/include/c++/12/climits \
  /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
  /usr/include/x86_64-linux-gnu/bits/uio_lim.h /usr/include/c++/12/cstddef \
@@ -174,30 +212,10 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /usr/include/c++/12/bits/stl_tempbuf.h \
  /usr/include/c++/12/bits/uniform_int_dist.h /usr/include/c++/12/iostream \
  /usr/include/c++/12/ostream /usr/include/c++/12/ios \
- /usr/include/c++/12/exception /usr/include/c++/12/bits/exception_ptr.h \
- /usr/include/c++/12/bits/cxxabi_init_exception.h \
- /usr/include/c++/12/typeinfo /usr/include/c++/12/bits/nested_exception.h \
- /usr/include/c++/12/bits/ios_base.h /usr/include/c++/12/ext/atomicity.h \
- /usr/include/x86_64-linux-gnu/c++/12/bits/gthr.h \
- /usr/include/x86_64-linux-gnu/c++/12/bits/gthr-default.h \
- /usr/include/pthread.h /usr/include/sched.h \
- /usr/include/x86_64-linux-gnu/bits/sched.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
- /usr/include/x86_64-linux-gnu/bits/cpu-set.h /usr/include/time.h \
- /usr/include/x86_64-linux-gnu/bits/time.h \
- /usr/include/x86_64-linux-gnu/bits/timex.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
- /usr/include/x86_64-linux-gnu/bits/setjmp.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
- /usr/include/x86_64-linux-gnu/c++/12/bits/atomic_word.h \
- /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
+ /usr/include/c++/12/bits/ios_base.h \
  /usr/include/c++/12/bits/locale_classes.h \
  /usr/include/c++/12/bits/locale_classes.tcc \
- /usr/include/c++/12/system_error \
- /usr/include/x86_64-linux-gnu/c++/12/bits/error_constants.h \
- /usr/include/c++/12/stdexcept /usr/include/c++/12/streambuf \
- /usr/include/c++/12/bits/streambuf.tcc \
+ /usr/include/c++/12/streambuf /usr/include/c++/12/bits/streambuf.tcc \
  /usr/include/c++/12/bits/basic_ios.h \
  /usr/include/c++/12/bits/locale_facets.h /usr/include/c++/12/cwctype \
  /usr/include/wctype.h /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
@@ -208,20 +226,12 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /usr/include/c++/12/bits/basic_ios.tcc \
  /usr/include/c++/12/bits/ostream.tcc /usr/include/c++/12/istream \
  /usr/include/c++/12/bits/istream.tcc /usr/include/c++/12/map \
- /usr/include/c++/12/bits/stl_tree.h \
- /usr/include/c++/12/ext/aligned_buffer.h \
- /usr/include/c++/12/bits/stl_map.h /usr/include/c++/12/tuple \
- /usr/include/c++/12/bits/uses_allocator.h \
+ /usr/include/c++/12/bits/stl_tree.h /usr/include/c++/12/bits/stl_map.h \
  /usr/include/c++/12/bits/stl_multimap.h \
  /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/memory \
  /usr/include/c++/12/bits/stl_uninitialized.h \
  /usr/include/c++/12/bits/stl_raw_storage_iter.h \
  /usr/include/c++/12/bits/align.h /usr/include/c++/12/bit \
- /usr/include/c++/12/bits/unique_ptr.h \
- /usr/include/c++/12/bits/shared_ptr.h \
- /usr/include/c++/12/bits/shared_ptr_base.h \
- /usr/include/c++/12/bits/allocated_ptr.h \
- /usr/include/c++/12/ext/concurrence.h \
  /usr/include/c++/12/bits/shared_ptr_atomic.h \
  /usr/include/c++/12/backward/auto_ptr.h /usr/include/c++/12/set \
  /usr/include/c++/12/bits/stl_set.h \
@@ -249,11 +259,7 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /usr/include/google/protobuf/arenastring.h \
  /usr/include/google/protobuf/explicitly_constructed.h \
  /usr/include/google/protobuf/generated_message_util.h \
- /usr/include/google/protobuf/stubs/once.h /usr/include/c++/12/mutex \
- /usr/include/c++/12/bits/chrono.h /usr/include/c++/12/ratio \
- /usr/include/c++/12/ctime /usr/include/c++/12/bits/parse_numbers.h \
- /usr/include/c++/12/bits/std_mutex.h \
- /usr/include/c++/12/bits/unique_lock.h \
+ /usr/include/google/protobuf/stubs/once.h \
  /usr/include/google/protobuf/any.h \
  /usr/include/google/protobuf/message_lite.h \
  /usr/include/google/protobuf/metadata_lite.h \
@@ -279,6 +285,5 @@ CMakeFiles/RPC.dir/src/client/rpc_client.cpp.o: \
  /usr/include/google/protobuf/inlined_string_field.h \
  /usr/include/google/protobuf/message.h \
  /usr/include/google/protobuf/map.h /usr/include/c++/12/functional \
- /usr/include/c++/12/bits/std_function.h \
  /usr/include/google/protobuf/map_type_handler.h \
  /usr/include/google/protobuf/extension_set.h /usr/include/c++/12/cassert
