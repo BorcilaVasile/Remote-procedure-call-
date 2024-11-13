@@ -6,12 +6,13 @@ std::future<void> BaseClient::connectToServerAsync(std::string ip, uint16_t port
             this->client_socket->connectToServer(ip, port);
         } catch(const std::exception& e){
             printf("Connection to the server failed: %s", e.what());
-            throw;
+            throw std::runtime_error("Failed to connect to server");
         }
     });
 }
 
-std::future<void> BaseClient::sendDataAsync(char* message, int length){
+std::future<void> BaseClient::sendDataAsync(char *message, int length)
+{
     return std::async(std::launch::async, [this, message, length](){
             if(this->client_socket->sendData(message,length)==-1)
                 throw std::runtime_error("Failed to send data to server");

@@ -8,6 +8,7 @@ public:
     //synchronous functions
     std::string sayHello(std::string name);
     void nonExistentFunction();
+    bool authenticate(std::string username, std::string password);
     std::string disconnect();
 
     //asynchronous functions

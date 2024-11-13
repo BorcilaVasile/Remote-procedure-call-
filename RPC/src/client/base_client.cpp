@@ -5,10 +5,42 @@ BaseClient::BaseClient(){
     printf("\nThe client is ready to connect to the server\n"); 
 }
 
-void BaseClient::connectToServer(std::string ip,uint16_t port){
-        client_socket->connectToServer(ip,port);
-        printf("The client connected succesfully to the server\n");
+bool BaseClient::connectToServer(std::string ip,uint16_t port){
+        if(client_socket->connectToServer(ip, port))
+        {
+        printf("The client connected successfully to the server\n");
+        return true; 
+        }else
+        {
+        printf("Failed to connect to server: %s\n");
+        return false; 
+        }
 }
+
+bool BaseClient::authenticateUser(std::string username, std::string password, int uid, int gid)
+{
+    RPC::AuthRequest auth_request;
+    auth_request.set_client_id(username);
+    auth_request.set_client_secret(password);
+    auth_request.set_uid(uid);
+    auth_request.set_gid(gid);
+
+    std::cout << "Sending authentication request...\n";
+
+    RPC::Request request; 
+    *request.mutable_auth_request() = auth_request;
+    sendData(request);
+    RPC::Response response = receiveResponse();
+
+    std::cout << "Received response for authentication\n";
+    if (response.auth_response().status() == RPC::Status::OK) {
+        return true;
+    } else {
+        std::cerr<<"\nFailed to authenticate in the server\n";
+        return false;
+    }
+}
+
 
 void BaseClient::sendData(char *message, int length){
     if(client_socket->sendData(message,length)==-1)

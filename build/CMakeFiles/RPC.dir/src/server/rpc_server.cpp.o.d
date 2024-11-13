@@ -25,7 +25,8 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o: \
  /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
- /usr/include/c++/12/iosfwd /usr/include/c++/12/bits/stringfwd.h \
+ /usr/include/c++/12/pstl/pstl_config.h /usr/include/c++/12/iosfwd \
+ /usr/include/c++/12/bits/stringfwd.h \
  /usr/include/c++/12/bits/memoryfwd.h /usr/include/c++/12/bits/postypes.h \
  /usr/include/c++/12/cwchar /usr/include/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -86,7 +87,10 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/c++/12/limits /usr/include/c++/12/ctime \
- /usr/include/c++/12/bits/parse_numbers.h /usr/include/c++/12/cerrno \
+ /usr/include/c++/12/bits/parse_numbers.h \
+ /usr/include/c++/12/ext/numeric_traits.h \
+ /usr/include/c++/12/bits/cpp_type_traits.h \
+ /usr/include/c++/12/ext/type_traits.h /usr/include/c++/12/cerrno \
  /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h \
  /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
@@ -95,9 +99,6 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o: \
  /usr/include/c++/12/bits/stl_algobase.h \
  /usr/include/c++/12/bits/functexcept.h \
  /usr/include/c++/12/bits/exception_defines.h \
- /usr/include/c++/12/bits/cpp_type_traits.h \
- /usr/include/c++/12/ext/type_traits.h \
- /usr/include/c++/12/ext/numeric_traits.h \
  /usr/include/c++/12/bits/stl_iterator_base_types.h \
  /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
  /usr/include/c++/12/bits/concept_check.h \
@@ -119,18 +120,61 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o: \
  /usr/include/c++/12/bits/stl_vector.h \
  /usr/include/c++/12/bits/stl_bvector.h \
  /usr/include/c++/12/bits/vector.tcc /usr/include/c++/12/bits/stl_heap.h \
- /usr/include/c++/12/bits/stl_queue.h \
- /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/server_socket.h \
- /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/socket_connection.h \
- /usr/include/x86_64-linux-gnu/sys/socket.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
- /usr/include/x86_64-linux-gnu/bits/socket.h \
+ /usr/include/c++/12/bits/stl_queue.h /usr/include/c++/12/future \
+ /usr/include/c++/12/mutex /usr/include/c++/12/exception \
+ /usr/include/c++/12/bits/exception_ptr.h \
+ /usr/include/c++/12/bits/cxxabi_init_exception.h \
+ /usr/include/c++/12/typeinfo /usr/include/c++/12/bits/nested_exception.h \
+ /usr/include/c++/12/system_error \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/error_constants.h \
+ /usr/include/c++/12/stdexcept /usr/include/c++/12/string \
+ /usr/include/c++/12/bits/char_traits.h \
+ /usr/include/c++/12/bits/localefwd.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++locale.h \
+ /usr/include/c++/12/clocale /usr/include/locale.h \
+ /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/12/cctype \
+ /usr/include/ctype.h /usr/include/c++/12/bits/ostream_insert.h \
+ /usr/include/c++/12/bits/cxxabi_forced.h \
+ /usr/include/c++/12/bits/basic_string.h /usr/include/c++/12/string_view \
+ /usr/include/c++/12/bits/string_view.tcc \
+ /usr/include/c++/12/ext/string_conversions.h /usr/include/c++/12/cstdlib \
+ /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/endian.h \
  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
  /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
  /usr/include/x86_64-linux-gnu/sys/select.h \
  /usr/include/x86_64-linux-gnu/bits/select.h \
  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+ /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /usr/include/c++/12/bits/std_abs.h /usr/include/c++/12/cstdio \
+ /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/include/c++/12/bits/charconv.h \
+ /usr/include/c++/12/bits/basic_string.tcc \
+ /usr/include/c++/12/bits/std_mutex.h \
+ /usr/include/c++/12/bits/unique_lock.h \
+ /usr/include/c++/12/ext/atomicity.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/atomic_word.h \
+ /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
+ /usr/include/c++/12/condition_variable \
+ /usr/include/c++/12/bits/shared_ptr.h \
+ /usr/include/c++/12/bits/shared_ptr_base.h \
+ /usr/include/c++/12/bits/allocated_ptr.h \
+ /usr/include/c++/12/ext/aligned_buffer.h \
+ /usr/include/c++/12/ext/concurrence.h \
+ /usr/include/c++/12/bits/atomic_base.h \
+ /usr/include/c++/12/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/12/bits/atomic_futex.h /usr/include/c++/12/atomic \
+ /usr/include/c++/12/bits/std_function.h \
+ /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/server_socket.h \
+ /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/socket_connection.h \
+ /usr/include/x86_64-linux-gnu/sys/socket.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
+ /usr/include/x86_64-linux-gnu/bits/socket.h \
  /usr/include/x86_64-linux-gnu/bits/socket_type.h \
  /usr/include/x86_64-linux-gnu/bits/sockaddr.h \
  /usr/include/x86_64-linux-gnu/asm/socket.h \
@@ -149,50 +193,14 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h \
  /usr/include/linux/falloc.h /usr/include/x86_64-linux-gnu/bits/stat.h \
  /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
- /usr/include/c++/12/string /usr/include/c++/12/bits/char_traits.h \
- /usr/include/c++/12/bits/localefwd.h \
- /usr/include/x86_64-linux-gnu/c++/12/bits/c++locale.h \
- /usr/include/c++/12/clocale /usr/include/locale.h \
- /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/12/cctype \
- /usr/include/ctype.h /usr/include/c++/12/bits/ostream_insert.h \
- /usr/include/c++/12/bits/cxxabi_forced.h \
- /usr/include/c++/12/bits/basic_string.h \
- /usr/include/c++/12/ext/string_conversions.h /usr/include/c++/12/cstdlib \
- /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
- /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/alloca.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/c++/12/bits/std_abs.h /usr/include/c++/12/cstdio \
- /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
- /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
- /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/c++/12/bits/charconv.h \
- /usr/include/c++/12/bits/basic_string.tcc /usr/include/c++/12/cstring \
- /usr/include/string.h /usr/include/strings.h /usr/include/arpa/inet.h \
+ /usr/include/c++/12/cstring /usr/include/string.h /usr/include/strings.h \
+ /usr/include/arpa/inet.h \
  /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/errors.h \
- /usr/include/c++/12/stdlib.h /usr/include/c++/12/condition_variable \
- /usr/include/c++/12/bits/std_mutex.h /usr/include/c++/12/system_error \
- /usr/include/x86_64-linux-gnu/c++/12/bits/error_constants.h \
- /usr/include/c++/12/stdexcept /usr/include/c++/12/exception \
- /usr/include/c++/12/bits/exception_ptr.h \
- /usr/include/c++/12/bits/cxxabi_init_exception.h \
- /usr/include/c++/12/typeinfo /usr/include/c++/12/bits/nested_exception.h \
- /usr/include/c++/12/bits/unique_lock.h \
- /usr/include/c++/12/bits/shared_ptr.h \
- /usr/include/c++/12/bits/shared_ptr_base.h \
- /usr/include/c++/12/bits/allocated_ptr.h \
- /usr/include/c++/12/ext/aligned_buffer.h \
- /usr/include/c++/12/ext/atomicity.h \
- /usr/include/x86_64-linux-gnu/c++/12/bits/atomic_word.h \
- /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
- /usr/include/c++/12/ext/concurrence.h \
+ /usr/include/c++/12/stdlib.h \
  /home/vasile/Desktop/Remote-procedure-call-/RPC/include/RPC/procedure_format.pb.h \
  /usr/include/google/protobuf/port_def.inc \
  /usr/include/google/protobuf/port_undef.inc \
  /usr/include/google/protobuf/io/coded_stream.h /usr/include/assert.h \
- /usr/include/c++/12/atomic /usr/include/c++/12/bits/atomic_base.h \
- /usr/include/c++/12/bits/atomic_lockfree_defines.h \
  /usr/include/c++/12/climits \
  /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
@@ -207,7 +215,9 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o: \
  /usr/include/c++/12/algorithm /usr/include/c++/12/bits/stl_algo.h \
  /usr/include/c++/12/bits/algorithmfwd.h \
  /usr/include/c++/12/bits/stl_tempbuf.h \
- /usr/include/c++/12/bits/uniform_int_dist.h /usr/include/c++/12/iostream \
+ /usr/include/c++/12/bits/uniform_int_dist.h \
+ /usr/include/c++/12/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/12/pstl/execution_defs.h /usr/include/c++/12/iostream \
  /usr/include/c++/12/ostream /usr/include/c++/12/ios \
  /usr/include/c++/12/bits/ios_base.h \
  /usr/include/c++/12/bits/locale_classes.h \
@@ -223,13 +233,16 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o: \
  /usr/include/c++/12/bits/basic_ios.tcc \
  /usr/include/c++/12/bits/ostream.tcc /usr/include/c++/12/istream \
  /usr/include/c++/12/bits/istream.tcc /usr/include/c++/12/map \
- /usr/include/c++/12/bits/stl_tree.h /usr/include/c++/12/bits/stl_map.h \
+ /usr/include/c++/12/bits/stl_tree.h \
+ /usr/include/c++/12/bits/node_handle.h \
+ /usr/include/c++/12/bits/stl_map.h \
  /usr/include/c++/12/bits/stl_multimap.h \
  /usr/include/c++/12/bits/erase_if.h /usr/include/c++/12/memory \
  /usr/include/c++/12/bits/stl_raw_storage_iter.h \
  /usr/include/c++/12/bits/align.h /usr/include/c++/12/bit \
  /usr/include/c++/12/bits/shared_ptr_atomic.h \
- /usr/include/c++/12/backward/auto_ptr.h /usr/include/c++/12/set \
+ /usr/include/c++/12/backward/auto_ptr.h \
+ /usr/include/c++/12/pstl/glue_memory_defs.h /usr/include/c++/12/set \
  /usr/include/c++/12/bits/stl_set.h \
  /usr/include/c++/12/bits/stl_multiset.h \
  /usr/include/google/protobuf/stubs/macros.h \
@@ -252,7 +265,7 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o: \
  /usr/include/google/protobuf/arenastring.h \
  /usr/include/google/protobuf/explicitly_constructed.h \
  /usr/include/google/protobuf/generated_message_util.h \
- /usr/include/google/protobuf/stubs/once.h /usr/include/c++/12/mutex \
+ /usr/include/google/protobuf/stubs/once.h \
  /usr/include/google/protobuf/any.h \
  /usr/include/google/protobuf/message_lite.h \
  /usr/include/google/protobuf/metadata_lite.h \
@@ -278,6 +291,6 @@ CMakeFiles/RPC.dir/src/server/rpc_server.cpp.o: \
  /usr/include/google/protobuf/inlined_string_field.h \
  /usr/include/google/protobuf/message.h \
  /usr/include/google/protobuf/map.h /usr/include/c++/12/functional \
- /usr/include/c++/12/bits/std_function.h \
+ /usr/include/c++/12/array /usr/include/c++/12/compare \
  /usr/include/google/protobuf/map_type_handler.h \
  /usr/include/google/protobuf/extension_set.h /usr/include/c++/12/cassert

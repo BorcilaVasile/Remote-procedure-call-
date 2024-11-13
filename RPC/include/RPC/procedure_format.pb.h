@@ -55,6 +55,9 @@ extern AuthRequestDefaultTypeInternal _AuthRequest_default_instance_;
 class AuthResponse;
 struct AuthResponseDefaultTypeInternal;
 extern AuthResponseDefaultTypeInternal _AuthResponse_default_instance_;
+class FunctionRequest;
+struct FunctionRequestDefaultTypeInternal;
+extern FunctionRequestDefaultTypeInternal _FunctionRequest_default_instance_;
 class Request;
 struct RequestDefaultTypeInternal;
 extern RequestDefaultTypeInternal _Request_default_instance_;
@@ -69,6 +72,7 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::RPC::Argument* Arena::CreateMaybeMessage<::RPC::Argument>(Arena*);
 template<> ::RPC::AuthRequest* Arena::CreateMaybeMessage<::RPC::AuthRequest>(Arena*);
 template<> ::RPC::AuthResponse* Arena::CreateMaybeMessage<::RPC::AuthResponse>(Arena*);
+template<> ::RPC::FunctionRequest* Arena::CreateMaybeMessage<::RPC::FunctionRequest>(Arena*);
 template<> ::RPC::Request* Arena::CreateMaybeMessage<::RPC::Request>(Arena*);
 template<> ::RPC::Response* Arena::CreateMaybeMessage<::RPC::Response>(Arena*);
 template<> ::RPC::ReturnValue* Arena::CreateMaybeMessage<::RPC::ReturnValue>(Arena*);
@@ -686,6 +690,12 @@ class Request final :
   static const Request& default_instance() {
     return *internal_default_instance();
   }
+  enum RequestTypeCase {
+    kAuthRequest = 1,
+    kFunctionRequest = 2,
+    REQUEST_TYPE_NOT_SET = 0,
+  };
+
   static inline const Request* internal_default_instance() {
     return reinterpret_cast<const Request*>(
                &_Request_default_instance_);
@@ -764,6 +774,196 @@ class Request final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kAuthRequestFieldNumber = 1,
+    kFunctionRequestFieldNumber = 2,
+  };
+  // .RPC.AuthRequest auth_request = 1;
+  bool has_auth_request() const;
+  private:
+  bool _internal_has_auth_request() const;
+  public:
+  void clear_auth_request();
+  const ::RPC::AuthRequest& auth_request() const;
+  PROTOBUF_NODISCARD ::RPC::AuthRequest* release_auth_request();
+  ::RPC::AuthRequest* mutable_auth_request();
+  void set_allocated_auth_request(::RPC::AuthRequest* auth_request);
+  private:
+  const ::RPC::AuthRequest& _internal_auth_request() const;
+  ::RPC::AuthRequest* _internal_mutable_auth_request();
+  public:
+  void unsafe_arena_set_allocated_auth_request(
+      ::RPC::AuthRequest* auth_request);
+  ::RPC::AuthRequest* unsafe_arena_release_auth_request();
+
+  // .RPC.FunctionRequest function_request = 2;
+  bool has_function_request() const;
+  private:
+  bool _internal_has_function_request() const;
+  public:
+  void clear_function_request();
+  const ::RPC::FunctionRequest& function_request() const;
+  PROTOBUF_NODISCARD ::RPC::FunctionRequest* release_function_request();
+  ::RPC::FunctionRequest* mutable_function_request();
+  void set_allocated_function_request(::RPC::FunctionRequest* function_request);
+  private:
+  const ::RPC::FunctionRequest& _internal_function_request() const;
+  ::RPC::FunctionRequest* _internal_mutable_function_request();
+  public:
+  void unsafe_arena_set_allocated_function_request(
+      ::RPC::FunctionRequest* function_request);
+  ::RPC::FunctionRequest* unsafe_arena_release_function_request();
+
+  void clear_request_type();
+  RequestTypeCase request_type_case() const;
+  // @@protoc_insertion_point(class_scope:RPC.Request)
+ private:
+  class _Internal;
+  void set_has_auth_request();
+  void set_has_function_request();
+
+  inline bool has_request_type() const;
+  inline void clear_has_request_type();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    union RequestTypeUnion {
+      constexpr RequestTypeUnion() : _constinit_{} {}
+        ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+      ::RPC::AuthRequest* auth_request_;
+      ::RPC::FunctionRequest* function_request_;
+    } request_type_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    uint32_t _oneof_case_[1];
+
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_procedure_5fformat_2eproto;
+};
+// -------------------------------------------------------------------
+
+class FunctionRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:RPC.FunctionRequest) */ {
+ public:
+  inline FunctionRequest() : FunctionRequest(nullptr) {}
+  ~FunctionRequest() override;
+  explicit PROTOBUF_CONSTEXPR FunctionRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  FunctionRequest(const FunctionRequest& from);
+  FunctionRequest(FunctionRequest&& from) noexcept
+    : FunctionRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline FunctionRequest& operator=(const FunctionRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FunctionRequest& operator=(FunctionRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const FunctionRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const FunctionRequest* internal_default_instance() {
+    return reinterpret_cast<const FunctionRequest*>(
+               &_FunctionRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(FunctionRequest& a, FunctionRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(FunctionRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FunctionRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  FunctionRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<FunctionRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const FunctionRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const FunctionRequest& from) {
+    FunctionRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(FunctionRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "RPC.FunctionRequest";
+  }
+  protected:
+  explicit FunctionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
     kArgsFieldNumber = 2,
     kFunctionNameFieldNumber = 1,
     kClientIdFieldNumber = 3,
@@ -829,7 +1029,7 @@ class Request final :
   std::string* _internal_mutable_token();
   public:
 
-  // @@protoc_insertion_point(class_scope:RPC.Request)
+  // @@protoc_insertion_point(class_scope:RPC.FunctionRequest)
  private:
   class _Internal;
 
@@ -891,12 +1091,18 @@ class Response final :
   static const Response& default_instance() {
     return *internal_default_instance();
   }
+  enum ResponseTypeCase {
+    kReturnValue = 1,
+    kAuthResponse = 2,
+    RESPONSE_TYPE_NOT_SET = 0,
+  };
+
   static inline const Response* internal_default_instance() {
     return reinterpret_cast<const Response*>(
                &_Response_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(Response& a, Response& b) {
     a.Swap(&b);
@@ -970,6 +1176,7 @@ class Response final :
 
   enum : int {
     kReturnValueFieldNumber = 1,
+    kAuthResponseFieldNumber = 2,
   };
   // .RPC.ReturnValue return_value = 1;
   bool has_return_value() const;
@@ -989,16 +1196,48 @@ class Response final :
       ::RPC::ReturnValue* return_value);
   ::RPC::ReturnValue* unsafe_arena_release_return_value();
 
+  // .RPC.AuthResponse auth_response = 2;
+  bool has_auth_response() const;
+  private:
+  bool _internal_has_auth_response() const;
+  public:
+  void clear_auth_response();
+  const ::RPC::AuthResponse& auth_response() const;
+  PROTOBUF_NODISCARD ::RPC::AuthResponse* release_auth_response();
+  ::RPC::AuthResponse* mutable_auth_response();
+  void set_allocated_auth_response(::RPC::AuthResponse* auth_response);
+  private:
+  const ::RPC::AuthResponse& _internal_auth_response() const;
+  ::RPC::AuthResponse* _internal_mutable_auth_response();
+  public:
+  void unsafe_arena_set_allocated_auth_response(
+      ::RPC::AuthResponse* auth_response);
+  ::RPC::AuthResponse* unsafe_arena_release_auth_response();
+
+  void clear_response_type();
+  ResponseTypeCase response_type_case() const;
   // @@protoc_insertion_point(class_scope:RPC.Response)
  private:
   class _Internal;
+  void set_has_return_value();
+  void set_has_auth_response();
+
+  inline bool has_response_type() const;
+  inline void clear_has_response_type();
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::RPC::ReturnValue* return_value_;
+    union ResponseTypeUnion {
+      constexpr ResponseTypeUnion() : _constinit_{} {}
+        ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+      ::RPC::ReturnValue* return_value_;
+      ::RPC::AuthResponse* auth_response_;
+    } response_type_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    uint32_t _oneof_case_[1];
+
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_procedure_5fformat_2eproto;
@@ -1053,7 +1292,7 @@ class AuthRequest final :
                &_AuthRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(AuthRequest& a, AuthRequest& b) {
     a.Swap(&b);
@@ -1128,6 +1367,8 @@ class AuthRequest final :
   enum : int {
     kClientIdFieldNumber = 1,
     kClientSecretFieldNumber = 2,
+    kUidFieldNumber = 3,
+    kGidFieldNumber = 4,
   };
   // string client_id = 1;
   void clear_client_id();
@@ -1157,6 +1398,24 @@ class AuthRequest final :
   std::string* _internal_mutable_client_secret();
   public:
 
+  // int32 uid = 3;
+  void clear_uid();
+  int32_t uid() const;
+  void set_uid(int32_t value);
+  private:
+  int32_t _internal_uid() const;
+  void _internal_set_uid(int32_t value);
+  public:
+
+  // int32 gid = 4;
+  void clear_gid();
+  int32_t gid() const;
+  void set_gid(int32_t value);
+  private:
+  int32_t _internal_gid() const;
+  void _internal_set_gid(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:RPC.AuthRequest)
  private:
   class _Internal;
@@ -1167,6 +1426,8 @@ class AuthRequest final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr client_id_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr client_secret_;
+    int32_t uid_;
+    int32_t gid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1222,7 +1483,7 @@ class AuthResponse final :
                &_AuthResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(AuthResponse& a, AuthResponse& b) {
     a.Swap(&b);
@@ -1297,6 +1558,7 @@ class AuthResponse final :
   enum : int {
     kTokenFieldNumber = 2,
     kMessageFieldNumber = 3,
+    kSessionExpiryFieldNumber = 4,
     kStatusFieldNumber = 1,
   };
   // string token = 2;
@@ -1327,6 +1589,15 @@ class AuthResponse final :
   std::string* _internal_mutable_message();
   public:
 
+  // int64 session_expiry = 4;
+  void clear_session_expiry();
+  int64_t session_expiry() const;
+  void set_session_expiry(int64_t value);
+  private:
+  int64_t _internal_session_expiry() const;
+  void _internal_set_session_expiry(int64_t value);
+  public:
+
   // .RPC.Status status = 1;
   void clear_status();
   ::RPC::Status status() const;
@@ -1346,6 +1617,7 @@ class AuthResponse final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+    int64_t session_expiry_;
     int status_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -2045,42 +2317,203 @@ inline ReturnValue::ResultCase ReturnValue::result_case() const {
 
 // Request
 
+// .RPC.AuthRequest auth_request = 1;
+inline bool Request::_internal_has_auth_request() const {
+  return request_type_case() == kAuthRequest;
+}
+inline bool Request::has_auth_request() const {
+  return _internal_has_auth_request();
+}
+inline void Request::set_has_auth_request() {
+  _impl_._oneof_case_[0] = kAuthRequest;
+}
+inline void Request::clear_auth_request() {
+  if (_internal_has_auth_request()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.request_type_.auth_request_;
+    }
+    clear_has_request_type();
+  }
+}
+inline ::RPC::AuthRequest* Request::release_auth_request() {
+  // @@protoc_insertion_point(field_release:RPC.Request.auth_request)
+  if (_internal_has_auth_request()) {
+    clear_has_request_type();
+    ::RPC::AuthRequest* temp = _impl_.request_type_.auth_request_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.request_type_.auth_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::RPC::AuthRequest& Request::_internal_auth_request() const {
+  return _internal_has_auth_request()
+      ? *_impl_.request_type_.auth_request_
+      : reinterpret_cast< ::RPC::AuthRequest&>(::RPC::_AuthRequest_default_instance_);
+}
+inline const ::RPC::AuthRequest& Request::auth_request() const {
+  // @@protoc_insertion_point(field_get:RPC.Request.auth_request)
+  return _internal_auth_request();
+}
+inline ::RPC::AuthRequest* Request::unsafe_arena_release_auth_request() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:RPC.Request.auth_request)
+  if (_internal_has_auth_request()) {
+    clear_has_request_type();
+    ::RPC::AuthRequest* temp = _impl_.request_type_.auth_request_;
+    _impl_.request_type_.auth_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Request::unsafe_arena_set_allocated_auth_request(::RPC::AuthRequest* auth_request) {
+  clear_request_type();
+  if (auth_request) {
+    set_has_auth_request();
+    _impl_.request_type_.auth_request_ = auth_request;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:RPC.Request.auth_request)
+}
+inline ::RPC::AuthRequest* Request::_internal_mutable_auth_request() {
+  if (!_internal_has_auth_request()) {
+    clear_request_type();
+    set_has_auth_request();
+    _impl_.request_type_.auth_request_ = CreateMaybeMessage< ::RPC::AuthRequest >(GetArenaForAllocation());
+  }
+  return _impl_.request_type_.auth_request_;
+}
+inline ::RPC::AuthRequest* Request::mutable_auth_request() {
+  ::RPC::AuthRequest* _msg = _internal_mutable_auth_request();
+  // @@protoc_insertion_point(field_mutable:RPC.Request.auth_request)
+  return _msg;
+}
+
+// .RPC.FunctionRequest function_request = 2;
+inline bool Request::_internal_has_function_request() const {
+  return request_type_case() == kFunctionRequest;
+}
+inline bool Request::has_function_request() const {
+  return _internal_has_function_request();
+}
+inline void Request::set_has_function_request() {
+  _impl_._oneof_case_[0] = kFunctionRequest;
+}
+inline void Request::clear_function_request() {
+  if (_internal_has_function_request()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.request_type_.function_request_;
+    }
+    clear_has_request_type();
+  }
+}
+inline ::RPC::FunctionRequest* Request::release_function_request() {
+  // @@protoc_insertion_point(field_release:RPC.Request.function_request)
+  if (_internal_has_function_request()) {
+    clear_has_request_type();
+    ::RPC::FunctionRequest* temp = _impl_.request_type_.function_request_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.request_type_.function_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::RPC::FunctionRequest& Request::_internal_function_request() const {
+  return _internal_has_function_request()
+      ? *_impl_.request_type_.function_request_
+      : reinterpret_cast< ::RPC::FunctionRequest&>(::RPC::_FunctionRequest_default_instance_);
+}
+inline const ::RPC::FunctionRequest& Request::function_request() const {
+  // @@protoc_insertion_point(field_get:RPC.Request.function_request)
+  return _internal_function_request();
+}
+inline ::RPC::FunctionRequest* Request::unsafe_arena_release_function_request() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:RPC.Request.function_request)
+  if (_internal_has_function_request()) {
+    clear_has_request_type();
+    ::RPC::FunctionRequest* temp = _impl_.request_type_.function_request_;
+    _impl_.request_type_.function_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Request::unsafe_arena_set_allocated_function_request(::RPC::FunctionRequest* function_request) {
+  clear_request_type();
+  if (function_request) {
+    set_has_function_request();
+    _impl_.request_type_.function_request_ = function_request;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:RPC.Request.function_request)
+}
+inline ::RPC::FunctionRequest* Request::_internal_mutable_function_request() {
+  if (!_internal_has_function_request()) {
+    clear_request_type();
+    set_has_function_request();
+    _impl_.request_type_.function_request_ = CreateMaybeMessage< ::RPC::FunctionRequest >(GetArenaForAllocation());
+  }
+  return _impl_.request_type_.function_request_;
+}
+inline ::RPC::FunctionRequest* Request::mutable_function_request() {
+  ::RPC::FunctionRequest* _msg = _internal_mutable_function_request();
+  // @@protoc_insertion_point(field_mutable:RPC.Request.function_request)
+  return _msg;
+}
+
+inline bool Request::has_request_type() const {
+  return request_type_case() != REQUEST_TYPE_NOT_SET;
+}
+inline void Request::clear_has_request_type() {
+  _impl_._oneof_case_[0] = REQUEST_TYPE_NOT_SET;
+}
+inline Request::RequestTypeCase Request::request_type_case() const {
+  return Request::RequestTypeCase(_impl_._oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// FunctionRequest
+
 // string function_name = 1;
-inline void Request::clear_function_name() {
+inline void FunctionRequest::clear_function_name() {
   _impl_.function_name_.ClearToEmpty();
 }
-inline const std::string& Request::function_name() const {
-  // @@protoc_insertion_point(field_get:RPC.Request.function_name)
+inline const std::string& FunctionRequest::function_name() const {
+  // @@protoc_insertion_point(field_get:RPC.FunctionRequest.function_name)
   return _internal_function_name();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void Request::set_function_name(ArgT0&& arg0, ArgT... args) {
+void FunctionRequest::set_function_name(ArgT0&& arg0, ArgT... args) {
  
  _impl_.function_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:RPC.Request.function_name)
+  // @@protoc_insertion_point(field_set:RPC.FunctionRequest.function_name)
 }
-inline std::string* Request::mutable_function_name() {
+inline std::string* FunctionRequest::mutable_function_name() {
   std::string* _s = _internal_mutable_function_name();
-  // @@protoc_insertion_point(field_mutable:RPC.Request.function_name)
+  // @@protoc_insertion_point(field_mutable:RPC.FunctionRequest.function_name)
   return _s;
 }
-inline const std::string& Request::_internal_function_name() const {
+inline const std::string& FunctionRequest::_internal_function_name() const {
   return _impl_.function_name_.Get();
 }
-inline void Request::_internal_set_function_name(const std::string& value) {
+inline void FunctionRequest::_internal_set_function_name(const std::string& value) {
   
   _impl_.function_name_.Set(value, GetArenaForAllocation());
 }
-inline std::string* Request::_internal_mutable_function_name() {
+inline std::string* FunctionRequest::_internal_mutable_function_name() {
   
   return _impl_.function_name_.Mutable(GetArenaForAllocation());
 }
-inline std::string* Request::release_function_name() {
-  // @@protoc_insertion_point(field_release:RPC.Request.function_name)
+inline std::string* FunctionRequest::release_function_name() {
+  // @@protoc_insertion_point(field_release:RPC.FunctionRequest.function_name)
   return _impl_.function_name_.Release();
 }
-inline void Request::set_allocated_function_name(std::string* function_name) {
+inline void FunctionRequest::set_allocated_function_name(std::string* function_name) {
   if (function_name != nullptr) {
     
   } else {
@@ -2092,85 +2525,85 @@ inline void Request::set_allocated_function_name(std::string* function_name) {
     _impl_.function_name_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:RPC.Request.function_name)
+  // @@protoc_insertion_point(field_set_allocated:RPC.FunctionRequest.function_name)
 }
 
 // repeated .RPC.Argument args = 2;
-inline int Request::_internal_args_size() const {
+inline int FunctionRequest::_internal_args_size() const {
   return _impl_.args_.size();
 }
-inline int Request::args_size() const {
+inline int FunctionRequest::args_size() const {
   return _internal_args_size();
 }
-inline void Request::clear_args() {
+inline void FunctionRequest::clear_args() {
   _impl_.args_.Clear();
 }
-inline ::RPC::Argument* Request::mutable_args(int index) {
-  // @@protoc_insertion_point(field_mutable:RPC.Request.args)
+inline ::RPC::Argument* FunctionRequest::mutable_args(int index) {
+  // @@protoc_insertion_point(field_mutable:RPC.FunctionRequest.args)
   return _impl_.args_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::RPC::Argument >*
-Request::mutable_args() {
-  // @@protoc_insertion_point(field_mutable_list:RPC.Request.args)
+FunctionRequest::mutable_args() {
+  // @@protoc_insertion_point(field_mutable_list:RPC.FunctionRequest.args)
   return &_impl_.args_;
 }
-inline const ::RPC::Argument& Request::_internal_args(int index) const {
+inline const ::RPC::Argument& FunctionRequest::_internal_args(int index) const {
   return _impl_.args_.Get(index);
 }
-inline const ::RPC::Argument& Request::args(int index) const {
-  // @@protoc_insertion_point(field_get:RPC.Request.args)
+inline const ::RPC::Argument& FunctionRequest::args(int index) const {
+  // @@protoc_insertion_point(field_get:RPC.FunctionRequest.args)
   return _internal_args(index);
 }
-inline ::RPC::Argument* Request::_internal_add_args() {
+inline ::RPC::Argument* FunctionRequest::_internal_add_args() {
   return _impl_.args_.Add();
 }
-inline ::RPC::Argument* Request::add_args() {
+inline ::RPC::Argument* FunctionRequest::add_args() {
   ::RPC::Argument* _add = _internal_add_args();
-  // @@protoc_insertion_point(field_add:RPC.Request.args)
+  // @@protoc_insertion_point(field_add:RPC.FunctionRequest.args)
   return _add;
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::RPC::Argument >&
-Request::args() const {
-  // @@protoc_insertion_point(field_list:RPC.Request.args)
+FunctionRequest::args() const {
+  // @@protoc_insertion_point(field_list:RPC.FunctionRequest.args)
   return _impl_.args_;
 }
 
 // string client_id = 3;
-inline void Request::clear_client_id() {
+inline void FunctionRequest::clear_client_id() {
   _impl_.client_id_.ClearToEmpty();
 }
-inline const std::string& Request::client_id() const {
-  // @@protoc_insertion_point(field_get:RPC.Request.client_id)
+inline const std::string& FunctionRequest::client_id() const {
+  // @@protoc_insertion_point(field_get:RPC.FunctionRequest.client_id)
   return _internal_client_id();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void Request::set_client_id(ArgT0&& arg0, ArgT... args) {
+void FunctionRequest::set_client_id(ArgT0&& arg0, ArgT... args) {
  
  _impl_.client_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:RPC.Request.client_id)
+  // @@protoc_insertion_point(field_set:RPC.FunctionRequest.client_id)
 }
-inline std::string* Request::mutable_client_id() {
+inline std::string* FunctionRequest::mutable_client_id() {
   std::string* _s = _internal_mutable_client_id();
-  // @@protoc_insertion_point(field_mutable:RPC.Request.client_id)
+  // @@protoc_insertion_point(field_mutable:RPC.FunctionRequest.client_id)
   return _s;
 }
-inline const std::string& Request::_internal_client_id() const {
+inline const std::string& FunctionRequest::_internal_client_id() const {
   return _impl_.client_id_.Get();
 }
-inline void Request::_internal_set_client_id(const std::string& value) {
+inline void FunctionRequest::_internal_set_client_id(const std::string& value) {
   
   _impl_.client_id_.Set(value, GetArenaForAllocation());
 }
-inline std::string* Request::_internal_mutable_client_id() {
+inline std::string* FunctionRequest::_internal_mutable_client_id() {
   
   return _impl_.client_id_.Mutable(GetArenaForAllocation());
 }
-inline std::string* Request::release_client_id() {
-  // @@protoc_insertion_point(field_release:RPC.Request.client_id)
+inline std::string* FunctionRequest::release_client_id() {
+  // @@protoc_insertion_point(field_release:RPC.FunctionRequest.client_id)
   return _impl_.client_id_.Release();
 }
-inline void Request::set_allocated_client_id(std::string* client_id) {
+inline void FunctionRequest::set_allocated_client_id(std::string* client_id) {
   if (client_id != nullptr) {
     
   } else {
@@ -2182,45 +2615,45 @@ inline void Request::set_allocated_client_id(std::string* client_id) {
     _impl_.client_id_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:RPC.Request.client_id)
+  // @@protoc_insertion_point(field_set_allocated:RPC.FunctionRequest.client_id)
 }
 
 // string token = 4;
-inline void Request::clear_token() {
+inline void FunctionRequest::clear_token() {
   _impl_.token_.ClearToEmpty();
 }
-inline const std::string& Request::token() const {
-  // @@protoc_insertion_point(field_get:RPC.Request.token)
+inline const std::string& FunctionRequest::token() const {
+  // @@protoc_insertion_point(field_get:RPC.FunctionRequest.token)
   return _internal_token();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void Request::set_token(ArgT0&& arg0, ArgT... args) {
+void FunctionRequest::set_token(ArgT0&& arg0, ArgT... args) {
  
  _impl_.token_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:RPC.Request.token)
+  // @@protoc_insertion_point(field_set:RPC.FunctionRequest.token)
 }
-inline std::string* Request::mutable_token() {
+inline std::string* FunctionRequest::mutable_token() {
   std::string* _s = _internal_mutable_token();
-  // @@protoc_insertion_point(field_mutable:RPC.Request.token)
+  // @@protoc_insertion_point(field_mutable:RPC.FunctionRequest.token)
   return _s;
 }
-inline const std::string& Request::_internal_token() const {
+inline const std::string& FunctionRequest::_internal_token() const {
   return _impl_.token_.Get();
 }
-inline void Request::_internal_set_token(const std::string& value) {
+inline void FunctionRequest::_internal_set_token(const std::string& value) {
   
   _impl_.token_.Set(value, GetArenaForAllocation());
 }
-inline std::string* Request::_internal_mutable_token() {
+inline std::string* FunctionRequest::_internal_mutable_token() {
   
   return _impl_.token_.Mutable(GetArenaForAllocation());
 }
-inline std::string* Request::release_token() {
-  // @@protoc_insertion_point(field_release:RPC.Request.token)
+inline std::string* FunctionRequest::release_token() {
+  // @@protoc_insertion_point(field_release:RPC.FunctionRequest.token)
   return _impl_.token_.Release();
 }
-inline void Request::set_allocated_token(std::string* token) {
+inline void FunctionRequest::set_allocated_token(std::string* token) {
   if (token != nullptr) {
     
   } else {
@@ -2232,7 +2665,7 @@ inline void Request::set_allocated_token(std::string* token) {
     _impl_.token_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:RPC.Request.token)
+  // @@protoc_insertion_point(field_set_allocated:RPC.FunctionRequest.token)
 }
 
 // -------------------------------------------------------------------
@@ -2241,94 +2674,161 @@ inline void Request::set_allocated_token(std::string* token) {
 
 // .RPC.ReturnValue return_value = 1;
 inline bool Response::_internal_has_return_value() const {
-  return this != internal_default_instance() && _impl_.return_value_ != nullptr;
+  return response_type_case() == kReturnValue;
 }
 inline bool Response::has_return_value() const {
   return _internal_has_return_value();
 }
+inline void Response::set_has_return_value() {
+  _impl_._oneof_case_[0] = kReturnValue;
+}
 inline void Response::clear_return_value() {
-  if (GetArenaForAllocation() == nullptr && _impl_.return_value_ != nullptr) {
-    delete _impl_.return_value_;
+  if (_internal_has_return_value()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.response_type_.return_value_;
+    }
+    clear_has_response_type();
   }
-  _impl_.return_value_ = nullptr;
+}
+inline ::RPC::ReturnValue* Response::release_return_value() {
+  // @@protoc_insertion_point(field_release:RPC.Response.return_value)
+  if (_internal_has_return_value()) {
+    clear_has_response_type();
+    ::RPC::ReturnValue* temp = _impl_.response_type_.return_value_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.response_type_.return_value_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
 }
 inline const ::RPC::ReturnValue& Response::_internal_return_value() const {
-  const ::RPC::ReturnValue* p = _impl_.return_value_;
-  return p != nullptr ? *p : reinterpret_cast<const ::RPC::ReturnValue&>(
-      ::RPC::_ReturnValue_default_instance_);
+  return _internal_has_return_value()
+      ? *_impl_.response_type_.return_value_
+      : reinterpret_cast< ::RPC::ReturnValue&>(::RPC::_ReturnValue_default_instance_);
 }
 inline const ::RPC::ReturnValue& Response::return_value() const {
   // @@protoc_insertion_point(field_get:RPC.Response.return_value)
   return _internal_return_value();
 }
-inline void Response::unsafe_arena_set_allocated_return_value(
-    ::RPC::ReturnValue* return_value) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.return_value_);
-  }
-  _impl_.return_value_ = return_value;
-  if (return_value) {
-    
+inline ::RPC::ReturnValue* Response::unsafe_arena_release_return_value() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:RPC.Response.return_value)
+  if (_internal_has_return_value()) {
+    clear_has_response_type();
+    ::RPC::ReturnValue* temp = _impl_.response_type_.return_value_;
+    _impl_.response_type_.return_value_ = nullptr;
+    return temp;
   } else {
-    
+    return nullptr;
+  }
+}
+inline void Response::unsafe_arena_set_allocated_return_value(::RPC::ReturnValue* return_value) {
+  clear_response_type();
+  if (return_value) {
+    set_has_return_value();
+    _impl_.response_type_.return_value_ = return_value;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:RPC.Response.return_value)
 }
-inline ::RPC::ReturnValue* Response::release_return_value() {
-  
-  ::RPC::ReturnValue* temp = _impl_.return_value_;
-  _impl_.return_value_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::RPC::ReturnValue* Response::unsafe_arena_release_return_value() {
-  // @@protoc_insertion_point(field_release:RPC.Response.return_value)
-  
-  ::RPC::ReturnValue* temp = _impl_.return_value_;
-  _impl_.return_value_ = nullptr;
-  return temp;
-}
 inline ::RPC::ReturnValue* Response::_internal_mutable_return_value() {
-  
-  if (_impl_.return_value_ == nullptr) {
-    auto* p = CreateMaybeMessage<::RPC::ReturnValue>(GetArenaForAllocation());
-    _impl_.return_value_ = p;
+  if (!_internal_has_return_value()) {
+    clear_response_type();
+    set_has_return_value();
+    _impl_.response_type_.return_value_ = CreateMaybeMessage< ::RPC::ReturnValue >(GetArenaForAllocation());
   }
-  return _impl_.return_value_;
+  return _impl_.response_type_.return_value_;
 }
 inline ::RPC::ReturnValue* Response::mutable_return_value() {
   ::RPC::ReturnValue* _msg = _internal_mutable_return_value();
   // @@protoc_insertion_point(field_mutable:RPC.Response.return_value)
   return _msg;
 }
-inline void Response::set_allocated_return_value(::RPC::ReturnValue* return_value) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.return_value_;
-  }
-  if (return_value) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(return_value);
-    if (message_arena != submessage_arena) {
-      return_value = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, return_value, submessage_arena);
+
+// .RPC.AuthResponse auth_response = 2;
+inline bool Response::_internal_has_auth_response() const {
+  return response_type_case() == kAuthResponse;
+}
+inline bool Response::has_auth_response() const {
+  return _internal_has_auth_response();
+}
+inline void Response::set_has_auth_response() {
+  _impl_._oneof_case_[0] = kAuthResponse;
+}
+inline void Response::clear_auth_response() {
+  if (_internal_has_auth_response()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.response_type_.auth_response_;
     }
-    
-  } else {
-    
+    clear_has_response_type();
   }
-  _impl_.return_value_ = return_value;
-  // @@protoc_insertion_point(field_set_allocated:RPC.Response.return_value)
+}
+inline ::RPC::AuthResponse* Response::release_auth_response() {
+  // @@protoc_insertion_point(field_release:RPC.Response.auth_response)
+  if (_internal_has_auth_response()) {
+    clear_has_response_type();
+    ::RPC::AuthResponse* temp = _impl_.response_type_.auth_response_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.response_type_.auth_response_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::RPC::AuthResponse& Response::_internal_auth_response() const {
+  return _internal_has_auth_response()
+      ? *_impl_.response_type_.auth_response_
+      : reinterpret_cast< ::RPC::AuthResponse&>(::RPC::_AuthResponse_default_instance_);
+}
+inline const ::RPC::AuthResponse& Response::auth_response() const {
+  // @@protoc_insertion_point(field_get:RPC.Response.auth_response)
+  return _internal_auth_response();
+}
+inline ::RPC::AuthResponse* Response::unsafe_arena_release_auth_response() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:RPC.Response.auth_response)
+  if (_internal_has_auth_response()) {
+    clear_has_response_type();
+    ::RPC::AuthResponse* temp = _impl_.response_type_.auth_response_;
+    _impl_.response_type_.auth_response_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Response::unsafe_arena_set_allocated_auth_response(::RPC::AuthResponse* auth_response) {
+  clear_response_type();
+  if (auth_response) {
+    set_has_auth_response();
+    _impl_.response_type_.auth_response_ = auth_response;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:RPC.Response.auth_response)
+}
+inline ::RPC::AuthResponse* Response::_internal_mutable_auth_response() {
+  if (!_internal_has_auth_response()) {
+    clear_response_type();
+    set_has_auth_response();
+    _impl_.response_type_.auth_response_ = CreateMaybeMessage< ::RPC::AuthResponse >(GetArenaForAllocation());
+  }
+  return _impl_.response_type_.auth_response_;
+}
+inline ::RPC::AuthResponse* Response::mutable_auth_response() {
+  ::RPC::AuthResponse* _msg = _internal_mutable_auth_response();
+  // @@protoc_insertion_point(field_mutable:RPC.Response.auth_response)
+  return _msg;
 }
 
+inline bool Response::has_response_type() const {
+  return response_type_case() != RESPONSE_TYPE_NOT_SET;
+}
+inline void Response::clear_has_response_type() {
+  _impl_._oneof_case_[0] = RESPONSE_TYPE_NOT_SET;
+}
+inline Response::ResponseTypeCase Response::response_type_case() const {
+  return Response::ResponseTypeCase(_impl_._oneof_case_[0]);
+}
 // -------------------------------------------------------------------
 
 // AuthRequest
@@ -2431,6 +2931,46 @@ inline void AuthRequest::set_allocated_client_secret(std::string* client_secret)
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:RPC.AuthRequest.client_secret)
+}
+
+// int32 uid = 3;
+inline void AuthRequest::clear_uid() {
+  _impl_.uid_ = 0;
+}
+inline int32_t AuthRequest::_internal_uid() const {
+  return _impl_.uid_;
+}
+inline int32_t AuthRequest::uid() const {
+  // @@protoc_insertion_point(field_get:RPC.AuthRequest.uid)
+  return _internal_uid();
+}
+inline void AuthRequest::_internal_set_uid(int32_t value) {
+  
+  _impl_.uid_ = value;
+}
+inline void AuthRequest::set_uid(int32_t value) {
+  _internal_set_uid(value);
+  // @@protoc_insertion_point(field_set:RPC.AuthRequest.uid)
+}
+
+// int32 gid = 4;
+inline void AuthRequest::clear_gid() {
+  _impl_.gid_ = 0;
+}
+inline int32_t AuthRequest::_internal_gid() const {
+  return _impl_.gid_;
+}
+inline int32_t AuthRequest::gid() const {
+  // @@protoc_insertion_point(field_get:RPC.AuthRequest.gid)
+  return _internal_gid();
+}
+inline void AuthRequest::_internal_set_gid(int32_t value) {
+  
+  _impl_.gid_ = value;
+}
+inline void AuthRequest::set_gid(int32_t value) {
+  _internal_set_gid(value);
+  // @@protoc_insertion_point(field_set:RPC.AuthRequest.gid)
 }
 
 // -------------------------------------------------------------------
@@ -2557,9 +3097,31 @@ inline void AuthResponse::set_allocated_message(std::string* message) {
   // @@protoc_insertion_point(field_set_allocated:RPC.AuthResponse.message)
 }
 
+// int64 session_expiry = 4;
+inline void AuthResponse::clear_session_expiry() {
+  _impl_.session_expiry_ = int64_t{0};
+}
+inline int64_t AuthResponse::_internal_session_expiry() const {
+  return _impl_.session_expiry_;
+}
+inline int64_t AuthResponse::session_expiry() const {
+  // @@protoc_insertion_point(field_get:RPC.AuthResponse.session_expiry)
+  return _internal_session_expiry();
+}
+inline void AuthResponse::_internal_set_session_expiry(int64_t value) {
+  
+  _impl_.session_expiry_ = value;
+}
+inline void AuthResponse::set_session_expiry(int64_t value) {
+  _internal_set_session_expiry(value);
+  // @@protoc_insertion_point(field_set:RPC.AuthResponse.session_expiry)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

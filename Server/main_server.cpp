@@ -10,9 +10,11 @@
 int main() {
     Server* server = new Server();
 
+    printf("Starting server...\n");
     server->acceptConnectionsOnServer();
     server->start();
     
     delete server;
+    printf("Server stopped.\n");
     return 0;
 }

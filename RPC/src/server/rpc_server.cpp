@@ -11,11 +11,29 @@ Server::Server(size_t pool_size,std::string ip, uint16_t port){
         thread_pool.emplace_back(&Server::workerThread,this);
 }
 
+RPC::AuthResponse Server::authenticateClient(std::string username, std::string password, int uid, int guid)
+{
+    RPC::AuthResponse auth_response;
+    if(username=="username" && password=="password" && uid>=1000 && guid>=1000)
+    {   
+        auth_response.set_status(RPC::Status::OK);
+        auth_response.set_token("generated_token");
+        auth_response.set_message("Authentificated succesfully to the server.");
+        auth_response.set_session_expiry(4000);
+    }else{
+        auth_response.set_status(RPC::Status::PERMISSION_DENIED);
+        auth_response.set_message("Authentification failed do to the invalid credentials");
+    }
+    return auth_response;
+}
+
 void Server::start(){
     acceptConnectionsOnServer();
 }
 
-void Server::acceptConnectionsOnServer(){
+//accept connections on the server asinchronous
+std::future<void> Server::acceptConnectionsOnServer(){
+    return std::async(std::launch::async, [this](){
     while(true){
         Socket* client_socket=server_socket->acceptConnections();
         //if the socket is null than the loop will continue without doing 
@@ -37,6 +55,7 @@ void Server::acceptConnectionsOnServer(){
         //announce the thread that the conditiion has been acomplished
         condition.notify_one();
     }
+    });
 }
 
 void Server::receiveMessage(Socket* client_socket, char* message, int length){
@@ -85,11 +104,27 @@ void Server::handleClient(Socket* client_socket, int number)
             fail("Failed to parse request message"); 
             return; 
         }
+        if(request.has_function_request())
+        {
         RPC::Response response=processRequest(request);
         sendResult(client_socket, response);
 
-        if(request.function_name()=="disconnect")
+        if(request.function_request().function_name()=="disconnect")
             break;
+        }
+        else if(request.has_auth_request()){
+            std::string username=request.auth_request().client_id().c_str();
+            std::string password=request.auth_request().client_secret().c_str();
+            int uid=request.auth_request().uid();
+            int gid=request.auth_request().gid();
+
+            RPC::AuthResponse auth_response=authenticateClient(username, password, uid, gid);
+            RPC::Response response;
+            *response.mutable_auth_response()=auth_response;
+
+            sendResult(client_socket, response);
+
+        }
     }
     printf("Client %d disconnected\n",number);
     closeConnection(client_socket);
@@ -99,14 +134,14 @@ void Server::handleClient(Socket* client_socket, int number)
 RPC::Response Server::processRequest(RPC::Request& request){
     RPC::Response response; 
     
-    if(request.function_name()=="sayHello"){
-        std::string argument_value=request.args(0).string_val();
+    if(request.function_request().function_name()=="sayHello"){
+        std::string argument_value=request.function_request().args(0).string_val();
 
         //configurare mesaj de raspuns
         RPC::ReturnValue* return_value=response.mutable_return_value();
         return_value->set_status(RPC::Status::OK);
         return_value->set_string_result("Hello "+argument_value);
-    } else if(request.function_name()=="disconnect")
+    } else if(request.function_request().function_name()=="disconnect")
     {
          RPC::ReturnValue* return_value=response.mutable_return_value();
         return_value->set_status(RPC::Status::OK);
@@ -115,7 +150,7 @@ RPC::Response Server::processRequest(RPC::Request& request){
     else{
         response.mutable_return_value()->set_status(RPC::Status::NOT_FOUND);
         response.mutable_return_value()->set_message("Function not found");
-    }   
+    }  
 
     return response;
 }

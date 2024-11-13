@@ -39,6 +39,14 @@ message ReturnValue {
 
 // Mesaj pentru Request - specifică funcția și parametrii
 message Request {
+  oneof request_type {
+    AuthRequest auth_request = 1;  // Cerere de autentificare
+    FunctionRequest function_request = 2;  // Cerere de funcție normală
+  }
+}
+
+// Mesaj pentru cererea de funcție normală
+message FunctionRequest {
   string function_name = 1;        // Numele funcției care va fi apelată
   repeated Argument args = 2;      // Lista de argumente pentru apelul RPC
   string client_id = 3;            // ID-ul clientului pentru autentificare
@@ -47,13 +55,18 @@ message Request {
 
 // Mesaj pentru Response - trimis înapoi de server după executarea funcției
 message Response {
-  ReturnValue return_value = 1;    // Rezultatul sau eroarea
+  oneof response_type{
+    ReturnValue return_value = 1;    // Rezultatul sau eroarea apelarii procedurii
+    AuthResponse auth_response=2;    // Rezultatul sau eroare autentificarii
+  }
 }
 
 // Mesaj pentru autentificare - structura pentru autentificarea clientului
 message AuthRequest {
   string client_id = 1;            // ID-ul clientului
   string client_secret = 2;        // Secretul clientului pentru autentificare
+  int32 uid=3;                     // user ID-ul clientului
+  int32 gid=4;                     // group ID-ul clientului 
 }
 
 // Mesaj pentru răspunsul la autentificare
@@ -61,6 +74,7 @@ message AuthResponse {
   Status status = 1;               // Statusul autentificării (OK sau eroare)
   string token = 2;                // Token generat dacă autentificarea este reușită
   string message = 3;              // Mesaj informativ despre eroare sau succes
+  int64 session_expiry=4;          // Timp de expirare pentru token.
 }
 
 // Serviciul principal pentru RPC - expune metodele pentru apeluri și autentificare

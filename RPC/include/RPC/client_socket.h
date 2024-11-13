@@ -9,5 +9,5 @@ protected:
 public:
     ClientSocket();
     void setClientAddress(std::string ip);
-    void connectToServer(std::string ip, uint16_t port);
+    bool connectToServer(std::string ip, uint16_t port);
 };

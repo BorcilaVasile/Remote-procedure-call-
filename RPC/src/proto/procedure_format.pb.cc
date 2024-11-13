@@ -54,11 +54,9 @@ struct ReturnValueDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReturnValueDefaultTypeInternal _ReturnValue_default_instance_;
 PROTOBUF_CONSTEXPR Request::Request(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.args_)*/{}
-  , /*decltype(_impl_.function_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.client_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_.request_type_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct RequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -68,10 +66,27 @@ struct RequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RequestDefaultTypeInternal _Request_default_instance_;
+PROTOBUF_CONSTEXPR FunctionRequest::FunctionRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.args_)*/{}
+  , /*decltype(_impl_.function_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.client_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct FunctionRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FunctionRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FunctionRequestDefaultTypeInternal() {}
+  union {
+    FunctionRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FunctionRequestDefaultTypeInternal _FunctionRequest_default_instance_;
 PROTOBUF_CONSTEXPR Response::Response(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.return_value_)*/nullptr
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+    /*decltype(_impl_.response_type_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct ResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -85,6 +100,8 @@ PROTOBUF_CONSTEXPR AuthRequest::AuthRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.client_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.client_secret_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.uid_)*/0
+  , /*decltype(_impl_.gid_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct AuthRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR AuthRequestDefaultTypeInternal()
@@ -99,6 +116,7 @@ PROTOBUF_CONSTEXPR AuthResponse::AuthResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.session_expiry_)*/int64_t{0}
   , /*decltype(_impl_.status_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct AuthResponseDefaultTypeInternal {
@@ -111,7 +129,7 @@ struct AuthResponseDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthResponseDefaultTypeInternal _AuthResponse_default_instance_;
 }  // namespace RPC
-static ::_pb::Metadata file_level_metadata_procedure_5fformat_2eproto[6];
+static ::_pb::Metadata file_level_metadata_procedure_5fformat_2eproto[7];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_procedure_5fformat_2eproto[1];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_procedure_5fformat_2eproto = nullptr;
 
@@ -146,20 +164,31 @@ const uint32_t TableStruct_procedure_5fformat_2eproto::offsets[] PROTOBUF_SECTIO
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::RPC::Request, _internal_metadata_),
   ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
+  PROTOBUF_FIELD_OFFSET(::RPC::Request, _impl_._oneof_case_[0]),
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::RPC::Request, _impl_.function_name_),
-  PROTOBUF_FIELD_OFFSET(::RPC::Request, _impl_.args_),
-  PROTOBUF_FIELD_OFFSET(::RPC::Request, _impl_.client_id_),
-  PROTOBUF_FIELD_OFFSET(::RPC::Request, _impl_.token_),
+  ::_pbi::kInvalidFieldOffsetTag,
+  ::_pbi::kInvalidFieldOffsetTag,
+  PROTOBUF_FIELD_OFFSET(::RPC::Request, _impl_.request_type_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::RPC::Response, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::RPC::FunctionRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::RPC::Response, _impl_.return_value_),
+  PROTOBUF_FIELD_OFFSET(::RPC::FunctionRequest, _impl_.function_name_),
+  PROTOBUF_FIELD_OFFSET(::RPC::FunctionRequest, _impl_.args_),
+  PROTOBUF_FIELD_OFFSET(::RPC::FunctionRequest, _impl_.client_id_),
+  PROTOBUF_FIELD_OFFSET(::RPC::FunctionRequest, _impl_.token_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::RPC::Response, _internal_metadata_),
+  ~0u,  // no _extensions_
+  PROTOBUF_FIELD_OFFSET(::RPC::Response, _impl_._oneof_case_[0]),
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  ::_pbi::kInvalidFieldOffsetTag,
+  ::_pbi::kInvalidFieldOffsetTag,
+  PROTOBUF_FIELD_OFFSET(::RPC::Response, _impl_.response_type_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::RPC::AuthRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -168,6 +197,8 @@ const uint32_t TableStruct_procedure_5fformat_2eproto::offsets[] PROTOBUF_SECTIO
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::RPC::AuthRequest, _impl_.client_id_),
   PROTOBUF_FIELD_OFFSET(::RPC::AuthRequest, _impl_.client_secret_),
+  PROTOBUF_FIELD_OFFSET(::RPC::AuthRequest, _impl_.uid_),
+  PROTOBUF_FIELD_OFFSET(::RPC::AuthRequest, _impl_.gid_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::RPC::AuthResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -177,20 +208,23 @@ const uint32_t TableStruct_procedure_5fformat_2eproto::offsets[] PROTOBUF_SECTIO
   PROTOBUF_FIELD_OFFSET(::RPC::AuthResponse, _impl_.status_),
   PROTOBUF_FIELD_OFFSET(::RPC::AuthResponse, _impl_.token_),
   PROTOBUF_FIELD_OFFSET(::RPC::AuthResponse, _impl_.message_),
+  PROTOBUF_FIELD_OFFSET(::RPC::AuthResponse, _impl_.session_expiry_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::RPC::Argument)},
   { 13, -1, -1, sizeof(::RPC::ReturnValue)},
   { 27, -1, -1, sizeof(::RPC::Request)},
-  { 37, -1, -1, sizeof(::RPC::Response)},
-  { 44, -1, -1, sizeof(::RPC::AuthRequest)},
-  { 52, -1, -1, sizeof(::RPC::AuthResponse)},
+  { 36, -1, -1, sizeof(::RPC::FunctionRequest)},
+  { 46, -1, -1, sizeof(::RPC::Response)},
+  { 55, -1, -1, sizeof(::RPC::AuthRequest)},
+  { 65, -1, -1, sizeof(::RPC::AuthResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::RPC::_Argument_default_instance_._instance,
   &::RPC::_ReturnValue_default_instance_._instance,
   &::RPC::_Request_default_instance_._instance,
+  &::RPC::_FunctionRequest_default_instance_._instance,
   &::RPC::_Response_default_instance_._instance,
   &::RPC::_AuthRequest_default_instance_._instance,
   &::RPC::_AuthResponse_default_instance_._instance,
@@ -206,14 +240,20 @@ const char descriptor_table_protodef_procedure_5fformat_2eproto[] PROTOBUF_SECTI
   "result\030\003 \001(\005H\000\022\027\n\rdouble_result\030\004 \001(\001H\000\022"
   "\027\n\rstring_result\030\005 \001(\tH\000\022\027\n\rbinary_resul"
   "t\030\006 \001(\014H\000\022\025\n\013bool_result\030\007 \001(\010H\000B\010\n\006resu"
-  "lt\"_\n\007Request\022\025\n\rfunction_name\030\001 \001(\t\022\033\n\004"
-  "args\030\002 \003(\0132\r.RPC.Argument\022\021\n\tclient_id\030\003"
-  " \001(\t\022\r\n\005token\030\004 \001(\t\"2\n\010Response\022&\n\014retur"
-  "n_value\030\001 \001(\0132\020.RPC.ReturnValue\"7\n\013AuthR"
-  "equest\022\021\n\tclient_id\030\001 \001(\t\022\025\n\rclient_secr"
-  "et\030\002 \001(\t\"K\n\014AuthResponse\022\033\n\006status\030\001 \001(\016"
-  "2\013.RPC.Status\022\r\n\005token\030\002 \001(\t\022\017\n\007message\030"
-  "\003 \001(\t*k\n\006Status\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\022\024\n\020IN"
+  "lt\"u\n\007Request\022(\n\014auth_request\030\001 \001(\0132\020.RP"
+  "C.AuthRequestH\000\0220\n\020function_request\030\002 \001("
+  "\0132\024.RPC.FunctionRequestH\000B\016\n\014request_typ"
+  "e\"g\n\017FunctionRequest\022\025\n\rfunction_name\030\001 "
+  "\001(\t\022\033\n\004args\030\002 \003(\0132\r.RPC.Argument\022\021\n\tclie"
+  "nt_id\030\003 \001(\t\022\r\n\005token\030\004 \001(\t\"q\n\010Response\022("
+  "\n\014return_value\030\001 \001(\0132\020.RPC.ReturnValueH\000"
+  "\022*\n\rauth_response\030\002 \001(\0132\021.RPC.AuthRespon"
+  "seH\000B\017\n\rresponse_type\"Q\n\013AuthRequest\022\021\n\t"
+  "client_id\030\001 \001(\t\022\025\n\rclient_secret\030\002 \001(\t\022\013"
+  "\n\003uid\030\003 \001(\005\022\013\n\003gid\030\004 \001(\005\"c\n\014AuthResponse"
+  "\022\033\n\006status\030\001 \001(\0162\013.RPC.Status\022\r\n\005token\030\002"
+  " \001(\t\022\017\n\007message\030\003 \001(\t\022\026\n\016session_expiry\030"
+  "\004 \001(\003*k\n\006Status\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\022\024\n\020IN"
   "VALID_ARGUMENT\020\002\022\r\n\tNOT_FOUND\020\003\022\025\n\021PERMI"
   "SSION_DENIED\020\004\022\022\n\016INTERNAL_ERROR\020\0052n\n\nRP"
   "CService\0223\n\014Authenticate\022\020.RPC.AuthReque"
@@ -222,9 +262,9 @@ const char descriptor_table_protodef_procedure_5fformat_2eproto[] PROTOBUF_SECTI
   ;
 static ::_pbi::once_flag descriptor_table_procedure_5fformat_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_procedure_5fformat_2eproto = {
-    false, false, 874, descriptor_table_protodef_procedure_5fformat_2eproto,
+    false, false, 1114, descriptor_table_protodef_procedure_5fformat_2eproto,
     "procedure_format.proto",
-    &descriptor_table_procedure_5fformat_2eproto_once, nullptr, 0, 6,
+    &descriptor_table_procedure_5fformat_2eproto_once, nullptr, 0, 7,
     schemas, file_default_instances, TableStruct_procedure_5fformat_2eproto::offsets,
     file_level_metadata_procedure_5fformat_2eproto, file_level_enum_descriptors_procedure_5fformat_2eproto,
     file_level_service_descriptors_procedure_5fformat_2eproto,
@@ -1103,8 +1143,48 @@ void ReturnValue::InternalSwap(ReturnValue* other) {
 
 class Request::_Internal {
  public:
+  static const ::RPC::AuthRequest& auth_request(const Request* msg);
+  static const ::RPC::FunctionRequest& function_request(const Request* msg);
 };
 
+const ::RPC::AuthRequest&
+Request::_Internal::auth_request(const Request* msg) {
+  return *msg->_impl_.request_type_.auth_request_;
+}
+const ::RPC::FunctionRequest&
+Request::_Internal::function_request(const Request* msg) {
+  return *msg->_impl_.request_type_.function_request_;
+}
+void Request::set_allocated_auth_request(::RPC::AuthRequest* auth_request) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_request_type();
+  if (auth_request) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(auth_request);
+    if (message_arena != submessage_arena) {
+      auth_request = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, auth_request, submessage_arena);
+    }
+    set_has_auth_request();
+    _impl_.request_type_.auth_request_ = auth_request;
+  }
+  // @@protoc_insertion_point(field_set_allocated:RPC.Request.auth_request)
+}
+void Request::set_allocated_function_request(::RPC::FunctionRequest* function_request) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_request_type();
+  if (function_request) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(function_request);
+    if (message_arena != submessage_arena) {
+      function_request = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, function_request, submessage_arena);
+    }
+    set_has_function_request();
+    _impl_.request_type_.function_request_ = function_request;
+  }
+  // @@protoc_insertion_point(field_set_allocated:RPC.Request.function_request)
+}
 Request::Request(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -1115,36 +1195,26 @@ Request::Request(const Request& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   Request* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.args_){from._impl_.args_}
-    , decltype(_impl_.function_name_){}
-    , decltype(_impl_.client_id_){}
-    , decltype(_impl_.token_){}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_.request_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _impl_.function_name_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.function_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_function_name().empty()) {
-    _this->_impl_.function_name_.Set(from._internal_function_name(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.client_id_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.client_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_client_id().empty()) {
-    _this->_impl_.client_id_.Set(from._internal_client_id(), 
-      _this->GetArenaForAllocation());
-  }
-  _impl_.token_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.token_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_token().empty()) {
-    _this->_impl_.token_.Set(from._internal_token(), 
-      _this->GetArenaForAllocation());
+  clear_has_request_type();
+  switch (from.request_type_case()) {
+    case kAuthRequest: {
+      _this->_internal_mutable_auth_request()->::RPC::AuthRequest::MergeFrom(
+          from._internal_auth_request());
+      break;
+    }
+    case kFunctionRequest: {
+      _this->_internal_mutable_function_request()->::RPC::FunctionRequest::MergeFrom(
+          from._internal_function_request());
+      break;
+    }
+    case REQUEST_TYPE_NOT_SET: {
+      break;
+    }
   }
   // @@protoc_insertion_point(copy_constructor:RPC.Request)
 }
@@ -1154,24 +1224,11 @@ inline void Request::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.args_){arena}
-    , decltype(_impl_.function_name_){}
-    , decltype(_impl_.client_id_){}
-    , decltype(_impl_.token_){}
+      decltype(_impl_.request_type_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
   };
-  _impl_.function_name_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.function_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.client_id_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.client_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.token_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.token_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  clear_has_request_type();
 }
 
 Request::~Request() {
@@ -1185,15 +1242,37 @@ Request::~Request() {
 
 inline void Request::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  _impl_.args_.~RepeatedPtrField();
-  _impl_.function_name_.Destroy();
-  _impl_.client_id_.Destroy();
-  _impl_.token_.Destroy();
+  if (has_request_type()) {
+    clear_request_type();
+  }
 }
 
 void Request::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
+
+void Request::clear_request_type() {
+// @@protoc_insertion_point(one_of_clear_start:RPC.Request)
+  switch (request_type_case()) {
+    case kAuthRequest: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.request_type_.auth_request_;
+      }
+      break;
+    }
+    case kFunctionRequest: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.request_type_.function_request_;
+      }
+      break;
+    }
+    case REQUEST_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = REQUEST_TYPE_NOT_SET;
+}
+
 
 void Request::Clear() {
 // @@protoc_insertion_point(message_clear_start:RPC.Request)
@@ -1201,10 +1280,7 @@ void Request::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.args_.Clear();
-  _impl_.function_name_.ClearToEmpty();
-  _impl_.client_id_.ClearToEmpty();
-  _impl_.token_.ClearToEmpty();
+  clear_request_type();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1214,46 +1290,19 @@ const char* Request::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // string function_name = 1;
+      // .RPC.AuthRequest auth_request = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_function_name();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_request(), ptr);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "RPC.Request.function_name"));
         } else
           goto handle_unusual;
         continue;
-      // repeated .RPC.Argument args = 2;
+      // .RPC.FunctionRequest function_request = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_args(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // string client_id = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_client_id();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ctx->ParseMessage(_internal_mutable_function_request(), ptr);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "RPC.Request.client_id"));
-        } else
-          goto handle_unusual;
-        continue;
-      // string token = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
-          auto str = _internal_mutable_token();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "RPC.Request.token"));
         } else
           goto handle_unusual;
         continue;
@@ -1286,12 +1335,308 @@ uint8_t* Request::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // .RPC.AuthRequest auth_request = 1;
+  if (_internal_has_auth_request()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::auth_request(this),
+        _Internal::auth_request(this).GetCachedSize(), target, stream);
+  }
+
+  // .RPC.FunctionRequest function_request = 2;
+  if (_internal_has_function_request()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::function_request(this),
+        _Internal::function_request(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RPC.Request)
+  return target;
+}
+
+size_t Request::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RPC.Request)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  switch (request_type_case()) {
+    // .RPC.AuthRequest auth_request = 1;
+    case kAuthRequest: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.request_type_.auth_request_);
+      break;
+    }
+    // .RPC.FunctionRequest function_request = 2;
+    case kFunctionRequest: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.request_type_.function_request_);
+      break;
+    }
+    case REQUEST_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Request::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    Request::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Request::GetClassData() const { return &_class_data_; }
+
+
+void Request::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Request*>(&to_msg);
+  auto& from = static_cast<const Request&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:RPC.Request)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  switch (from.request_type_case()) {
+    case kAuthRequest: {
+      _this->_internal_mutable_auth_request()->::RPC::AuthRequest::MergeFrom(
+          from._internal_auth_request());
+      break;
+    }
+    case kFunctionRequest: {
+      _this->_internal_mutable_function_request()->::RPC::FunctionRequest::MergeFrom(
+          from._internal_function_request());
+      break;
+    }
+    case REQUEST_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Request::CopyFrom(const Request& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RPC.Request)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Request::IsInitialized() const {
+  return true;
+}
+
+void Request::InternalSwap(Request* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.request_type_, other->_impl_.request_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Request::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
+      file_level_metadata_procedure_5fformat_2eproto[2]);
+}
+
+// ===================================================================
+
+class FunctionRequest::_Internal {
+ public:
+};
+
+FunctionRequest::FunctionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:RPC.FunctionRequest)
+}
+FunctionRequest::FunctionRequest(const FunctionRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  FunctionRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.args_){from._impl_.args_}
+    , decltype(_impl_.function_name_){}
+    , decltype(_impl_.client_id_){}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.function_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.function_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_function_name().empty()) {
+    _this->_impl_.function_name_.Set(from._internal_function_name(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.client_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.client_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_client_id().empty()) {
+    _this->_impl_.client_id_.Set(from._internal_client_id(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_token().empty()) {
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:RPC.FunctionRequest)
+}
+
+inline void FunctionRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.args_){arena}
+    , decltype(_impl_.function_name_){}
+    , decltype(_impl_.client_id_){}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.function_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.function_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.client_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.client_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+FunctionRequest::~FunctionRequest() {
+  // @@protoc_insertion_point(destructor:RPC.FunctionRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void FunctionRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.args_.~RepeatedPtrField();
+  _impl_.function_name_.Destroy();
+  _impl_.client_id_.Destroy();
+  _impl_.token_.Destroy();
+}
+
+void FunctionRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void FunctionRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:RPC.FunctionRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.args_.Clear();
+  _impl_.function_name_.ClearToEmpty();
+  _impl_.client_id_.ClearToEmpty();
+  _impl_.token_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* FunctionRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string function_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_function_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "RPC.FunctionRequest.function_name"));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .RPC.Argument args = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_args(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string client_id = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_client_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "RPC.FunctionRequest.client_id"));
+        } else
+          goto handle_unusual;
+        continue;
+      // string token = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_token();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "RPC.FunctionRequest.token"));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* FunctionRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RPC.FunctionRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
   // string function_name = 1;
   if (!this->_internal_function_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_function_name().data(), static_cast<int>(this->_internal_function_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "RPC.Request.function_name");
+      "RPC.FunctionRequest.function_name");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_function_name(), target);
   }
@@ -1309,7 +1654,7 @@ uint8_t* Request::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_client_id().data(), static_cast<int>(this->_internal_client_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "RPC.Request.client_id");
+      "RPC.FunctionRequest.client_id");
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_client_id(), target);
   }
@@ -1319,7 +1664,7 @@ uint8_t* Request::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "RPC.Request.token");
+      "RPC.FunctionRequest.token");
     target = stream->WriteStringMaybeAliased(
         4, this->_internal_token(), target);
   }
@@ -1328,12 +1673,12 @@ uint8_t* Request::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:RPC.Request)
+  // @@protoc_insertion_point(serialize_to_array_end:RPC.FunctionRequest)
   return target;
 }
 
-size_t Request::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:RPC.Request)
+size_t FunctionRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RPC.FunctionRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1371,17 +1716,17 @@ size_t Request::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Request::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData FunctionRequest::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    Request::MergeImpl
+    FunctionRequest::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Request::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*FunctionRequest::GetClassData() const { return &_class_data_; }
 
 
-void Request::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<Request*>(&to_msg);
-  auto& from = static_cast<const Request&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:RPC.Request)
+void FunctionRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<FunctionRequest*>(&to_msg);
+  auto& from = static_cast<const FunctionRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:RPC.FunctionRequest)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1399,18 +1744,18 @@ void Request::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOB
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void Request::CopyFrom(const Request& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:RPC.Request)
+void FunctionRequest::CopyFrom(const FunctionRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RPC.FunctionRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool Request::IsInitialized() const {
+bool FunctionRequest::IsInitialized() const {
   return true;
 }
 
-void Request::InternalSwap(Request* other) {
+void FunctionRequest::InternalSwap(FunctionRequest* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
@@ -1430,10 +1775,10 @@ void Request::InternalSwap(Request* other) {
   );
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata Request::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata FunctionRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
-      file_level_metadata_procedure_5fformat_2eproto[2]);
+      file_level_metadata_procedure_5fformat_2eproto[3]);
 }
 
 // ===================================================================
@@ -1441,11 +1786,46 @@ void Request::InternalSwap(Request* other) {
 class Response::_Internal {
  public:
   static const ::RPC::ReturnValue& return_value(const Response* msg);
+  static const ::RPC::AuthResponse& auth_response(const Response* msg);
 };
 
 const ::RPC::ReturnValue&
 Response::_Internal::return_value(const Response* msg) {
-  return *msg->_impl_.return_value_;
+  return *msg->_impl_.response_type_.return_value_;
+}
+const ::RPC::AuthResponse&
+Response::_Internal::auth_response(const Response* msg) {
+  return *msg->_impl_.response_type_.auth_response_;
+}
+void Response::set_allocated_return_value(::RPC::ReturnValue* return_value) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_response_type();
+  if (return_value) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(return_value);
+    if (message_arena != submessage_arena) {
+      return_value = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, return_value, submessage_arena);
+    }
+    set_has_return_value();
+    _impl_.response_type_.return_value_ = return_value;
+  }
+  // @@protoc_insertion_point(field_set_allocated:RPC.Response.return_value)
+}
+void Response::set_allocated_auth_response(::RPC::AuthResponse* auth_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_response_type();
+  if (auth_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(auth_response);
+    if (message_arena != submessage_arena) {
+      auth_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, auth_response, submessage_arena);
+    }
+    set_has_auth_response();
+    _impl_.response_type_.auth_response_ = auth_response;
+  }
+  // @@protoc_insertion_point(field_set_allocated:RPC.Response.auth_response)
 }
 Response::Response(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -1457,12 +1837,26 @@ Response::Response(const Response& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   Response* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.return_value_){nullptr}
-    , /*decltype(_impl_._cached_size_)*/{}};
+      decltype(_impl_.response_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_return_value()) {
-    _this->_impl_.return_value_ = new ::RPC::ReturnValue(*from._impl_.return_value_);
+  clear_has_response_type();
+  switch (from.response_type_case()) {
+    case kReturnValue: {
+      _this->_internal_mutable_return_value()->::RPC::ReturnValue::MergeFrom(
+          from._internal_return_value());
+      break;
+    }
+    case kAuthResponse: {
+      _this->_internal_mutable_auth_response()->::RPC::AuthResponse::MergeFrom(
+          from._internal_auth_response());
+      break;
+    }
+    case RESPONSE_TYPE_NOT_SET: {
+      break;
+    }
   }
   // @@protoc_insertion_point(copy_constructor:RPC.Response)
 }
@@ -1472,9 +1866,11 @@ inline void Response::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.return_value_){nullptr}
+      decltype(_impl_.response_type_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
   };
+  clear_has_response_type();
 }
 
 Response::~Response() {
@@ -1488,12 +1884,37 @@ Response::~Response() {
 
 inline void Response::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete _impl_.return_value_;
+  if (has_response_type()) {
+    clear_response_type();
+  }
 }
 
 void Response::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
+
+void Response::clear_response_type() {
+// @@protoc_insertion_point(one_of_clear_start:RPC.Response)
+  switch (response_type_case()) {
+    case kReturnValue: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.response_type_.return_value_;
+      }
+      break;
+    }
+    case kAuthResponse: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.response_type_.auth_response_;
+      }
+      break;
+    }
+    case RESPONSE_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = RESPONSE_TYPE_NOT_SET;
+}
+
 
 void Response::Clear() {
 // @@protoc_insertion_point(message_clear_start:RPC.Response)
@@ -1501,10 +1922,7 @@ void Response::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && _impl_.return_value_ != nullptr) {
-    delete _impl_.return_value_;
-  }
-  _impl_.return_value_ = nullptr;
+  clear_response_type();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1518,6 +1936,14 @@ const char* Response::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_return_value(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .RPC.AuthResponse auth_response = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_auth_response(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1552,10 +1978,17 @@ uint8_t* Response::_InternalSerialize(
   (void) cached_has_bits;
 
   // .RPC.ReturnValue return_value = 1;
-  if (this->_internal_has_return_value()) {
+  if (_internal_has_return_value()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::return_value(this),
         _Internal::return_value(this).GetCachedSize(), target, stream);
+  }
+
+  // .RPC.AuthResponse auth_response = 2;
+  if (_internal_has_auth_response()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::auth_response(this),
+        _Internal::auth_response(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1574,13 +2007,25 @@ size_t Response::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .RPC.ReturnValue return_value = 1;
-  if (this->_internal_has_return_value()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *_impl_.return_value_);
+  switch (response_type_case()) {
+    // .RPC.ReturnValue return_value = 1;
+    case kReturnValue: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.response_type_.return_value_);
+      break;
+    }
+    // .RPC.AuthResponse auth_response = 2;
+    case kAuthResponse: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.response_type_.auth_response_);
+      break;
+    }
+    case RESPONSE_TYPE_NOT_SET: {
+      break;
+    }
   }
-
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -1599,9 +2044,20 @@ void Response::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_return_value()) {
-    _this->_internal_mutable_return_value()->::RPC::ReturnValue::MergeFrom(
-        from._internal_return_value());
+  switch (from.response_type_case()) {
+    case kReturnValue: {
+      _this->_internal_mutable_return_value()->::RPC::ReturnValue::MergeFrom(
+          from._internal_return_value());
+      break;
+    }
+    case kAuthResponse: {
+      _this->_internal_mutable_auth_response()->::RPC::AuthResponse::MergeFrom(
+          from._internal_auth_response());
+      break;
+    }
+    case RESPONSE_TYPE_NOT_SET: {
+      break;
+    }
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1620,13 +2076,14 @@ bool Response::IsInitialized() const {
 void Response::InternalSwap(Response* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.return_value_, other->_impl_.return_value_);
+  swap(_impl_.response_type_, other->_impl_.response_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Response::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
-      file_level_metadata_procedure_5fformat_2eproto[3]);
+      file_level_metadata_procedure_5fformat_2eproto[4]);
 }
 
 // ===================================================================
@@ -1647,6 +2104,8 @@ AuthRequest::AuthRequest(const AuthRequest& from)
   new (&_impl_) Impl_{
       decltype(_impl_.client_id_){}
     , decltype(_impl_.client_secret_){}
+    , decltype(_impl_.uid_){}
+    , decltype(_impl_.gid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -1666,6 +2125,9 @@ AuthRequest::AuthRequest(const AuthRequest& from)
     _this->_impl_.client_secret_.Set(from._internal_client_secret(), 
       _this->GetArenaForAllocation());
   }
+  ::memcpy(&_impl_.uid_, &from._impl_.uid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.gid_) -
+    reinterpret_cast<char*>(&_impl_.uid_)) + sizeof(_impl_.gid_));
   // @@protoc_insertion_point(copy_constructor:RPC.AuthRequest)
 }
 
@@ -1676,6 +2138,8 @@ inline void AuthRequest::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.client_id_){}
     , decltype(_impl_.client_secret_){}
+    , decltype(_impl_.uid_){0}
+    , decltype(_impl_.gid_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.client_id_.InitDefault();
@@ -1715,6 +2179,9 @@ void AuthRequest::Clear() {
 
   _impl_.client_id_.ClearToEmpty();
   _impl_.client_secret_.ClearToEmpty();
+  ::memset(&_impl_.uid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.gid_) -
+      reinterpret_cast<char*>(&_impl_.uid_)) + sizeof(_impl_.gid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1741,6 +2208,22 @@ const char* AuthRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, "RPC.AuthRequest.client_secret"));
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 uid = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.uid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 gid = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.gid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1793,6 +2276,18 @@ uint8_t* AuthRequest::_InternalSerialize(
         2, this->_internal_client_secret(), target);
   }
 
+  // int32 uid = 3;
+  if (this->_internal_uid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_uid(), target);
+  }
+
+  // int32 gid = 4;
+  if (this->_internal_gid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_gid(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1823,6 +2318,16 @@ size_t AuthRequest::ByteSizeLong() const {
         this->_internal_client_secret());
   }
 
+  // int32 uid = 3;
+  if (this->_internal_uid() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_uid());
+  }
+
+  // int32 gid = 4;
+  if (this->_internal_gid() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_gid());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -1846,6 +2351,12 @@ void AuthRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   }
   if (!from._internal_client_secret().empty()) {
     _this->_internal_set_client_secret(from._internal_client_secret());
+  }
+  if (from._internal_uid() != 0) {
+    _this->_internal_set_uid(from._internal_uid());
+  }
+  if (from._internal_gid() != 0) {
+    _this->_internal_set_gid(from._internal_gid());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1874,12 +2385,18 @@ void AuthRequest::InternalSwap(AuthRequest* other) {
       &_impl_.client_secret_, lhs_arena,
       &other->_impl_.client_secret_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(AuthRequest, _impl_.gid_)
+      + sizeof(AuthRequest::_impl_.gid_)
+      - PROTOBUF_FIELD_OFFSET(AuthRequest, _impl_.uid_)>(
+          reinterpret_cast<char*>(&_impl_.uid_),
+          reinterpret_cast<char*>(&other->_impl_.uid_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AuthRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
-      file_level_metadata_procedure_5fformat_2eproto[4]);
+      file_level_metadata_procedure_5fformat_2eproto[5]);
 }
 
 // ===================================================================
@@ -1900,6 +2417,7 @@ AuthResponse::AuthResponse(const AuthResponse& from)
   new (&_impl_) Impl_{
       decltype(_impl_.token_){}
     , decltype(_impl_.message_){}
+    , decltype(_impl_.session_expiry_){}
     , decltype(_impl_.status_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -1920,7 +2438,9 @@ AuthResponse::AuthResponse(const AuthResponse& from)
     _this->_impl_.message_.Set(from._internal_message(), 
       _this->GetArenaForAllocation());
   }
-  _this->_impl_.status_ = from._impl_.status_;
+  ::memcpy(&_impl_.session_expiry_, &from._impl_.session_expiry_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.status_) -
+    reinterpret_cast<char*>(&_impl_.session_expiry_)) + sizeof(_impl_.status_));
   // @@protoc_insertion_point(copy_constructor:RPC.AuthResponse)
 }
 
@@ -1931,6 +2451,7 @@ inline void AuthResponse::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.token_){}
     , decltype(_impl_.message_){}
+    , decltype(_impl_.session_expiry_){int64_t{0}}
     , decltype(_impl_.status_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -1971,7 +2492,9 @@ void AuthResponse::Clear() {
 
   _impl_.token_.ClearToEmpty();
   _impl_.message_.ClearToEmpty();
-  _impl_.status_ = 0;
+  ::memset(&_impl_.session_expiry_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.status_) -
+      reinterpret_cast<char*>(&_impl_.session_expiry_)) + sizeof(_impl_.status_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2007,6 +2530,14 @@ const char* AuthResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, "RPC.AuthResponse.message"));
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 session_expiry = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.session_expiry_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -2066,6 +2597,12 @@ uint8_t* AuthResponse::_InternalSerialize(
         3, this->_internal_message(), target);
   }
 
+  // int64 session_expiry = 4;
+  if (this->_internal_session_expiry() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_session_expiry(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2094,6 +2631,11 @@ size_t AuthResponse::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_message());
+  }
+
+  // int64 session_expiry = 4;
+  if (this->_internal_session_expiry() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_session_expiry());
   }
 
   // .RPC.Status status = 1;
@@ -2126,6 +2668,9 @@ void AuthResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   if (!from._internal_message().empty()) {
     _this->_internal_set_message(from._internal_message());
   }
+  if (from._internal_session_expiry() != 0) {
+    _this->_internal_set_session_expiry(from._internal_session_expiry());
+  }
   if (from._internal_status() != 0) {
     _this->_internal_set_status(from._internal_status());
   }
@@ -2156,13 +2701,18 @@ void AuthResponse::InternalSwap(AuthResponse* other) {
       &_impl_.message_, lhs_arena,
       &other->_impl_.message_, rhs_arena
   );
-  swap(_impl_.status_, other->_impl_.status_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.status_)
+      + sizeof(AuthResponse::_impl_.status_)
+      - PROTOBUF_FIELD_OFFSET(AuthResponse, _impl_.session_expiry_)>(
+          reinterpret_cast<char*>(&_impl_.session_expiry_),
+          reinterpret_cast<char*>(&other->_impl_.session_expiry_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AuthResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
-      file_level_metadata_procedure_5fformat_2eproto[5]);
+      file_level_metadata_procedure_5fformat_2eproto[6]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -2179,6 +2729,10 @@ Arena::CreateMaybeMessage< ::RPC::ReturnValue >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::RPC::Request*
 Arena::CreateMaybeMessage< ::RPC::Request >(Arena* arena) {
   return Arena::CreateMessageInternal< ::RPC::Request >(arena);
+}
+template<> PROTOBUF_NOINLINE ::RPC::FunctionRequest*
+Arena::CreateMaybeMessage< ::RPC::FunctionRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::RPC::FunctionRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::RPC::Response*
 Arena::CreateMaybeMessage< ::RPC::Response >(Arena* arena) {
