@@ -1,0 +1,15 @@
+# Exclude build artifacts
+/build/
+*.log
+
+# Exclude binary files
+Server/main_server
+Client/main_client
+
+# Exclude IDE-specific files
+.vscode/
+
+# Exclude temporary files
+*.tmp
+*.bak
+*.swp
