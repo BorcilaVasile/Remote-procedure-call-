@@ -5,7 +5,7 @@
 
 int main(){
     Client* client = new Client();
-    client->connectToServer("0.0.0.0", 8080);
+    client->connectToServer("0.0.0.0", 8000);
     bool authenticated = client->authenticate("username", "password");
     if(authenticated) {
         fprintf(stdout, "\nClient connected to server\n");

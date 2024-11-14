@@ -1,161 +1,83 @@
 # RPC - Remote Procedure Call
 
-### Documentație
+Pentru utilizarea acestei biblioteci, va trebui să importați biblioteca RPC din cadrul proiectului (libRPC.so) și să rulați ulterior acest script
+ ```bash
+ !/bin/bash
 
-Proiect realizat de Borcilă Vasile  
-Grupa C-113D
+# Define the installation directory
+INSTALL_DIR="/usr/local/rpc_lib"
 
----
+# Create the installation directory
+mkdir -p $INSTALL_DIR
 
-## 1. Introducere
+# Copy the library files to the installation directory
+cp path/to/RPC/lib/libRPC.so $INSTALL_DIR
 
-### 1.1 Scopul documentului
+# Copy the header files to the installation directory
+cp -r path/to/RPC/include $INSTALL_DIR
 
-Acest document are ca scop definirea specificațiilor tehnice și funcționale pentru dezvoltarea unei biblioteci de Remote Procedure Call (RPC). Biblioteca va permite comunicarea între procese prin apeluri de funcții la distanță, folosind socket-uri, și va suporta atât moduri de operare sincrone cât și asincrone.
+# Add the library path to LD_LIBRARY_PATH
+echo "export LD_LIBRARY_PATH=$INSTALL_DIR:\$LD_LIBRARY_PATH" >> ~/.bashrc
 
-### 1.2 Domeniul de aplicare
+# Reload the .bashrc file to apply changes
+source ~/.bashrc
 
-Proiectul se încadrează în dezvoltarea de sisteme distribuite, având ca obiectiv facilitarea interacțiunii între procese independente prin apeluri de funcții remote. Biblioteca va fi utilizată în medii unde este necesară executarea de operații pe servere sau alte procese distante, asigurând o comunicare eficientă și flexibilă.
+echo "RPC library installed successfully."
+```
 
-### 1.3 Definiții și abrevieri
+Salvează scriptul de instalare într-un fișier, de exemplu: install_rpc_lib.sh.
 
-- **RPC (Remote Procedure Call)** – mecanism prin care un program poate executa o procedură (funcție) într-un alt spațiu de adrese (proces sau server) fără a gestiona detaliile comunicării.
-- **Socket** - endpoint pentru comunicarea între două noduri într-o rețea.
-- **Client** – procesul care inițiază cererea de apel RPC.
-- **Server** - procesul care oferă funcțiile RPC către clienți.
-- **Sincron** - modul de operare în care clientul așteaptă răspunsul de la server înainte de continua execuția.
-- **Asincron** - modul de operare în care clientul își continuă execuția fără a aștepta răspunsul imediat de la server.
+Fă scriptul executabil: 
+```bash
+chmod +x install_rpc_lib.sh
+```
+Rulează scriptul de instalare: 
+```bash 
+./install_rpc_lib.sh
+```
+Da, poți crea un script de instalare care să automatizeze procesul de linkare și configurare a variabilelor de mediu. Iată un exemplu de script de instalare în Bash:
 
----
+```bash
+#!/bin/bash
 
-## 2. Obiectivele proiectului
+# Define the installation directory
+INSTALL_DIR="/usr/local/rpc_lib"
 
-### 2.1 Obiectiv general
+# Create the installation directory
+mkdir -p $INSTALL_DIR
 
-Dezvoltarea unei biblioteci RPC care să permită efectuarea de apeluri de funcții remote între procese, utilizând socket-uri pentru comunicație și suportând atât moduri sincron cât și asincron de operare.
+# Copy the library files to the installation directory
+cp path/to/RPC/lib/libRPC.so $INSTALL_DIR
 
-### 2.2 Obiective specifice
+# Copy the header files to the installation directory
+cp -r path/to/RPC/include $INSTALL_DIR
 
-- Implementarea mecanismului de comunicație client-server folosind socket-uri.
-- Definirea unui protocol de transmitere a numelui funcției și a parametrilor.
-- Implementarea suportului pentru apeluri RPC sincrone și asincrone.
-- Gestionarea erorilor și a excepțiilor în procesul de comunicare.
-- Optimizarea performanței și a eficienței bibliotecii.
-- Documentarea completă a bibliotecii și a procesului de utilizare.
+# Add the library path to LD_LIBRARY_PATH
+echo "export LD_LIBRARY_PATH=$INSTALL_DIR:\$LD_LIBRARY_PATH" >> ~/.bashrc
 
----
+# Reload the .bashrc file to apply changes
+source ~/.bashrc
 
-## 3. Cerințe funcționale
+echo "RPC library installed successfully."
+```
 
-### 3.1 Funcționalități de bază
+### Pași pentru utilizare:
 
-1. **Comunicare client-server**:
-    - Serverul să fie capabil să asculte pe un port specific și să accepte conexiuni multiple de la clienți.
-    - Clientul să poată iniția o conexiune către server și să trimită cereri RPC.
+1. **Creează scriptul de instalare**:
+   Salvează scriptul de mai sus într-un fișier, de exemplu `install_rpc_lib.sh`.
 
-2. **Apeluri RPC sincrone**:
-    - Clientul să poată invoca funcții remote și să aștepte răspunsul înainte de a continua execuția.
-    - Serverul să proceseze cererea, să execute funcția solicitată și să returneze rezultatul către client.
+2. **Fă scriptul executabil**:
+   ```sh
+   chmod +x install_rpc_lib.sh
+   ```
 
-3. **Apeluri RPC asincrone**:
-    - Clientul să poată invoca funcții remote și să continue execuția fără a aștepta răspunsul de la server imediat.
-    - Implementarea mecanismelor de callback sau threading pentru gestionarea răspunsurilor asincrone.
+3. **Rulează scriptul de instalare**:
+   ```sh
+   ./install_rpc_lib.sh
+   ```
 
-4. **Gestionarea erorilor**:
-    - Detectarea și gestionarea erorilor precum funcții inexistente, parametri incorecți sau probleme de conexiune.
-    - Transmiterea mesajelor de eroare adecvate de la server la client.
+Acest script va copia biblioteca și fișierele header în directorul "/usr/local/rpc_lib", va adăuga calea bibliotecii la variabila de mediu "LD_LIBRARY_PATH" și va reîncărca fișierul ".bashrc" pentru a aplica modificările.
 
-### 3.2 Funcționalități avansate
+Acum, proiectul tău ar trebui să poată găsi automat biblioteca RPC și să o linkeze corect.
 
-1. **Serializare avansată**:
-    - Utilizarea unor formate eficiente de serializare/deserializare, cum ar fi Protocol Buffers.
-
-2. **Securitate**:
-    - Implementarea autentificării între client și server.
-    - Criptarea datelor transmise folosind SSH sau alte metode de securizare a comunicației.
-
-3. **Logare și monitorizare**:
-    - Implementarea unui sistem de logare.
-    - Monitorizarea apelurilor RPC și a erorilor.
-
-4. **Compatibilitate multi-limbaj**:
-    - Suport pentru apeluri RPC între procese scrise în diferite limbaje de programare.
-
----
-
-## 4. Cerințe non-funcționale
-
-### 4.1 Performanță
-
-- Timpul de răspuns să fie minimizat.
-- Gestionarea unui număr mare de cereri simultane fără degradarea performanței.
-
-### 4.2 Scalabilitate
-
-- Arhitectura să permită extinderea ușoară a numărului de funcții RPC sau a numărului de clienți și servere.
-
-### 4.3 Securitate
-
-- Asigurarea confidențialității și integrității datelor transmise între client și server.
-- Implementarea mecanismelor de autentificare și autorizare.
-
-### 4.4 Ușurința în utilizare
-
-- API-ul bibliotecii să fie ușor de utilizat și bine documentat.
-- Documentație clară și exemple de utilizare.
-
----
-
-## 5. Arhitectură și design
-
-### 5.1 Diagramă de arhitectură
-
-![Basic RPC Architecture](RPC.png)
-
-
-### 5.2 Componente principale
-
-1. **Client RPC**
-    - Stabilește o conexiune către server folosind socket-uri.
-    - Reutilizează conexiunea pentru mai multe apeluri RPC, dacă e cazul.
-    - Creează mesajul RPC cu numele funcției și parametrii.
-    - Inițializează apeluri RPC.
-    - Gestionează răspunsurile în modul sincron, respectiv asincron.
-
-2. **Server RPC**
-    - Va avea un registru de funcții predefinite care pot fi apelate de clienți.
-    - Ascultă cererile RPC de la clienți.
-    - Recepționează cererile de la clienți.
-    - Verifică existența funcției și validează parametrii.
-    - Execută funcțiile solicitate și trimite răspunsurile.
-
-3. **Protocol de comunicare** (prin intermediul socket-urilor)
-    - Formatul mesajelor
-    - Apel RPC
-    - Răspuns RPC
-    - Transmiterea mesajelor folosind un protocol de transport
-
-4. **Mecanismul de sincronizare/asincronizare**
-    - Moduri de operare sincrone/asincrone.
-    - Utilizarea threading-ului și a altor mecanisme de concurență.
-
-5. **Gestionarea erorilor**
-    - Returnarea unui mesaj de eroare dacă funcția solicitată nu există sau parametrii nu sunt valizi.
-    - Gestionarea excepțiilor interne și returnarea unor mesaje corespunzătoare.
-    - Trimiterea de mesaje de eroare către utilizator în cazul în care RPC a eșuat.
-    - Implementarea unor mecanisme de retry sau fallback (opțional).
-
----
-
-## Bibliografie
-
-- ”Distributed Systems” de Andrew S. Tanenbaum și Marteen Van Steen
-
-## Webografie
-
-- [Remote Procedure Call - Wikipedia](https://en.wikipedia.org/wiki/Remote_procedure_call)
-- [Remote Procedure Call - TechTarget](https://www.techtarget.com/searchapparchitecture/definition/Remote-Procedure-Call-RPC)
-- [Remote Procedure Call - IBM](https://www.ibm.com/docs/en/aix/7.3?topic=concepts-remote-procedure-call)
-- [Serialization - Wikipedia](https://en.wikipedia.org/wiki/Serialization)
-- [Serialization FAQ - isocpp](https://isocpp.org/wiki/faq/serialization)
 
