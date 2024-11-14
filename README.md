@@ -1,5 +1,5 @@
 # RPC - Remote Procedure Call
-Pentru utilizarea acestei biblioteci, va trebui să importați biblioteca RPC din cadrul proiectului (libRPC.so) și să rulați ulterior acest script:
+Pentru utilizarea acestei biblioteci, va trebui să importați biblioteca RPC din cadrul proiectului [build/lib/libRPC.so](build/lib/libRPC.so) și să rulați ulterior acest script:
 
 ```bash
 #!/bin/bash
