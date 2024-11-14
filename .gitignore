@@ -1,10 +1,11 @@
-# Exclude build artifacts
-/build/
-*.log
+ Exclude build artifacts except for the library
+/build/*
+!/build/lib/
+!/build/lib/libRPC.so
 
 # Exclude binary files
-Server/main_server
 Client/main_client
+Server/main_server
 
 # Exclude IDE-specific files
 .vscode/
