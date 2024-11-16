@@ -4,7 +4,7 @@ Socket::Socket(socketType type,std::string ip, uint16_t port): type(type){
     //create a socket 
     this->file_descriptor=socket(AF_INET,SOCK_STREAM, 0);
     if(this->file_descriptor==-1)
-        fail("Error at socket creation for server");
+        throw RPCException("Socket creation for server failed");
     //initialize address structure
     memset(&address, 0, sizeof(address));
     //set up the type of the socket 
@@ -18,7 +18,7 @@ void Socket::setAddress(std::string ip, uint16_t port)
     address.sin_family=AF_INET;
     address.sin_port=htons(port);
     if(inet_pton(AF_INET, ip.c_str(), &address.sin_addr.s_addr)<=0) 
-        fail("Invalid IP address");
+        throw RPCException("Invalid IP address");
 
 }
 
@@ -32,7 +32,7 @@ void Socket::setUpServerSocket(std::string ip, uint16_t port)
     //set up the server socket so his port and adress can be reused 
     int opt = 1;
     if(setsockopt(file_descriptor, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) == -1) 
-        fail("Error setting the socket options"); 
+        throw RPCException("Failed to set the socket options"); 
 
     setAddress(ip,port);
 }
@@ -47,7 +47,7 @@ bool Socket::isValidSocket(){
         if(errno == EBADF)
             return false; 
         else
-            fail("Error at fcntl");
+            throw RPCException("Error at fcntl");
     }
     return true; 
 }
@@ -72,13 +72,13 @@ void Socket::shutdownSocket(int how=SHUT_RDWR){
 void Socket::setNonBlocking(bool nonBlocking){
     int flags=fcntl(file_descriptor, F_GETFL,0);
     if(flags==-1)
-        fail("Error getting the socket flags");
+        throw RPCException("Failed to get the socket flags");
     if(nonBlocking)
         flags |= O_NONBLOCK;
     else
         flags &= ~O_NONBLOCK;
     if(fcntl(file_descriptor,F_SETFL, flags)==-1)
-        fail("Error setting the socket flags");
+        throw RPCException("Failed to set the socket flags");
 }
 
 //timeout function which handles the time a function should wait for input
@@ -88,9 +88,9 @@ void Socket::setTimeOut(int seconds){
     timeout.tv_usec=0; 
 
     if(setsockopt(file_descriptor, SOL_SOCKET,SO_RCVTIMEO,&timeout, sizeof(timeout))==-1)
-        fail("Error setting the timeout interval for receive.");
+        throw RPCException("Failed to set the timeout interval for receive.");
     if(setsockopt(file_descriptor, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(timeout))==-1)
-        fail("Error setting the timeout interval for send");
+        throw RPCException("Failed to set the timeout interval for send");
 }
 
 Socket::~Socket(){

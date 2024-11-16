@@ -14,10 +14,10 @@ void Client::nonExistentFunction(){
     return callRemoteFunction<void>("nonExistentFunction");
 }
 
-bool Client::authenticate(std::string username, std::string password)
+void Client::authenticate(std::string username, std::string password)
 {
     int uid = getuid();
     int gid = getgid();
     std::cout << "Sending authentication request for user: " << username << " with UID: " << uid << " and GID: " << gid << std::endl;
-    return authenticateUser(username, password, uid, gid);
+    authenticateUser(username, password, uid, gid);
 }

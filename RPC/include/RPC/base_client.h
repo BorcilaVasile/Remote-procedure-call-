@@ -2,19 +2,21 @@
 #include <future>
 #include <RPC/client_socket.h>
 #include <RPC/procedure_format.pb.h>
+#include <RPC/errors.h>
 
 class BaseClient {
 protected:
     ClientSocket* client_socket;
+    ErrorHandler errorHandler;
 
 public: 
     // connect synchronous to server
-    bool connectToServer(std::string ip="0.0.0.0",uint16_t port=8080);
+    void connectToServer(std::string ip="0.0.0.0",uint16_t port=8080);
     // connect asynchronous to server
     std::future<void> connectToServerAsync(std::string ip="0.0.0.0", uint16_t port=8080);
 protected: 
     BaseClient();
-    bool authenticateUser(std::string username, std::string password, int uid, int gid);
+    void authenticateUser(std::string username, std::string password, int uid, int gid);
 
     //synchronous calls
     void sendData(char* message, int length);
@@ -24,6 +26,7 @@ protected:
 
     template <typename ReturnType, typename... Args>
     ReturnType callRemoteFunction(const std::string& function_name, Args... args) {
+        try{
             RPC::FunctionRequest function_request;
             function_request.set_function_name(function_name); 
 
@@ -35,14 +38,14 @@ protected:
             *request.mutable_function_request() = function_request;
             sendData(request);
             RPC::Response response = receiveResponse();
-            std::cout << "Received response for function: " << function_name << std::endl;
-
-            if (response.return_value().status() == RPC::Status::OK) {
-                return extractResult<ReturnType>(response.return_value());
-            } else {
-                std::cerr << "Error calling the requested function: " << response.return_value().message() << std::endl;
-                return ReturnType();
-            }
+            errorHandler.handle(response.return_value().status(), response.return_value().message());
+            return extractResult<ReturnType>(response.return_value());
+        }catch(const RPCException& e){
+            std::cerr<<"RPC error:"<<e.what()<<std::endl;
+        }catch(const std::exception& e){
+            std::cerr<<"Unexpected error: "<<e.what()<<std::endl;
+        }
+        return ReturnType();
     }
 
     //asynchronous calls
@@ -54,6 +57,7 @@ protected:
     template<typename ReturnType, typename... Args>
     std::future<ReturnType> callRemoteFunctionAsync(const std::string& function_name, Args... args) { 
         return std::async(std::launch::async, [this, function_name, args...]()-> ReturnType {
+            try{
                 RPC::FunctionRequest function_request;
                 function_request.set_function_name(function_name); 
 
@@ -65,16 +69,18 @@ protected:
                 *request.mutable_function_request() = function_request;
                 sendData(request);
                 RPC::Response response = receiveResponse();
-                std::cout << "Received response for function: " << function_name << std::endl;
-
-                if (response.return_value().status() == RPC::Status::OK) {
-                    return extractResult<ReturnType>(response.return_value());
-                } else {
-                    std::cerr << "Error calling the requested function: " << response.return_value().message() << std::endl;
-                    return ReturnType();
-                }
+                errorHandler.handle(response.return_value().status(), response.return_value().message());
+                return extractResult<ReturnType>(response.return_value());
+            }catch(const RPCException& e)
+            {
+                std::cerr<<"RPC error:"<<e.what()<<std::endl;
+            }catch(const std::exception& e){
+                std::cerr<<"Unexpected error: "<<e.what()<<std::endl;
+            }
+            return ReturnType();
         });
-    }
+}
+
 
 private: 
     template <typename T>

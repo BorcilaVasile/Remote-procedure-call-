@@ -22,6 +22,7 @@ private:
 public: 
     Server(size_t pool_size=10,std::string ip="0.0.0.0", uint16_t port=8080);
     void start();
+    void cleanup();
     std::future<void> acceptConnectionsOnServer();
     void sendResult(Socket* client_socket,RPC::Response& response);
     void receiveMessage(Socket* client_socket,char* message, int length);

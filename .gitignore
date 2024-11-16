@@ -14,3 +14,5 @@ Server/main_server
 *.tmp
 *.bak
 *.swp
+
+build_and_run.sh

@@ -6,22 +6,22 @@
 int main(){
     Client* client = new Client();
     client->connectToServer("0.0.0.0", 8000);
-    bool authenticated = client->authenticate("username", "password");
-    if(authenticated) {
-        fprintf(stdout, "\nClient connected to server\n");
-        std::future<std::string> sayHelloFuture = client->sayHelloAsync("Jasmine");
+    client->authenticate("username24", "password");
 
-        std::string something;
-        std::cin >> something;
+    fprintf(stdout, "\nClient connected to server\n");
+    std::future<std::string> sayHelloFuture = client->sayHelloAsync("Jasmine");
+
+    client->nonExistentFunction();
+    std::string something;
+    std::cin >> something;
         
-        std::future<std::string> disconnectFuture = client->disconnectAsync();
+    std::future<std::string> disconnectFuture = client->disconnectAsync();
         
-        std::cout << "sayHelloAsync result: " << sayHelloFuture.get() << std::endl;
-        std::cout << "disconnectAsync result: " << disconnectFuture.get() << std::endl;
-    } else {
-        std::cerr << "Failed to authenticate to server." << std::endl;
-    }
+    std::cout << "sayHelloAsync result: " << sayHelloFuture.get() << std::endl;
+    std::cout << "disconnectAsync result: " << disconnectFuture.get() << std::endl;
 
     delete client;
     return 0;
 }
+
+
