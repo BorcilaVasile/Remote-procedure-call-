@@ -1,5 +1,7 @@
 #include <unistd.h>
 #include <future>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
 #include <RPC/client_socket.h>
 #include <RPC/procedure_format.pb.h>
 #include <RPC/errors.h>
@@ -9,6 +11,10 @@ protected:
     ClientSocket* client_socket;
     ErrorHandler errorHandler;
 
+private: 
+    SSL_CTX* ctx; 
+    SSL* ssl; 
+
 public: 
     // connect synchronous to server
     void connectToServer(std::string ip="0.0.0.0",uint16_t port=8080);
@@ -16,6 +22,7 @@ public:
     std::future<void> connectToServerAsync(std::string ip="0.0.0.0", uint16_t port=8080);
 protected: 
     BaseClient();
+    ~BaseClient();
     void authenticateUser(std::string username, std::string password, int uid, int gid);
 
     //synchronous calls
@@ -111,4 +118,10 @@ private:
             throw std::runtime_error("Unsupported return type");
         }
     }
+
+private: 
+    SSL_CTX* createContext();
+    void configureContext(SSL_CTX* ctx);
+
+
 };

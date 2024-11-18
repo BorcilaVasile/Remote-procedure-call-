@@ -1,16 +1,29 @@
 #include <RPC/rpc_server.h>
 
 Server::Server(size_t pool_size,std::string ip, uint16_t port){
-    try{
-    server_socket=new ServerSocket(ip, port);
-    server_socket->bindSocket();
-    server_socket->listenForConnections();
-    printf("\nSocket on the server is listening for connections\n"); 
+    //initialization of the openssl library
+    SSL_library_init();
+    SSL_load_error_strings();
+    OpenSSL_add_all_algorithms();
 
-    //create the pool thread
-    for(int i=0;i<pool_size;i++)
-        thread_pool.emplace_back(&Server::workerThread,this);
-    }catch(const std::exception& e){
+    ctx=createContext();
+    configureContext(ctx);
+    try{
+
+        server_socket=new ServerSocket(ip, port);
+        server_socket->bindSocket();
+        server_socket->listenForConnections();
+        printf("\nSocket on the server is listening for connections\n"); 
+
+        //create the pool thread
+        for(int i=0;i<pool_size;i++)
+            thread_pool.emplace_back(&Server::workerThread,this);
+    }catch(const RPCException& e){
+        std::cerr<<"RPC server error: "<<e.what()<<std::endl;
+        cleanup();
+        exit(-1);   
+    }
+    catch(const std::exception& e){
         std::cerr<<"Socket server error: "<<e.what()<<std::endl;
         cleanup(); // Ensure cleanup is defined in the Server class
         exit(-1);
@@ -47,30 +60,69 @@ std::future<void> Server::acceptConnectionsOnServer(){
     return std::async(std::launch::async, [this](){
     while(true){
         try{
-        Socket* client_socket=server_socket->acceptConnections();
-        //if the socket is null than the loop will continue without doing 
-        //something else 
-        if(client_socket==nullptr)
-        {
-            fprintf(stderr,"Failed to accept connection from client\n");
-            continue;
-        }
-        // create a scope for the next part of code
-        // so the lock will exist just temporary in this scope
+            Socket* client_socket=server_socket->acceptConnections();
+            //if the socket is null than the loop will continue without doing 
+            //something else 
+            if(client_socket==nullptr)
+            {
+                std::cerr<<"Failed to accept connection from client"<<std::endl;
+                continue;
+            }
+            // create a scope for the next part of code
+            // so the lock will exist just temporary in this scope
 
-        {   
-            countClients++;
-            printf("Client %d connected succesfully\n", countClients);
-            std::unique_lock<std::mutex> lock(mutexLock);
-            client_queue.push(std::make_pair(client_socket,countClients));
-        }
-        //announce the thread that the conditiion has been acomplished
-        condition.notify_one();
+            SSL* ssl=SSL_new(ctx);
+            SSL_set_fd(ssl,client_socket->getSocketFd());
+            if (SSL_accept(ssl) <= 0) {
+                ERR_print_errors_fp(stderr);
+                SSL_free(ssl);
+                delete client_socket;
+                continue;
+            }
+            {   
+                std::unique_lock<std::mutex> lock(mutexLock);
+                client_queue.push(std::make_pair(client_socket,countClients));
+            }
+            //announce the thread that the conditiion has been acomplished
+            condition.notify_one();
         }catch(const std::exception& e){
             std::cerr<<"Error accepting connections on server: "<<e.what()<<std::endl;
         }
     }
     });
+}
+
+SSL_CTX* Server::createContext(){
+    const SSL_METHOD* method;
+    SSL_CTX* ctx;
+
+    method = SSLv23_server_method();
+    ctx = SSL_CTX_new(method);
+    if (!ctx) {
+        perror("Unable to create SSL context");
+        ERR_print_errors_fp(stderr);
+        exit(EXIT_FAILURE);
+    }
+
+    return ctx;
+}
+
+void Server::configureContext(SSL_CTX* ctx) {
+    SSL_CTX_set_ecdh_auto(ctx, 1);
+
+    if (SSL_CTX_use_certificate_file(ctx, "/home/vasile/Desktop/Remote-procedure-call-/RPC/certificate.crt", SSL_FILETYPE_PEM) <= 0) {
+        ERR_print_errors_fp(stderr);
+        exit(EXIT_FAILURE);
+    }
+
+    if (SSL_CTX_use_PrivateKey_file(ctx, "/home/vasile/Desktop/Remote-procedure-call-/RPC/private.key", SSL_FILETYPE_PEM) <= 0) {
+        ERR_print_errors_fp(stderr);
+        exit(EXIT_FAILURE);
+    }
+    if (!SSL_CTX_check_private_key(ctx)) {
+        std::cerr << "Private key does not match the public certificate" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 }
 
 void Server::receiveMessage(Socket* client_socket, char* message, int length){
@@ -135,22 +187,16 @@ void Server::handleClient(Socket* client_socket, int number)
 
                 if(auth_response.status()!=RPC::Status::OK)
                     throw RPCException("Authentification failed due to invalid credentials");
-
             }
         }catch(RPCException& e){
             std::cerr<<"RPC error: "<<e.what()<<std::endl;
-            closeConnection(client_socket);
-            printf("Client %d disconnected\n",number);
-            return; 
+            break;
         }catch(std::exception& e){
             std::cerr<<"Error handling the client: "<<e.what()<<std::endl;
-            closeConnection(client_socket);
-            printf("Client %d disconnected\n",number);
-            return;
+            break;
         }
     }
-    printf("Client %d disconnected\n",number);
-    closeConnection(client_socket);
+    disconnectClient(client_socket);
 }
 
 
@@ -203,7 +249,12 @@ void Server::closeConnection(Socket* client_socket)
 
 }
 
-void Server::sendMessage(Socket* client_socket, char *message, int length)
+void Server::disconnectClient(Socket *client_socket)
+{
+    closeConnection(client_socket);
+    std::cout<<"Client disconnected"<<std::endl;
+}
+void Server::sendMessage(Socket *client_socket, char *message, int length)
 {
     if(client_socket==nullptr)
         throw RPCException("No client connected");

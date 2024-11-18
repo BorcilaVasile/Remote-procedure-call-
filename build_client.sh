@@ -3,4 +3,4 @@ g++ -g /home/vasile/Desktop/Remote-procedure-call-/Client/main_client.cpp /home/
     -o /home/vasile/Desktop/Remote-procedure-call-/Client/main_client     \
     -L /home/vasile/Desktop/Remote-procedure-call-/build/lib/ \
     -lRPC -Wl,-rpath,/home/vasile/Desktop/Remote-procedure-call-/build/lib/ \
-    -lprotobuf 
+    -lprotobuf -lssl -lcrypto

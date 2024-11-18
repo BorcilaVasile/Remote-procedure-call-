@@ -11,7 +11,6 @@ int main() {
     Server* server = new Server(10,"0.0.0.0", 8000);
 
     printf("Starting server...\n");
-    server->acceptConnectionsOnServer();
     server->start();
     
     delete server;

@@ -8,7 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Include directoarele pentru header-uri
 include_directories(${CMAKE_SOURCE_DIR}/include)
 find_package(Protobuf REQUIRED)
+find_package(OpenSSL REQUIRED)
 include_directories(${Protobuf_INCLUDE_DIRS})
+include_directories(${OPENSSL_INCLUDE_DIR})
 
 set(PROTO_FILE src/proto/procedure_format.proto)
 protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROTO_FILE})
@@ -35,6 +37,8 @@ file(GLOB_RECURSE HEADERS
     include/RPC/server_socket.h 
     include/RPC/client_socket.h
     include/RPC/base_client.h 
+    include/RPC/functions.h 
+    include/RPC/procedure_format.pb.h
     ${PROTO_HDRS}
 )
 
@@ -49,6 +53,9 @@ set_target_properties(RPC PROPERTIES
 )
 
 # Specificarea header-urilor publice pentru utilizatorii bibliotecii
-target_include_directories(RPC PUBLIC include ${Protobuf_INCLUDE_DIRS})
+target_include_directories(RPC PUBLIC include ${Protobuf_INCLUDE_DIRS} ${OPENSSL_INCLUDE_DIRS})
 
-target_link_libraries(RPC PUBLIC ${Protobuf_LIBRARIES})
+target_link_libraries(RPC PUBLIC ${Protobuf_LIBRARIES} ${OPENSSL_LIBRARIES})
+
+file(COPY /home/vasile/Desktop/Remote-procedure-call-/RPC/certificate.crt DESTINATION ${CMAKE_BINARY_DIR}/bin)
+file(COPY /home/vasile/Desktop/Remote-procedure-call-/RPC/private.key DESTINATION ${CMAKE_BINARY_DIR}/bin)

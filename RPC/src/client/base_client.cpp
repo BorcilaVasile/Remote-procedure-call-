@@ -1,13 +1,33 @@
 #include <RPC/base_client.h>
 
 BaseClient::BaseClient(){
+    SSL_library_init();
+    OpenSSL_add_all_algorithms();
+    SSL_load_error_strings();
+
+    ctx=createContext();
+    configureContext(ctx);
+
     client_socket=new ClientSocket();
     printf("\nThe client is ready to connect to the server\n"); 
 }
 
+BaseClient::~BaseClient(){
+    SSL_free(ssl);
+    SSL_CTX_free(ctx);
+}
+
 void BaseClient::connectToServer(std::string ip,uint16_t port){
+
     try{
-       client_socket->connectToServer(ip,port);
+        client_socket->connectToServer(ip,port);
+        ssl = SSL_new(ctx);
+        SSL_set_fd(ssl, client_socket->getSocketFd());
+
+        if (SSL_connect(ssl) <= 0) {
+            ERR_print_errors_fp(stderr);
+            exit(-1);
+        }
     }catch(RPCException& e){
         std::cerr<<"RPC error: "<<e.what()<<std::endl;
         exit(-1);
@@ -30,6 +50,8 @@ void BaseClient::authenticateUser(std::string username, std::string password, in
 
         RPC::Request request; 
         *request.mutable_auth_request() = auth_request;
+        std::string encrypted_request;
+        //AES_encrypt()
         sendData(request);
         RPC::Response response = receiveResponse();
         
@@ -87,4 +109,26 @@ RPC::Response BaseClient::receiveResponse(){
         std::cerr<<"Error receiving the response from the server: "<<e.what()<<std::endl;
     }
     return response; 
+}
+
+SSL_CTX* BaseClient::createContext() {
+    const SSL_METHOD* method;
+    SSL_CTX* ctx;
+
+    method = SSLv23_client_method();
+    ctx = SSL_CTX_new(method);
+    if (!ctx) {
+        perror("Unable to create SSL context");
+        ERR_print_errors_fp(stderr);
+        exit(EXIT_FAILURE);
+    }
+
+    return ctx;
+}
+
+void BaseClient::configureContext(SSL_CTX* ctx) {
+    if (SSL_CTX_load_verify_locations(ctx, "/home/vasile/Desktop/Remote-procedure-call-/RPC/certificate.crt", nullptr) <= 0) {
+        ERR_print_errors_fp(stderr);
+        exit(EXIT_FAILURE);
+    }
 }

@@ -16,3 +16,5 @@ Server/main_server
 *.swp
 
 build_and_run.sh
+RPC/certificate.crt 
+RPC/private.key

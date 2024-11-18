@@ -29,6 +29,7 @@ public:
     Socket(socketType type,std::string ip="127.0.0.1", uint16_t port=8080);
     void setAddress(std::string ip, uint16_t port);
     void setAddress(struct sockaddr_in address);
+    int getSocketFd(){ return file_descriptor;};
 
     void shutdownSocket(int);
     bool isValidSocket();
