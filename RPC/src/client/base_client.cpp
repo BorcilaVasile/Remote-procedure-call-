@@ -127,7 +127,7 @@ SSL_CTX* BaseClient::createContext() {
 }
 
 void BaseClient::configureContext(SSL_CTX* ctx) {
-    if (SSL_CTX_load_verify_locations(ctx, "/home/vasile/Desktop/Remote-procedure-call-/RPC/certificate.crt", nullptr) <= 0) {
+    if (SSL_CTX_load_verify_locations(ctx, "build/bin/certificate.crt", nullptr) <= 0) {
         ERR_print_errors_fp(stderr);
         exit(EXIT_FAILURE);
     }

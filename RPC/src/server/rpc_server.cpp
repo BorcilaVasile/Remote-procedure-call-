@@ -110,12 +110,12 @@ SSL_CTX* Server::createContext(){
 void Server::configureContext(SSL_CTX* ctx) {
     SSL_CTX_set_ecdh_auto(ctx, 1);
 
-    if (SSL_CTX_use_certificate_file(ctx, "/home/vasile/Desktop/Remote-procedure-call-/RPC/certificate.crt", SSL_FILETYPE_PEM) <= 0) {
+    if (SSL_CTX_use_certificate_file(ctx, "build/bin/certificate.crt", SSL_FILETYPE_PEM) <= 0) {
         ERR_print_errors_fp(stderr);
         exit(EXIT_FAILURE);
     }
 
-    if (SSL_CTX_use_PrivateKey_file(ctx, "/home/vasile/Desktop/Remote-procedure-call-/RPC/private.key", SSL_FILETYPE_PEM) <= 0) {
+    if (SSL_CTX_use_PrivateKey_file(ctx, "build/bin/private.key", SSL_FILETYPE_PEM) <= 0) {
         ERR_print_errors_fp(stderr);
         exit(EXIT_FAILURE);
     }
