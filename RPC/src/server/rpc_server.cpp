@@ -68,22 +68,25 @@ std::future<void> Server::acceptConnectionsOnServer(){
                 std::cerr<<"Failed to accept connection from client"<<std::endl;
                 continue;
             }
+
+            SSL* ssl=nullptr;
+            if(useTLS){
+                ssl=SSL_new(ctx);
+                SSL_set_fd(ssl,client_socket->getSocketFd());
+                if (SSL_accept(ssl) <= 0) {
+                    ERR_print_errors_fp(stderr);
+                    SSL_free(ssl);
+                    delete client_socket;
+                    continue;
+                }
+            }   
             // create a scope for the next part of code
             // so the lock will exist just temporary in this scope
-
-            SSL* ssl=SSL_new(ctx);
-            SSL_set_fd(ssl,client_socket->getSocketFd());
-            if (SSL_accept(ssl) <= 0) {
-                ERR_print_errors_fp(stderr);
-                SSL_free(ssl);
-                delete client_socket;
-                continue;
-            }
             {   
                 std::unique_lock<std::mutex> lock(mutexLock);
-                client_queue.push(std::make_pair(client_socket,countClients));
+                client_queue.push(std::make_pair(client_socket,ssl));
             }
-            //announce the thread that the conditiion has been acomplished
+            //announce the thread that the condition has been acomplished
             condition.notify_one();
         }catch(const std::exception& e){
             std::cerr<<"Error accepting connections on server: "<<e.what()<<std::endl;
@@ -125,19 +128,26 @@ void Server::configureContext(SSL_CTX* ctx) {
     }
 }
 
-void Server::receiveMessage(Socket* client_socket, char* message, int length){
+void Server::receiveMessage(Socket* client_socket, char* message, int* length,SSL* ssl){
     if(client_socket==nullptr){
         throw RPCException("No client connected");
     }
-    if(client_socket->receiveData(message, length)==-1)
-        throw RPCException("Failed to receive message from the client");
+    int bytes_received; 
+    if(ssl)
+        bytes_received=SSL_read(ssl, message, *length);
+    else
+        bytes_received=client_socket->receiveData(message,*length);
+    if(bytes_received==-1)
+        throw RPCException("Failed to receive message from the client on socket");
+    else   
+        *length=bytes_received;
 }
 
 void Server::workerThread()
 {
     while(true){
         Socket* client_socket; 
-        int number;
+        SSL* ssl;
         {
             std::unique_lock<std::mutex> lock(mutexLock);
             condition.wait(lock,[this] {return !client_queue.empty() || shutdown_request; });
@@ -146,29 +156,32 @@ void Server::workerThread()
                 return; 
 
             client_socket=client_queue.front().first;
-            number=client_queue.front().second;
+            ssl=client_queue.front().second;
             client_queue.pop();
         }
-        handleClient(client_socket, number);    
+         try {
+            handleClient(client_socket, ssl);
+        } catch (const std::exception& e) {
+            std::cerr << "Error handling client: " << e.what() << std::endl;
+        }    
     }
 
 }
-void Server::handleClient(Socket* client_socket, int number)
+void Server::handleClient(Socket* client_socket, SSL* ssl)
 {
     while(true){
         char buffer[1024]; 
-        int bytes_received=client_socket->receiveData(buffer,sizeof(buffer));
+        int length=sizeof(buffer);
         try{
-            if(bytes_received==-1)
-                throw RPCException("Failed to receive data from the client"); 
+            receiveMessage(client_socket,buffer, &length, ssl);
 
             RPC::Request request;
-            if(!request.ParseFromArray(buffer, bytes_received))
+            if(!request.ParseFromArray(buffer, length))
                 throw std::runtime_error("Failed to parse request message"); 
 
             if(request.has_function_request()){
                 RPC::Response response=processRequest(request);
-                sendResult(client_socket, response);
+                sendResponse(client_socket, response,ssl);
 
                 if(request.function_request().function_name()=="disconnect")
                     break;
@@ -183,7 +196,7 @@ void Server::handleClient(Socket* client_socket, int number)
                 RPC::AuthResponse auth_response=authenticateClient(username, password, uid, gid);
                 RPC::Response response;
                 *response.mutable_auth_response()=auth_response;
-                sendResult(client_socket, response);
+                sendResponse(client_socket, response,ssl);
 
                 if(auth_response.status()!=RPC::Status::OK)
                     throw RPCException("Authentification failed due to invalid credentials");
@@ -197,6 +210,8 @@ void Server::handleClient(Socket* client_socket, int number)
         }
     }
     disconnectClient(client_socket);
+    if(ssl)
+        free(ssl);
 }
 
 
@@ -224,7 +239,7 @@ RPC::Response Server::processRequest(RPC::Request& request){
     return response;
 }
 
-void Server::sendResult(Socket* client_socket, RPC::Response& response){
+void Server::sendResponse(Socket* client_socket, RPC::Response& response,SSL* ssl){
     if(client_socket==nullptr)
         throw RPCException("No client connected");
 
@@ -233,15 +248,19 @@ void Server::sendResult(Socket* client_socket, RPC::Response& response){
     if(!response.SerializeToArray(buffer.data(),size))
         throw std::runtime_error("Failed to serialize response message"); 
 
+    if(ssl){
+        if(SSL_write(ssl,buffer.data(),size)<=0)
+            throw RPCException("Failed to send secured response to client");
+    }else{
     if(client_socket->sendData(buffer.data(),size)==-1)
         throw RPCException("Failed to send response to client"); 
+    }
 }
 
 void Server::closeConnection(Socket* client_socket)
 {
     if(client_socket!=nullptr)
     {
-        countClients--;
         delete client_socket;
         client_socket=nullptr;      
         printf("Client connection closed\n");
@@ -253,13 +272,6 @@ void Server::disconnectClient(Socket *client_socket)
 {
     closeConnection(client_socket);
     std::cout<<"Client disconnected"<<std::endl;
-}
-void Server::sendMessage(Socket *client_socket, char *message, int length)
-{
-    if(client_socket==nullptr)
-        throw RPCException("No client connected");
-    if(client_socket->sendData(message, length)==-1)
-        throw RPCException("Failed to send message to the client");
 }
 
 void Server::cleanup() {

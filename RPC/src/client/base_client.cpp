@@ -18,15 +18,16 @@ BaseClient::~BaseClient(){
 }
 
 void BaseClient::connectToServer(std::string ip,uint16_t port){
-
     try{
         client_socket->connectToServer(ip,port);
+        if(useTLS){
         ssl = SSL_new(ctx);
         SSL_set_fd(ssl, client_socket->getSocketFd());
 
         if (SSL_connect(ssl) <= 0) {
             ERR_print_errors_fp(stderr);
             exit(-1);
+        }
         }
     }catch(RPCException& e){
         std::cerr<<"RPC error: "<<e.what()<<std::endl;
@@ -50,9 +51,14 @@ void BaseClient::authenticateUser(std::string username, std::string password, in
 
         RPC::Request request; 
         *request.mutable_auth_request() = auth_request;
-        std::string encrypted_request;
-        //AES_encrypt()
-        sendData(request);
+
+        std::string message_request;
+        request.auth_request().SerializeToString(&message_request);
+
+        std::cout<<"Authentification request: "<<message_request<<std::endl;
+
+        sendRequest(request);
+
         RPC::Response response = receiveResponse();
         
         RPC::AuthResponse auth_response=response.auth_response();
@@ -69,18 +75,22 @@ void BaseClient::authenticateUser(std::string username, std::string password, in
 
 
 void BaseClient::sendData(char *message, int length){
-    if(client_socket->sendData(message,length)==-1)
+    int bytes_sent;
+    if(useTLS)
+        bytes_sent=SSL_write(ssl,message, length);
+    else
+        bytes_sent=client_socket->sendData(message, length);
+    if(bytes_sent==-1)
         throw RPCException("Failed to send data to server");
 }
-
-void BaseClient::sendData(RPC::Request& request){
+void BaseClient::sendRequest(RPC::Request& request){
     int size=request.ByteSizeLong();
     char* buffer=new char[size];
     try{
         if(!request.SerializeToArray(buffer,size))
             throw std::runtime_error("Failed to serialize request");
-        if(client_socket->sendData(buffer,size)==-1)
-            throw RPCException("Failed to send data to server");
+
+        this->sendData(buffer, size);
     }catch(RPCException& e){
         std::cerr<<"RPC error communicating with the server: "<<e.what()<<std::endl;
     }catch(std::exception& e){
@@ -89,20 +99,29 @@ void BaseClient::sendData(RPC::Request& request){
     delete[] buffer;
 }
 
-void BaseClient::receiveData(char* message, int length){
-    if(client_socket->receiveData(message, length)==-1)
-        throw RPCException("Failed to receive data from the server");
+void BaseClient::receiveData(char* message, int* length){
+    int bytes_received;
+    if(useTLS)
+        bytes_received=SSL_read(ssl,message, *length);
+    else   
+        bytes_received=client_socket->receiveData(message,*length);
+
+    if(bytes_received==-1)
+        throw RPCException("Failed to receive data");
+    else
+        *length=bytes_received;
 }
 
 RPC::Response BaseClient::receiveResponse(){
     char buffer[1024];
-    int bytes_received=client_socket->receiveData(buffer,sizeof(buffer));
+    int length=sizeof(buffer);
     RPC::Response response;
     try{
-        if(bytes_received==-1)
-            throw RPCException("Failed to receive response");
-        if(!response.ParseFromArray(buffer,bytes_received))
+        receiveData(buffer,&length);
+
+        if(!response.ParseFromArray(buffer,length))
             throw std::runtime_error("Failed to parse response"); 
+
     }catch(RPCException& e){
         std::cerr<<"RPC error receiving the response from the server: "<<e.what()<<std::endl;
     }catch(std::exception& e){

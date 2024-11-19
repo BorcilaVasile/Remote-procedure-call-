@@ -4,7 +4,7 @@
 #include <RPC/rpc_client.h>
 
 int main(){
-    Client* client = new Client();
+    Client* client = new Client(true);
     client->connectToServer("0.0.0.0", 8000);
     client->authenticate("username24", "password");
 

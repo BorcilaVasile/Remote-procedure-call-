@@ -1,6 +1,6 @@
 #include <RPC/rpc_client.h>
 #include <iostream>
-#include <unistd.h> // pentru getuid() și getgid()
+#include <unistd.h> // for getuid() and getgid()
 
 std::string Client::sayHello(std::string name){
     return callRemoteFunction<std::string>("sayHello", name);

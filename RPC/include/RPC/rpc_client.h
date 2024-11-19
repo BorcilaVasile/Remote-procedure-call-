@@ -3,7 +3,9 @@
 
 class Client: public BaseClient, public RemoteFunction{
 public: 
-    Client(): BaseClient(){};
+    Client(bool useTLS=false): BaseClient(){
+        this->useTLS=useTLS;
+    };
 
     //synchronous functions
     std::string sayHello(std::string name);

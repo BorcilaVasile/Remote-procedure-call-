@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <future>
 #include <openssl/ssl.h>
+#include <openssl/aes.h>
 #include <openssl/err.h>
 #include <RPC/client_socket.h>
 #include <RPC/procedure_format.pb.h>
@@ -10,6 +11,7 @@ class BaseClient {
 protected:
     ClientSocket* client_socket;
     ErrorHandler errorHandler;
+    bool useTLS=true; 
 
 private: 
     SSL_CTX* ctx; 
@@ -27,8 +29,9 @@ protected:
 
     //synchronous calls
     void sendData(char* message, int length);
-    void sendData(RPC::Request& request);
-    void receiveData(char* message, int length);
+    void receiveData(char* message, int* length);
+
+    void sendRequest(RPC::Request& request);
     RPC::Response receiveResponse();
 
     template <typename ReturnType, typename... Args>
@@ -43,7 +46,9 @@ protected:
 
             RPC::Request request;
             *request.mutable_function_request() = function_request;
-            sendData(request);
+
+            this->sendRequest(request);
+
             RPC::Response response = receiveResponse();
             errorHandler.handle(response.return_value().status(), response.return_value().message());
             return extractResult<ReturnType>(response.return_value());
@@ -57,8 +62,9 @@ protected:
 
     //asynchronous calls
     std::future<void> sendDataAsync(char* message, int length); 
-    std::future<void> sendDataAsync(RPC::Request& request); 
-    std::future<void> receiveDataAsync(char* message, int length); 
+    std::future<void> receiveDataAsync(char* message, int* length); 
+
+    std::future<void> sendRequestAsync(RPC::Request& request); 
     std::future<RPC::Response> receiveResponseAsync();
 
     template<typename ReturnType, typename... Args>
@@ -74,7 +80,8 @@ protected:
 
                 RPC::Request request;
                 *request.mutable_function_request() = function_request;
-                sendData(request);
+
+                this->sendRequestAsync(request);
                 RPC::Response response = receiveResponse();
                 errorHandler.handle(response.return_value().status(), response.return_value().message());
                 return extractResult<ReturnType>(response.return_value());
@@ -122,6 +129,4 @@ private:
 private: 
     SSL_CTX* createContext();
     void configureContext(SSL_CTX* ctx);
-
-
 };

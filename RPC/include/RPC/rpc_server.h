@@ -13,11 +13,11 @@ class Server{
 private: 
     ServerSocket* server_socket;
     std::vector<std::thread> thread_pool; 
-    std::queue<std::pair<Socket*, int>> client_queue;
+    std::queue<std::pair<Socket*,SSL*>> client_queue;
     std::mutex mutexLock;
     std::condition_variable condition;
     bool shutdown_request=false;
-    int countClients=0;
+    bool useTLS=true;
     SSL_CTX* ctx;
 
 
@@ -29,15 +29,13 @@ public:
     Server(size_t pool_size=10,std::string ip="0.0.0.0", uint16_t port=8080);
     void start();
     void cleanup();
-    void sendResult(Socket* client_socket,RPC::Response& response);
-    void receiveMessage(Socket* client_socket,char* message, int length);
+    void receiveMessage(Socket* client_socket,char* message, int* length,SSL* ssl);
 
     void workerThread();
-    void handleClient(Socket* client_socket, int number);
+    void handleClient(Socket* client_socket, SSL* ssl);
 
     RPC::Response processRequest(RPC::Request& request);
-    void sendMessage(Socket* client_socket,char* message,int length);
-    void sendResult(RPC::Response& response);
+    void sendResponse(Socket* client_socket, RPC::Response& response,SSL* ssl);
     void closeConnection(Socket* client_socket);
     void disconnectClient(Socket* client_socket);
     void shutdown();
