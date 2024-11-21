@@ -70,8 +70,8 @@ PROTOBUF_CONSTEXPR FunctionRequest::FunctionRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.args_)*/{}
   , /*decltype(_impl_.function_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.client_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.client_id_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FunctionRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR FunctionRequestDefaultTypeInternal()
@@ -245,7 +245,7 @@ const char descriptor_table_protodef_procedure_5fformat_2eproto[] PROTOBUF_SECTI
   "\0132\024.RPC.FunctionRequestH\000B\016\n\014request_typ"
   "e\"g\n\017FunctionRequest\022\025\n\rfunction_name\030\001 "
   "\001(\t\022\033\n\004args\030\002 \003(\0132\r.RPC.Argument\022\021\n\tclie"
-  "nt_id\030\003 \001(\t\022\r\n\005token\030\004 \001(\t\"q\n\010Response\022("
+  "nt_id\030\003 \001(\005\022\r\n\005token\030\004 \001(\t\"q\n\010Response\022("
   "\n\014return_value\030\001 \001(\0132\020.RPC.ReturnValueH\000"
   "\022*\n\rauth_response\030\002 \001(\0132\021.RPC.AuthRespon"
   "seH\000B\017\n\rresponse_type\"Q\n\013AuthRequest\022\021\n\t"
@@ -1462,8 +1462,8 @@ FunctionRequest::FunctionRequest(const FunctionRequest& from)
   new (&_impl_) Impl_{
       decltype(_impl_.args_){from._impl_.args_}
     , decltype(_impl_.function_name_){}
-    , decltype(_impl_.client_id_){}
     , decltype(_impl_.token_){}
+    , decltype(_impl_.client_id_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -1475,14 +1475,6 @@ FunctionRequest::FunctionRequest(const FunctionRequest& from)
     _this->_impl_.function_name_.Set(from._internal_function_name(), 
       _this->GetArenaForAllocation());
   }
-  _impl_.client_id_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.client_id_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_client_id().empty()) {
-    _this->_impl_.client_id_.Set(from._internal_client_id(), 
-      _this->GetArenaForAllocation());
-  }
   _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.token_.Set("", GetArenaForAllocation());
@@ -1491,6 +1483,7 @@ FunctionRequest::FunctionRequest(const FunctionRequest& from)
     _this->_impl_.token_.Set(from._internal_token(), 
       _this->GetArenaForAllocation());
   }
+  _this->_impl_.client_id_ = from._impl_.client_id_;
   // @@protoc_insertion_point(copy_constructor:RPC.FunctionRequest)
 }
 
@@ -1501,17 +1494,13 @@ inline void FunctionRequest::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.args_){arena}
     , decltype(_impl_.function_name_){}
-    , decltype(_impl_.client_id_){}
     , decltype(_impl_.token_){}
+    , decltype(_impl_.client_id_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.function_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.function_name_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  _impl_.client_id_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    _impl_.client_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -1532,7 +1521,6 @@ inline void FunctionRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.args_.~RepeatedPtrField();
   _impl_.function_name_.Destroy();
-  _impl_.client_id_.Destroy();
   _impl_.token_.Destroy();
 }
 
@@ -1548,8 +1536,8 @@ void FunctionRequest::Clear() {
 
   _impl_.args_.Clear();
   _impl_.function_name_.ClearToEmpty();
-  _impl_.client_id_.ClearToEmpty();
   _impl_.token_.ClearToEmpty();
+  _impl_.client_id_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1582,13 +1570,11 @@ const char* FunctionRequest::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // string client_id = 3;
+      // int32 client_id = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_client_id();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.client_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "RPC.FunctionRequest.client_id"));
         } else
           goto handle_unusual;
         continue;
@@ -1649,14 +1635,10 @@ uint8_t* FunctionRequest::_InternalSerialize(
         InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // string client_id = 3;
-  if (!this->_internal_client_id().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_client_id().data(), static_cast<int>(this->_internal_client_id().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "RPC.FunctionRequest.client_id");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_client_id(), target);
+  // int32 client_id = 3;
+  if (this->_internal_client_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_client_id(), target);
   }
 
   // string token = 4;
@@ -1699,18 +1681,16 @@ size_t FunctionRequest::ByteSizeLong() const {
         this->_internal_function_name());
   }
 
-  // string client_id = 3;
-  if (!this->_internal_client_id().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_client_id());
-  }
-
   // string token = 4;
   if (!this->_internal_token().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_token());
+  }
+
+  // int32 client_id = 3;
+  if (this->_internal_client_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_client_id());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1735,11 +1715,11 @@ void FunctionRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   if (!from._internal_function_name().empty()) {
     _this->_internal_set_function_name(from._internal_function_name());
   }
-  if (!from._internal_client_id().empty()) {
-    _this->_internal_set_client_id(from._internal_client_id());
-  }
   if (!from._internal_token().empty()) {
     _this->_internal_set_token(from._internal_token());
+  }
+  if (from._internal_client_id() != 0) {
+    _this->_internal_set_client_id(from._internal_client_id());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1766,13 +1746,10 @@ void FunctionRequest::InternalSwap(FunctionRequest* other) {
       &other->_impl_.function_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &_impl_.client_id_, lhs_arena,
-      &other->_impl_.client_id_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.token_, lhs_arena,
       &other->_impl_.token_, rhs_arena
   );
+  swap(_impl_.client_id_, other->_impl_.client_id_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata FunctionRequest::GetMetadata() const {

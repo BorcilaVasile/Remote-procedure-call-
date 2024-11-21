@@ -966,8 +966,8 @@ class FunctionRequest final :
   enum : int {
     kArgsFieldNumber = 2,
     kFunctionNameFieldNumber = 1,
-    kClientIdFieldNumber = 3,
     kTokenFieldNumber = 4,
+    kClientIdFieldNumber = 3,
   };
   // repeated .RPC.Argument args = 2;
   int args_size() const;
@@ -1001,20 +1001,6 @@ class FunctionRequest final :
   std::string* _internal_mutable_function_name();
   public:
 
-  // string client_id = 3;
-  void clear_client_id();
-  const std::string& client_id() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_client_id(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_client_id();
-  PROTOBUF_NODISCARD std::string* release_client_id();
-  void set_allocated_client_id(std::string* client_id);
-  private:
-  const std::string& _internal_client_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_client_id(const std::string& value);
-  std::string* _internal_mutable_client_id();
-  public:
-
   // string token = 4;
   void clear_token();
   const std::string& token() const;
@@ -1029,6 +1015,15 @@ class FunctionRequest final :
   std::string* _internal_mutable_token();
   public:
 
+  // int32 client_id = 3;
+  void clear_client_id();
+  int32_t client_id() const;
+  void set_client_id(int32_t value);
+  private:
+  int32_t _internal_client_id() const;
+  void _internal_set_client_id(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:RPC.FunctionRequest)
  private:
   class _Internal;
@@ -1039,8 +1034,8 @@ class FunctionRequest final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::RPC::Argument > args_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr function_name_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr client_id_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
+    int32_t client_id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2568,54 +2563,24 @@ FunctionRequest::args() const {
   return _impl_.args_;
 }
 
-// string client_id = 3;
+// int32 client_id = 3;
 inline void FunctionRequest::clear_client_id() {
-  _impl_.client_id_.ClearToEmpty();
+  _impl_.client_id_ = 0;
 }
-inline const std::string& FunctionRequest::client_id() const {
+inline int32_t FunctionRequest::_internal_client_id() const {
+  return _impl_.client_id_;
+}
+inline int32_t FunctionRequest::client_id() const {
   // @@protoc_insertion_point(field_get:RPC.FunctionRequest.client_id)
   return _internal_client_id();
 }
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void FunctionRequest::set_client_id(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.client_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+inline void FunctionRequest::_internal_set_client_id(int32_t value) {
+  
+  _impl_.client_id_ = value;
+}
+inline void FunctionRequest::set_client_id(int32_t value) {
+  _internal_set_client_id(value);
   // @@protoc_insertion_point(field_set:RPC.FunctionRequest.client_id)
-}
-inline std::string* FunctionRequest::mutable_client_id() {
-  std::string* _s = _internal_mutable_client_id();
-  // @@protoc_insertion_point(field_mutable:RPC.FunctionRequest.client_id)
-  return _s;
-}
-inline const std::string& FunctionRequest::_internal_client_id() const {
-  return _impl_.client_id_.Get();
-}
-inline void FunctionRequest::_internal_set_client_id(const std::string& value) {
-  
-  _impl_.client_id_.Set(value, GetArenaForAllocation());
-}
-inline std::string* FunctionRequest::_internal_mutable_client_id() {
-  
-  return _impl_.client_id_.Mutable(GetArenaForAllocation());
-}
-inline std::string* FunctionRequest::release_client_id() {
-  // @@protoc_insertion_point(field_release:RPC.FunctionRequest.client_id)
-  return _impl_.client_id_.Release();
-}
-inline void FunctionRequest::set_allocated_client_id(std::string* client_id) {
-  if (client_id != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.client_id_.SetAllocated(client_id, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.client_id_.IsDefault()) {
-    _impl_.client_id_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:RPC.FunctionRequest.client_id)
 }
 
 // string token = 4;

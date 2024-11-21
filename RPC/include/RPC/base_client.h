@@ -1,8 +1,6 @@
 #include <unistd.h>
 #include <future>
-#include <openssl/ssl.h>
-#include <openssl/aes.h>
-#include <openssl/err.h>
+#include <RPC/encryption.h>
 #include <RPC/client_socket.h>
 #include <RPC/procedure_format.pb.h>
 #include <RPC/errors.h>
@@ -11,6 +9,8 @@ class BaseClient {
 protected:
     ClientSocket* client_socket;
     ErrorHandler errorHandler;
+    std::string token;
+    int client_id;
     bool useTLS=true; 
 
 private: 
@@ -39,6 +39,8 @@ protected:
         try{
             RPC::FunctionRequest function_request;
             function_request.set_function_name(function_name); 
+            function_request.set_token(this->token);
+            function_request.set_client_id(client_id);
 
             (void)std::initializer_list<int>{(addArgument(function_request, args), 0)...};
 
@@ -73,6 +75,9 @@ protected:
             try{
                 RPC::FunctionRequest function_request;
                 function_request.set_function_name(function_name); 
+                function_request.set_token(this->token);
+                function_request.set_client_id(client_id);
+
 
                 (void)std::initializer_list<int>{(addArgument(function_request, args), 0)...};
 
@@ -82,6 +87,7 @@ protected:
                 *request.mutable_function_request() = function_request;
 
                 this->sendRequestAsync(request);
+                
                 RPC::Response response = receiveResponse();
                 errorHandler.handle(response.return_value().status(), response.return_value().message());
                 return extractResult<ReturnType>(response.return_value());

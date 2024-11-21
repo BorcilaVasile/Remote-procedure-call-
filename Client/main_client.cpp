@@ -6,19 +6,14 @@
 int main(){
     Client* client = new Client(true);
     client->connectToServer("0.0.0.0", 8000);
-    client->authenticate("username24", "password");
+    client->authenticate("username1", "password1");
 
-    fprintf(stdout, "\nClient connected to server\n");
-    std::future<std::string> sayHelloFuture = client->sayHelloAsync("Jasmine");
-
+    std::string sayHelloFuture = client->sayHello("Jasmine");
+    std::cout << "sayHelloAsync result: " << sayHelloFuture << std::endl;
     client->nonExistentFunction();
-    std::string something;
-    std::cin >> something;
+    std::string disconnectFuture = client->disconnect();
+    std::cout << "disconnect result: " << disconnectFuture<< std::endl;
         
-    std::future<std::string> disconnectFuture = client->disconnectAsync();
-        
-    std::cout << "sayHelloAsync result: " << sayHelloFuture.get() << std::endl;
-    std::cout << "disconnectAsync result: " << disconnectFuture.get() << std::endl;
 
     delete client;
     return 0;

@@ -4,11 +4,18 @@ BaseClient::BaseClient(){
     SSL_library_init();
     OpenSSL_add_all_algorithms();
     SSL_load_error_strings();
-
+    try{
     ctx=createContext();
     configureContext(ctx);
 
     client_socket=new ClientSocket();
+    }catch(const RPCException& e){
+        std::cerr<<"RPC client error: " <<e.what()<<std::endl;
+        exit(EXIT_FAILURE);
+    }catch(const std::exception& e){
+        std::cerr<<"Client erorr: "<<e.what()<<std::endl;
+        exit(EXIT_FAILURE);
+    }
     printf("\nThe client is ready to connect to the server\n"); 
 }
 
@@ -46,6 +53,7 @@ void BaseClient::authenticateUser(std::string username, std::string password, in
         auth_request.set_client_secret(password);
         auth_request.set_uid(uid);
         auth_request.set_gid(gid);
+        this->client_id=uid;
 
         std::cout << "Sending authentication request...\n";
 
@@ -64,6 +72,11 @@ void BaseClient::authenticateUser(std::string username, std::string password, in
         RPC::AuthResponse auth_response=response.auth_response();
 
         errorHandler.handle(auth_response.status(), auth_response.message());
+
+        this->token=auth_response.token().c_str();
+
+        this->token="wrong";
+        std::cout<<"Token-ul generat de server: "<<this->token<<std::endl;
     }catch(RPCException& e){
         std::cerr<<"RPC error at authentification: "<<e.what()<<std::endl;
         exit(-1);
@@ -148,6 +161,39 @@ SSL_CTX* BaseClient::createContext() {
 void BaseClient::configureContext(SSL_CTX* ctx) {
     if (SSL_CTX_load_verify_locations(ctx, "build/bin/certificate.crt", nullptr) <= 0) {
         ERR_print_errors_fp(stderr);
-        exit(EXIT_FAILURE);
+        throw RPCException("Failed to set the certificate location. Ensure 'certificate.crt' exists and is accessible.");
     }
+
+    SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, nullptr);  
+
+    EVP_PKEY* pkey = generateRSAKey();
+    if (!pkey)
+        throw RPCException("Failed to generate RSA private key");
+
+    X509* x509 = generateCertificate(pkey);
+    if (!x509) {
+        EVP_PKEY_free(pkey);
+        throw RPCException("Failed to generate RSA public certificate");
+    }
+
+    if (SSL_CTX_use_certificate(ctx, x509) <= 0) {
+        X509_free(x509);
+        EVP_PKEY_free(pkey);
+        throw RPCException("Failed to use the RSA public certificate");
+    }
+
+    if (SSL_CTX_use_PrivateKey(ctx, pkey) <= 0) {
+        X509_free(x509);
+        EVP_PKEY_free(pkey);
+        throw RPCException("Failed to use the RSA private key");
+    }
+
+    if (!SSL_CTX_check_private_key(ctx)) {
+        X509_free(x509);
+        EVP_PKEY_free(pkey);
+        throw RPCException("Private key does not match the public certificate");
+    }
+
+    X509_free(x509);
+    EVP_PKEY_free(pkey);
 }

@@ -26,6 +26,7 @@ file(GLOB_RECURSE SOURCES
     src/client/base_client.cpp 
     src/client/base_client_async.cpp 
     src/client/rpc_client_async.cpp
+    src/common/encryption.cpp 
     ${PROTO_SRCS}
 )
 
@@ -39,6 +40,7 @@ file(GLOB_RECURSE HEADERS
     include/RPC/base_client.h 
     include/RPC/functions.h 
     include/RPC/procedure_format.pb.h
+    include/RPC/encryption.h 
     ${PROTO_HDRS}
 )
 
@@ -56,6 +58,3 @@ set_target_properties(RPC PROPERTIES
 target_include_directories(RPC PUBLIC include ${Protobuf_INCLUDE_DIRS} ${OPENSSL_INCLUDE_DIRS})
 
 target_link_libraries(RPC PUBLIC ${Protobuf_LIBRARIES} ${OPENSSL_LIBRARIES})
-
-file(COPY /home/vasile/Desktop/Remote-procedure-call-/RPC/certificate.crt DESTINATION ${CMAKE_BINARY_DIR}/bin)
-file(COPY /home/vasile/Desktop/Remote-procedure-call-/RPC/private.key DESTINATION ${CMAKE_BINARY_DIR}/bin)

@@ -3,17 +3,26 @@
 #include <queue>
 #include <future>   
 #include <condition_variable>
-#include <openssl/ssl.h>
-#include <openssl/err.h>
+#include <random>
+#include <sstream>
+#include <fstream>
+#include <RPC/encryption.h>
 #include <RPC/server_socket.h>
 #include <RPC/procedure_format.pb.h>
 
+struct ClientData{
+    Socket* client_socket;
+    SSL* ssl;
+    std::string token;
+};
 
 class Server{
 private: 
     ServerSocket* server_socket;
     std::vector<std::thread> thread_pool; 
-    std::queue<std::pair<Socket*,SSL*>> client_queue;
+    std::queue<ClientData> client_queue;
+    std::vector<std::pair<std::string, std::string>> clients;              //<username, password>
+    std::unordered_map<int, std::string> client_tokens;
     std::mutex mutexLock;
     std::condition_variable condition;
     bool shutdown_request=false;
@@ -24,15 +33,20 @@ private:
     std::future<void> acceptConnectionsOnServer();
     SSL_CTX* createContext();
     void configureContext(SSL_CTX* ctx);
-    RPC::AuthResponse authenticateClient(std::string username, std::string password, int uid, int guid);
+    RPC::AuthResponse authenticateClient(std::string username, std::string password, int uid, int guid,std::string token);
+    std::string generateUniqueToken();
+    void verifyRequestCredentials(std::string token, int uid);
+    bool verifyAuthentificationCredentials(std::string username, std::string password);
+    
 public: 
     Server(size_t pool_size=10,std::string ip="0.0.0.0", uint16_t port=8080);
+    void loadClients(std::string filename);
     void start();
     void cleanup();
     void receiveMessage(Socket* client_socket,char* message, int* length,SSL* ssl);
 
     void workerThread();
-    void handleClient(Socket* client_socket, SSL* ssl);
+    void handleClient(Socket* client_socket, SSL* ssl,std::string token);
 
     RPC::Response processRequest(RPC::Request& request);
     void sendResponse(Socket* client_socket, RPC::Response& response,SSL* ssl);
