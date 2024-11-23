@@ -39,6 +39,7 @@ Server::Server(size_t pool_size,std::string ip, uint16_t port){
     function_map["open"]=[this](std::vector<RPC::Argument> args){ return open(args);};
     function_map["close"]=[this](std::vector<RPC::Argument> args){ return close(args);};
     function_map["read"]=[this](std::vector<RPC::Argument> args){ return read(args);};
+    function_map["write"]=[this](std::vector<RPC::Argument> args){ return write(args);};
 }
 
 void Server::loadClients(std::string filename){

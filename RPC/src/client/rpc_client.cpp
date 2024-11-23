@@ -52,7 +52,8 @@ ssize_t Client::read(int fd, int* buf, int count){
     return callRemoteFunction<int>("read", fd, buf, count);
 }
 
-ssize_t Client::write(int fd,const void *buf, int count){
-    return callRemoteFunction<int>("write",fd, buf, count);
+ssize_t Client::write(int fd,char* buf, int count){
+    std::string buffer=buf;
+    return callRemoteFunction<int>("write",fd, buffer, count);
 }
 

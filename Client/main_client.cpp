@@ -64,17 +64,26 @@ int main(){
 
     //file functions
      // open file
-    int fd = client->open("Clients.txt", O_RDONLY);
+    int fd = client->open("test.txt", O_RDWR);
     std::cout << "Valoarea file descriptorului: " << fd << std::endl;
+    char buffer[1024];
+    std::strcpy(buffer, "Hello World!");
+
+    //write to file 
+    std::cout<<"Descriptor value: "<<fd<<std::endl;
+    ssize_t bytesWrite =client->write(fd,buffer,1020);
+    if(bytesWrite==-1)
+        std::cerr<<"Eroare la scrierea in fisier: "<<std::strerror(errno)<<std::endl;
 
     // read from file
-    char buffer[1024];
     ssize_t bytesRead = client->read(fd, buffer, 1020);
     if (bytesRead == -1) {
         std::cerr << "Eroare la citirea din fișier: " << std::strerror(errno) << std::endl;
     } else {
         std::cout << "Text from Clients.txt: " << buffer << std::endl;
     }
+
+
 
     // close file
     int result = client->close(fd);
@@ -93,5 +102,6 @@ int main(){
     delete client;
     return 0;
 }
+
 
 

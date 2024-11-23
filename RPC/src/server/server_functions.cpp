@@ -244,3 +244,51 @@ RPC::ReturnValue Server::read(std::vector<RPC::Argument> args){
     delete[] result;
     return value;
 }
+
+RPC::ReturnValue Server::write(std::vector<RPC::Argument> args){
+        RPC::ReturnValue value; 
+    if(args.size()!=3){
+        value.set_status(RPC::Status::ERROR);
+        value.set_message("Invalid number of arguments");
+        return value;
+    }
+
+    if(!args[0].has_int_val()) 
+    {
+        value.set_status(RPC::Status::ERROR);
+        value.set_message("Invalid type of the argument. The first argument should be an integer");
+        return value;
+    }
+    if(!args[1].has_string_val()) 
+    {
+        value.set_status(RPC::Status::ERROR);
+        value.set_message("Invalid type of the argument. The second argument should be an string");
+        return value;
+    }
+    if(!args[2].has_int_val()) 
+    {
+        value.set_status(RPC::Status::ERROR);
+        value.set_message("Invalid type of the argument. The third argument should be an integer");
+        return value;
+    }
+
+    int fd = args[0].int_val();
+    std::cout<<std::endl<<"Descriptor value: "<<fd<<std::endl;
+    char* buffer =new char[args[1].string_val().size()];
+    std::memcpy(buffer,args[1].string_val().c_str(), args[1].string_val().size()); 
+    int size = args[2].int_val();
+
+    int bytesWrite = ::write(fd, buffer, size);
+
+    if (bytesWrite == -1) {
+        value.set_status(RPC::Status::ERROR);
+        value.set_message(std::strerror(errno));
+        value.set_int_result(bytesWrite);
+        value.set_error_result(errno);
+        return value;
+    }
+
+    value.set_status(RPC::Status::OK);
+    value.set_int_result(bytesWrite);
+    return value;
+}

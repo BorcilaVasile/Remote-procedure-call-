@@ -17,7 +17,7 @@ public:
     int open(const char* filename, int flags);
     ssize_t read(int fd, char *buf, int count);
     ssize_t read(int fd, int* buf, int count);
-    ssize_t write(int fd, const void *buf, int count);
+    ssize_t write(int fd,char* buf, int count);
     int close(int fd);
 
     
