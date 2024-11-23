@@ -18,3 +18,4 @@ Server/main_server
 build_and_run.sh
 RPC/certificate.crt 
 RPC/private.key
+Server/test.txt
