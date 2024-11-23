@@ -64,14 +64,14 @@ int main(){
 
     //file functions
      // open file
-    int fd = client->open("test.txt", O_RDWR);
+    int fd = client->open("test.txt", O_RDONLY);
     std::cout << "Valoarea file descriptorului: " << fd << std::endl;
     char buffer[1024];
     std::strcpy(buffer, "Hello World!");
 
     //write to file 
     std::cout<<"Descriptor value: "<<fd<<std::endl;
-    ssize_t bytesWrite =client->write(fd,buffer,1020);
+    ssize_t bytesWrite =client->write(fd,buffer,std::strlen(buffer));
     if(bytesWrite==-1)
         std::cerr<<"Eroare la scrierea in fisier: "<<std::strerror(errno)<<std::endl;
 
@@ -97,8 +97,6 @@ int main(){
     std::string disconnectFuture = client->disconnect();
     std::cout << "disconnect:"<<std::endl<< disconnectFuture<< std::endl;
     
-    
-   
     delete client;
     return 0;
 }

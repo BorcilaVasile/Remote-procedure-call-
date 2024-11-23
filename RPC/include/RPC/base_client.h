@@ -49,6 +49,7 @@ protected:
             this->sendRequest(request);
 
             RPC::Response response = receiveResponse();
+            
             errorHandler.handle(response.return_value().status(), response.return_value().message());
 
             std::cout<<std::endl<<"Returned message: "<<response.return_value().message()<<std::endl;

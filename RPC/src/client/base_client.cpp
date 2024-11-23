@@ -121,21 +121,32 @@ void BaseClient::receiveData(char* message, int* length){
 }
 
 RPC::Response BaseClient::receiveResponse(){
-    char buffer[1024];
-    int length=sizeof(buffer);
-    RPC::Response response;
-    try{
-        receiveData(buffer,&length);
+    auto future = std::async(std::launch::async, [this]() -> RPC::Response {
+        char buffer[1024];
+        int length = sizeof(buffer);
+        RPC::Response response;
+        try {
+            receiveData(buffer, &length);
 
-        if(!response.ParseFromArray(buffer,length))
-            throw std::runtime_error("Failed to parse response"); 
+            if (!response.ParseFromArray(buffer, length)) {
+                throw std::runtime_error("Failed to parse response");
+            }
+        } catch (RPCException& e) {
+            std::cerr << "RPC error receiving the response from the server: " << e.what() << std::endl;
+            throw;
+        } catch (std::exception& e) {
+            std::cerr << "Error receiving the response from the server: " << e.what() << std::endl;
+            throw;
+        }
+        return response;
+    });
 
-    }catch(RPCException& e){
-        std::cerr<<"RPC error receiving the response from the server: "<<e.what()<<std::endl;
-    }catch(std::exception& e){
-        std::cerr<<"Error receiving the response from the server: "<<e.what()<<std::endl;
+    std::chrono::milliseconds timeout(400); // Timeout de 4 secunde
+    if (future.wait_for(timeout) == std::future_status::timeout) {
+        throw RPCException("Timeout while waiting for response from server");
     }
-    return response; 
+
+    return future.get();
 }
 
 SSL_CTX* BaseClient::createContext() {
