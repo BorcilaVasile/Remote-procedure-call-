@@ -6,6 +6,7 @@
 #include <random>
 #include <sstream>
 #include <fstream>
+#include <typeinfo> 
 #include <RPC/encryption.h>
 #include <RPC/server_socket.h>
 #include <RPC/procedure_format.pb.h>
@@ -37,6 +38,12 @@ private:
     std::string generateUniqueToken();
     void verifyRequestCredentials(std::string token, int uid);
     bool verifyAuthentificationCredentials(std::string username, std::string password);
+
+    using FunctionHandler = std::function<RPC::ReturnValue(std::vector<RPC::Argument>)>;
+    std::map<std::string, FunctionHandler> function_map;
+
+    int** convertFromMatrix(const RPC::Matrix& matrix);
+    RPC::Matrix convertToMatrix(int** array, int dimension);
     
 public: 
     Server(size_t pool_size=10,std::string ip="0.0.0.0", uint16_t port=8080);
@@ -47,6 +54,17 @@ public:
 
     void workerThread();
     void handleClient(Socket* client_socket, SSL* ssl,std::string token);
+
+
+    //procedures
+    RPC::ReturnValue sayHello(std::vector<RPC::Argument> args);
+    RPC::ReturnValue returnTypeName(std::vector<RPC::Argument> args);
+    RPC::ReturnValue multiplyMatrix(std::vector<RPC::Argument> args);
+    RPC::ReturnValue open(std::vector<RPC::Argument> args);
+    RPC::ReturnValue read(std::vector<RPC::Argument> args);
+    RPC::ReturnValue write(std::vector<RPC::Argument> args);
+    RPC::ReturnValue close(std::vector<RPC::Argument> args);
+
 
     RPC::Response processRequest(RPC::Request& request);
     void sendResponse(Socket* client_socket, RPC::Response& response,SSL* ssl);

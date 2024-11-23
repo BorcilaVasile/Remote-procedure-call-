@@ -16,7 +16,6 @@ BaseClient::BaseClient(){
         std::cerr<<"Client erorr: "<<e.what()<<std::endl;
         exit(EXIT_FAILURE);
     }
-    printf("\nThe client is ready to connect to the server\n"); 
 }
 
 BaseClient::~BaseClient(){
@@ -55,15 +54,12 @@ void BaseClient::authenticateUser(std::string username, std::string password, in
         auth_request.set_gid(gid);
         this->client_id=uid;
 
-        std::cout << "Sending authentication request...\n";
 
         RPC::Request request; 
         *request.mutable_auth_request() = auth_request;
 
         std::string message_request;
         request.auth_request().SerializeToString(&message_request);
-
-        std::cout<<"Authentification request: "<<message_request<<std::endl;
 
         sendRequest(request);
 
@@ -73,10 +69,9 @@ void BaseClient::authenticateUser(std::string username, std::string password, in
 
         errorHandler.handle(auth_response.status(), auth_response.message());
 
+        std::cout<<"Client authenticated succesfully to server"<<std::endl;
         this->token=auth_response.token().c_str();
 
-        this->token="wrong";
-        std::cout<<"Token-ul generat de server: "<<this->token<<std::endl;
     }catch(RPCException& e){
         std::cerr<<"RPC error at authentification: "<<e.what()<<std::endl;
         exit(-1);

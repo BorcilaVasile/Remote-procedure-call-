@@ -58,6 +58,9 @@ extern AuthResponseDefaultTypeInternal _AuthResponse_default_instance_;
 class FunctionRequest;
 struct FunctionRequestDefaultTypeInternal;
 extern FunctionRequestDefaultTypeInternal _FunctionRequest_default_instance_;
+class Matrix;
+struct MatrixDefaultTypeInternal;
+extern MatrixDefaultTypeInternal _Matrix_default_instance_;
 class Request;
 struct RequestDefaultTypeInternal;
 extern RequestDefaultTypeInternal _Request_default_instance_;
@@ -67,15 +70,20 @@ extern ResponseDefaultTypeInternal _Response_default_instance_;
 class ReturnValue;
 struct ReturnValueDefaultTypeInternal;
 extern ReturnValueDefaultTypeInternal _ReturnValue_default_instance_;
+class Row;
+struct RowDefaultTypeInternal;
+extern RowDefaultTypeInternal _Row_default_instance_;
 }  // namespace RPC
 PROTOBUF_NAMESPACE_OPEN
 template<> ::RPC::Argument* Arena::CreateMaybeMessage<::RPC::Argument>(Arena*);
 template<> ::RPC::AuthRequest* Arena::CreateMaybeMessage<::RPC::AuthRequest>(Arena*);
 template<> ::RPC::AuthResponse* Arena::CreateMaybeMessage<::RPC::AuthResponse>(Arena*);
 template<> ::RPC::FunctionRequest* Arena::CreateMaybeMessage<::RPC::FunctionRequest>(Arena*);
+template<> ::RPC::Matrix* Arena::CreateMaybeMessage<::RPC::Matrix>(Arena*);
 template<> ::RPC::Request* Arena::CreateMaybeMessage<::RPC::Request>(Arena*);
 template<> ::RPC::Response* Arena::CreateMaybeMessage<::RPC::Response>(Arena*);
 template<> ::RPC::ReturnValue* Arena::CreateMaybeMessage<::RPC::ReturnValue>(Arena*);
+template<> ::RPC::Row* Arena::CreateMaybeMessage<::RPC::Row>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace RPC {
 
@@ -159,6 +167,7 @@ class Argument final :
     kStringVal = 4,
     kBinaryVal = 5,
     kBoolVal = 6,
+    kMatrix = 7,
     VALUE_NOT_SET = 0,
   };
 
@@ -246,6 +255,7 @@ class Argument final :
     kStringValFieldNumber = 4,
     kBinaryValFieldNumber = 5,
     kBoolValFieldNumber = 6,
+    kMatrixFieldNumber = 7,
   };
   // string name = 1;
   void clear_name();
@@ -336,6 +346,24 @@ class Argument final :
   void _internal_set_bool_val(bool value);
   public:
 
+  // .RPC.Matrix matrix = 7;
+  bool has_matrix() const;
+  private:
+  bool _internal_has_matrix() const;
+  public:
+  void clear_matrix();
+  const ::RPC::Matrix& matrix() const;
+  PROTOBUF_NODISCARD ::RPC::Matrix* release_matrix();
+  ::RPC::Matrix* mutable_matrix();
+  void set_allocated_matrix(::RPC::Matrix* matrix);
+  private:
+  const ::RPC::Matrix& _internal_matrix() const;
+  ::RPC::Matrix* _internal_mutable_matrix();
+  public:
+  void unsafe_arena_set_allocated_matrix(
+      ::RPC::Matrix* matrix);
+  ::RPC::Matrix* unsafe_arena_release_matrix();
+
   void clear_value();
   ValueCase value_case() const;
   // @@protoc_insertion_point(class_scope:RPC.Argument)
@@ -346,6 +374,7 @@ class Argument final :
   void set_has_string_val();
   void set_has_binary_val();
   void set_has_bool_val();
+  void set_has_matrix();
 
   inline bool has_value() const;
   inline void clear_has_value();
@@ -363,10 +392,341 @@ class Argument final :
       ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr string_val_;
       ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr binary_val_;
       bool bool_val_;
+      ::RPC::Matrix* matrix_;
     } value_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     uint32_t _oneof_case_[1];
 
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_procedure_5fformat_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Row final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:RPC.Row) */ {
+ public:
+  inline Row() : Row(nullptr) {}
+  ~Row() override;
+  explicit PROTOBUF_CONSTEXPR Row(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Row(const Row& from);
+  Row(Row&& from) noexcept
+    : Row() {
+    *this = ::std::move(from);
+  }
+
+  inline Row& operator=(const Row& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Row& operator=(Row&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Row& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Row* internal_default_instance() {
+    return reinterpret_cast<const Row*>(
+               &_Row_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(Row& a, Row& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Row* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Row* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Row* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Row>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Row& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const Row& from) {
+    Row::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Row* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "RPC.Row";
+  }
+  protected:
+  explicit Row(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIntValFieldNumber = 1,
+  };
+  // repeated int32 int_val = 1;
+  int int_val_size() const;
+  private:
+  int _internal_int_val_size() const;
+  public:
+  void clear_int_val();
+  private:
+  int32_t _internal_int_val(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+      _internal_int_val() const;
+  void _internal_add_int_val(int32_t value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+      _internal_mutable_int_val();
+  public:
+  int32_t int_val(int index) const;
+  void set_int_val(int index, int32_t value);
+  void add_int_val(int32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+      int_val() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+      mutable_int_val();
+
+  // @@protoc_insertion_point(class_scope:RPC.Row)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t > int_val_;
+    mutable std::atomic<int> _int_val_cached_byte_size_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_procedure_5fformat_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Matrix final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:RPC.Matrix) */ {
+ public:
+  inline Matrix() : Matrix(nullptr) {}
+  ~Matrix() override;
+  explicit PROTOBUF_CONSTEXPR Matrix(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Matrix(const Matrix& from);
+  Matrix(Matrix&& from) noexcept
+    : Matrix() {
+    *this = ::std::move(from);
+  }
+
+  inline Matrix& operator=(const Matrix& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Matrix& operator=(Matrix&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Matrix& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Matrix* internal_default_instance() {
+    return reinterpret_cast<const Matrix*>(
+               &_Matrix_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(Matrix& a, Matrix& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Matrix* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Matrix* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Matrix* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Matrix>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Matrix& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const Matrix& from) {
+    Matrix::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Matrix* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "RPC.Matrix";
+  }
+  protected:
+  explicit Matrix(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRowsFieldNumber = 1,
+    kDimensionFieldNumber = 2,
+  };
+  // repeated .RPC.Row rows = 1;
+  int rows_size() const;
+  private:
+  int _internal_rows_size() const;
+  public:
+  void clear_rows();
+  ::RPC::Row* mutable_rows(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::RPC::Row >*
+      mutable_rows();
+  private:
+  const ::RPC::Row& _internal_rows(int index) const;
+  ::RPC::Row* _internal_add_rows();
+  public:
+  const ::RPC::Row& rows(int index) const;
+  ::RPC::Row* add_rows();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::RPC::Row >&
+      rows() const;
+
+  // int32 dimension = 2;
+  void clear_dimension();
+  int32_t dimension() const;
+  void set_dimension(int32_t value);
+  private:
+  int32_t _internal_dimension() const;
+  void _internal_set_dimension(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:RPC.Matrix)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::RPC::Row > rows_;
+    int32_t dimension_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_procedure_5fformat_2eproto;
@@ -417,11 +777,12 @@ class ReturnValue final :
     return *internal_default_instance();
   }
   enum ResultCase {
-    kIntResult = 3,
-    kDoubleResult = 4,
-    kStringResult = 5,
-    kBinaryResult = 6,
-    kBoolResult = 7,
+    kErrorResult = 4,
+    kDoubleResult = 5,
+    kStringResult = 6,
+    kBinaryResult = 7,
+    kBoolResult = 8,
+    kMatrixResult = 9,
     RESULT_NOT_SET = 0,
   };
 
@@ -430,7 +791,7 @@ class ReturnValue final :
                &_ReturnValue_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    3;
 
   friend void swap(ReturnValue& a, ReturnValue& b) {
     a.Swap(&b);
@@ -506,10 +867,12 @@ class ReturnValue final :
     kMessageFieldNumber = 2,
     kStatusFieldNumber = 1,
     kIntResultFieldNumber = 3,
-    kDoubleResultFieldNumber = 4,
-    kStringResultFieldNumber = 5,
-    kBinaryResultFieldNumber = 6,
-    kBoolResultFieldNumber = 7,
+    kErrorResultFieldNumber = 4,
+    kDoubleResultFieldNumber = 5,
+    kStringResultFieldNumber = 6,
+    kBinaryResultFieldNumber = 7,
+    kBoolResultFieldNumber = 8,
+    kMatrixResultFieldNumber = 9,
   };
   // string message = 2;
   void clear_message();
@@ -535,10 +898,6 @@ class ReturnValue final :
   public:
 
   // int32 int_result = 3;
-  bool has_int_result() const;
-  private:
-  bool _internal_has_int_result() const;
-  public:
   void clear_int_result();
   int32_t int_result() const;
   void set_int_result(int32_t value);
@@ -547,7 +906,20 @@ class ReturnValue final :
   void _internal_set_int_result(int32_t value);
   public:
 
-  // double double_result = 4;
+  // int32 error_result = 4;
+  bool has_error_result() const;
+  private:
+  bool _internal_has_error_result() const;
+  public:
+  void clear_error_result();
+  int32_t error_result() const;
+  void set_error_result(int32_t value);
+  private:
+  int32_t _internal_error_result() const;
+  void _internal_set_error_result(int32_t value);
+  public:
+
+  // double double_result = 5;
   bool has_double_result() const;
   private:
   bool _internal_has_double_result() const;
@@ -560,7 +932,7 @@ class ReturnValue final :
   void _internal_set_double_result(double value);
   public:
 
-  // string string_result = 5;
+  // string string_result = 6;
   bool has_string_result() const;
   private:
   bool _internal_has_string_result() const;
@@ -578,7 +950,7 @@ class ReturnValue final :
   std::string* _internal_mutable_string_result();
   public:
 
-  // bytes binary_result = 6;
+  // bytes binary_result = 7;
   bool has_binary_result() const;
   private:
   bool _internal_has_binary_result() const;
@@ -596,7 +968,7 @@ class ReturnValue final :
   std::string* _internal_mutable_binary_result();
   public:
 
-  // bool bool_result = 7;
+  // bool bool_result = 8;
   bool has_bool_result() const;
   private:
   bool _internal_has_bool_result() const;
@@ -609,16 +981,35 @@ class ReturnValue final :
   void _internal_set_bool_result(bool value);
   public:
 
+  // .RPC.Matrix matrix_result = 9;
+  bool has_matrix_result() const;
+  private:
+  bool _internal_has_matrix_result() const;
+  public:
+  void clear_matrix_result();
+  const ::RPC::Matrix& matrix_result() const;
+  PROTOBUF_NODISCARD ::RPC::Matrix* release_matrix_result();
+  ::RPC::Matrix* mutable_matrix_result();
+  void set_allocated_matrix_result(::RPC::Matrix* matrix_result);
+  private:
+  const ::RPC::Matrix& _internal_matrix_result() const;
+  ::RPC::Matrix* _internal_mutable_matrix_result();
+  public:
+  void unsafe_arena_set_allocated_matrix_result(
+      ::RPC::Matrix* matrix_result);
+  ::RPC::Matrix* unsafe_arena_release_matrix_result();
+
   void clear_result();
   ResultCase result_case() const;
   // @@protoc_insertion_point(class_scope:RPC.ReturnValue)
  private:
   class _Internal;
-  void set_has_int_result();
+  void set_has_error_result();
   void set_has_double_result();
   void set_has_string_result();
   void set_has_binary_result();
   void set_has_bool_result();
+  void set_has_matrix_result();
 
   inline bool has_result() const;
   inline void clear_has_result();
@@ -629,14 +1020,16 @@ class ReturnValue final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
     int status_;
+    int32_t int_result_;
     union ResultUnion {
       constexpr ResultUnion() : _constinit_{} {}
         ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-      int32_t int_result_;
+      int32_t error_result_;
       double double_result_;
       ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr string_result_;
       ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr binary_result_;
       bool bool_result_;
+      ::RPC::Matrix* matrix_result_;
     } result_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     uint32_t _oneof_case_[1];
@@ -701,7 +1094,7 @@ class Request final :
                &_Request_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(Request& a, Request& b) {
     a.Swap(&b);
@@ -891,7 +1284,7 @@ class FunctionRequest final :
                &_FunctionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(FunctionRequest& a, FunctionRequest& b) {
     a.Swap(&b);
@@ -1097,7 +1490,7 @@ class Response final :
                &_Response_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(Response& a, Response& b) {
     a.Swap(&b);
@@ -1287,7 +1680,7 @@ class AuthRequest final :
                &_AuthRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(AuthRequest& a, AuthRequest& b) {
     a.Swap(&b);
@@ -1478,7 +1871,7 @@ class AuthResponse final :
                &_AuthResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(AuthResponse& a, AuthResponse& b) {
     a.Swap(&b);
@@ -1948,6 +2341,80 @@ inline void Argument::set_bool_val(bool value) {
   // @@protoc_insertion_point(field_set:RPC.Argument.bool_val)
 }
 
+// .RPC.Matrix matrix = 7;
+inline bool Argument::_internal_has_matrix() const {
+  return value_case() == kMatrix;
+}
+inline bool Argument::has_matrix() const {
+  return _internal_has_matrix();
+}
+inline void Argument::set_has_matrix() {
+  _impl_._oneof_case_[0] = kMatrix;
+}
+inline void Argument::clear_matrix() {
+  if (_internal_has_matrix()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.value_.matrix_;
+    }
+    clear_has_value();
+  }
+}
+inline ::RPC::Matrix* Argument::release_matrix() {
+  // @@protoc_insertion_point(field_release:RPC.Argument.matrix)
+  if (_internal_has_matrix()) {
+    clear_has_value();
+    ::RPC::Matrix* temp = _impl_.value_.matrix_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.value_.matrix_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::RPC::Matrix& Argument::_internal_matrix() const {
+  return _internal_has_matrix()
+      ? *_impl_.value_.matrix_
+      : reinterpret_cast< ::RPC::Matrix&>(::RPC::_Matrix_default_instance_);
+}
+inline const ::RPC::Matrix& Argument::matrix() const {
+  // @@protoc_insertion_point(field_get:RPC.Argument.matrix)
+  return _internal_matrix();
+}
+inline ::RPC::Matrix* Argument::unsafe_arena_release_matrix() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:RPC.Argument.matrix)
+  if (_internal_has_matrix()) {
+    clear_has_value();
+    ::RPC::Matrix* temp = _impl_.value_.matrix_;
+    _impl_.value_.matrix_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Argument::unsafe_arena_set_allocated_matrix(::RPC::Matrix* matrix) {
+  clear_value();
+  if (matrix) {
+    set_has_matrix();
+    _impl_.value_.matrix_ = matrix;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:RPC.Argument.matrix)
+}
+inline ::RPC::Matrix* Argument::_internal_mutable_matrix() {
+  if (!_internal_has_matrix()) {
+    clear_value();
+    set_has_matrix();
+    _impl_.value_.matrix_ = CreateMaybeMessage< ::RPC::Matrix >(GetArenaForAllocation());
+  }
+  return _impl_.value_.matrix_;
+}
+inline ::RPC::Matrix* Argument::mutable_matrix() {
+  ::RPC::Matrix* _msg = _internal_mutable_matrix();
+  // @@protoc_insertion_point(field_mutable:RPC.Argument.matrix)
+  return _msg;
+}
+
 inline bool Argument::has_value() const {
   return value_case() != VALUE_NOT_SET;
 }
@@ -1957,6 +2424,121 @@ inline void Argument::clear_has_value() {
 inline Argument::ValueCase Argument::value_case() const {
   return Argument::ValueCase(_impl_._oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// Row
+
+// repeated int32 int_val = 1;
+inline int Row::_internal_int_val_size() const {
+  return _impl_.int_val_.size();
+}
+inline int Row::int_val_size() const {
+  return _internal_int_val_size();
+}
+inline void Row::clear_int_val() {
+  _impl_.int_val_.Clear();
+}
+inline int32_t Row::_internal_int_val(int index) const {
+  return _impl_.int_val_.Get(index);
+}
+inline int32_t Row::int_val(int index) const {
+  // @@protoc_insertion_point(field_get:RPC.Row.int_val)
+  return _internal_int_val(index);
+}
+inline void Row::set_int_val(int index, int32_t value) {
+  _impl_.int_val_.Set(index, value);
+  // @@protoc_insertion_point(field_set:RPC.Row.int_val)
+}
+inline void Row::_internal_add_int_val(int32_t value) {
+  _impl_.int_val_.Add(value);
+}
+inline void Row::add_int_val(int32_t value) {
+  _internal_add_int_val(value);
+  // @@protoc_insertion_point(field_add:RPC.Row.int_val)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+Row::_internal_int_val() const {
+  return _impl_.int_val_;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >&
+Row::int_val() const {
+  // @@protoc_insertion_point(field_list:RPC.Row.int_val)
+  return _internal_int_val();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+Row::_internal_mutable_int_val() {
+  return &_impl_.int_val_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< int32_t >*
+Row::mutable_int_val() {
+  // @@protoc_insertion_point(field_mutable_list:RPC.Row.int_val)
+  return _internal_mutable_int_val();
+}
+
+// -------------------------------------------------------------------
+
+// Matrix
+
+// repeated .RPC.Row rows = 1;
+inline int Matrix::_internal_rows_size() const {
+  return _impl_.rows_.size();
+}
+inline int Matrix::rows_size() const {
+  return _internal_rows_size();
+}
+inline void Matrix::clear_rows() {
+  _impl_.rows_.Clear();
+}
+inline ::RPC::Row* Matrix::mutable_rows(int index) {
+  // @@protoc_insertion_point(field_mutable:RPC.Matrix.rows)
+  return _impl_.rows_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::RPC::Row >*
+Matrix::mutable_rows() {
+  // @@protoc_insertion_point(field_mutable_list:RPC.Matrix.rows)
+  return &_impl_.rows_;
+}
+inline const ::RPC::Row& Matrix::_internal_rows(int index) const {
+  return _impl_.rows_.Get(index);
+}
+inline const ::RPC::Row& Matrix::rows(int index) const {
+  // @@protoc_insertion_point(field_get:RPC.Matrix.rows)
+  return _internal_rows(index);
+}
+inline ::RPC::Row* Matrix::_internal_add_rows() {
+  return _impl_.rows_.Add();
+}
+inline ::RPC::Row* Matrix::add_rows() {
+  ::RPC::Row* _add = _internal_add_rows();
+  // @@protoc_insertion_point(field_add:RPC.Matrix.rows)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::RPC::Row >&
+Matrix::rows() const {
+  // @@protoc_insertion_point(field_list:RPC.Matrix.rows)
+  return _impl_.rows_;
+}
+
+// int32 dimension = 2;
+inline void Matrix::clear_dimension() {
+  _impl_.dimension_ = 0;
+}
+inline int32_t Matrix::_internal_dimension() const {
+  return _impl_.dimension_;
+}
+inline int32_t Matrix::dimension() const {
+  // @@protoc_insertion_point(field_get:RPC.Matrix.dimension)
+  return _internal_dimension();
+}
+inline void Matrix::_internal_set_dimension(int32_t value) {
+  
+  _impl_.dimension_ = value;
+}
+inline void Matrix::set_dimension(int32_t value) {
+  _internal_set_dimension(value);
+  // @@protoc_insertion_point(field_set:RPC.Matrix.dimension)
+}
+
 // -------------------------------------------------------------------
 
 // ReturnValue
@@ -2032,44 +2614,64 @@ inline void ReturnValue::set_allocated_message(std::string* message) {
 }
 
 // int32 int_result = 3;
-inline bool ReturnValue::_internal_has_int_result() const {
-  return result_case() == kIntResult;
-}
-inline bool ReturnValue::has_int_result() const {
-  return _internal_has_int_result();
-}
-inline void ReturnValue::set_has_int_result() {
-  _impl_._oneof_case_[0] = kIntResult;
-}
 inline void ReturnValue::clear_int_result() {
-  if (_internal_has_int_result()) {
-    _impl_.result_.int_result_ = 0;
-    clear_has_result();
-  }
+  _impl_.int_result_ = 0;
 }
 inline int32_t ReturnValue::_internal_int_result() const {
-  if (_internal_has_int_result()) {
-    return _impl_.result_.int_result_;
-  }
-  return 0;
-}
-inline void ReturnValue::_internal_set_int_result(int32_t value) {
-  if (!_internal_has_int_result()) {
-    clear_result();
-    set_has_int_result();
-  }
-  _impl_.result_.int_result_ = value;
+  return _impl_.int_result_;
 }
 inline int32_t ReturnValue::int_result() const {
   // @@protoc_insertion_point(field_get:RPC.ReturnValue.int_result)
   return _internal_int_result();
+}
+inline void ReturnValue::_internal_set_int_result(int32_t value) {
+  
+  _impl_.int_result_ = value;
 }
 inline void ReturnValue::set_int_result(int32_t value) {
   _internal_set_int_result(value);
   // @@protoc_insertion_point(field_set:RPC.ReturnValue.int_result)
 }
 
-// double double_result = 4;
+// int32 error_result = 4;
+inline bool ReturnValue::_internal_has_error_result() const {
+  return result_case() == kErrorResult;
+}
+inline bool ReturnValue::has_error_result() const {
+  return _internal_has_error_result();
+}
+inline void ReturnValue::set_has_error_result() {
+  _impl_._oneof_case_[0] = kErrorResult;
+}
+inline void ReturnValue::clear_error_result() {
+  if (_internal_has_error_result()) {
+    _impl_.result_.error_result_ = 0;
+    clear_has_result();
+  }
+}
+inline int32_t ReturnValue::_internal_error_result() const {
+  if (_internal_has_error_result()) {
+    return _impl_.result_.error_result_;
+  }
+  return 0;
+}
+inline void ReturnValue::_internal_set_error_result(int32_t value) {
+  if (!_internal_has_error_result()) {
+    clear_result();
+    set_has_error_result();
+  }
+  _impl_.result_.error_result_ = value;
+}
+inline int32_t ReturnValue::error_result() const {
+  // @@protoc_insertion_point(field_get:RPC.ReturnValue.error_result)
+  return _internal_error_result();
+}
+inline void ReturnValue::set_error_result(int32_t value) {
+  _internal_set_error_result(value);
+  // @@protoc_insertion_point(field_set:RPC.ReturnValue.error_result)
+}
+
+// double double_result = 5;
 inline bool ReturnValue::_internal_has_double_result() const {
   return result_case() == kDoubleResult;
 }
@@ -2107,7 +2709,7 @@ inline void ReturnValue::set_double_result(double value) {
   // @@protoc_insertion_point(field_set:RPC.ReturnValue.double_result)
 }
 
-// string string_result = 5;
+// string string_result = 6;
 inline bool ReturnValue::_internal_has_string_result() const {
   return result_case() == kStringResult;
 }
@@ -2184,7 +2786,7 @@ inline void ReturnValue::set_allocated_string_result(std::string* string_result)
   // @@protoc_insertion_point(field_set_allocated:RPC.ReturnValue.string_result)
 }
 
-// bytes binary_result = 6;
+// bytes binary_result = 7;
 inline bool ReturnValue::_internal_has_binary_result() const {
   return result_case() == kBinaryResult;
 }
@@ -2261,7 +2863,7 @@ inline void ReturnValue::set_allocated_binary_result(std::string* binary_result)
   // @@protoc_insertion_point(field_set_allocated:RPC.ReturnValue.binary_result)
 }
 
-// bool bool_result = 7;
+// bool bool_result = 8;
 inline bool ReturnValue::_internal_has_bool_result() const {
   return result_case() == kBoolResult;
 }
@@ -2297,6 +2899,80 @@ inline bool ReturnValue::bool_result() const {
 inline void ReturnValue::set_bool_result(bool value) {
   _internal_set_bool_result(value);
   // @@protoc_insertion_point(field_set:RPC.ReturnValue.bool_result)
+}
+
+// .RPC.Matrix matrix_result = 9;
+inline bool ReturnValue::_internal_has_matrix_result() const {
+  return result_case() == kMatrixResult;
+}
+inline bool ReturnValue::has_matrix_result() const {
+  return _internal_has_matrix_result();
+}
+inline void ReturnValue::set_has_matrix_result() {
+  _impl_._oneof_case_[0] = kMatrixResult;
+}
+inline void ReturnValue::clear_matrix_result() {
+  if (_internal_has_matrix_result()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.result_.matrix_result_;
+    }
+    clear_has_result();
+  }
+}
+inline ::RPC::Matrix* ReturnValue::release_matrix_result() {
+  // @@protoc_insertion_point(field_release:RPC.ReturnValue.matrix_result)
+  if (_internal_has_matrix_result()) {
+    clear_has_result();
+    ::RPC::Matrix* temp = _impl_.result_.matrix_result_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.result_.matrix_result_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::RPC::Matrix& ReturnValue::_internal_matrix_result() const {
+  return _internal_has_matrix_result()
+      ? *_impl_.result_.matrix_result_
+      : reinterpret_cast< ::RPC::Matrix&>(::RPC::_Matrix_default_instance_);
+}
+inline const ::RPC::Matrix& ReturnValue::matrix_result() const {
+  // @@protoc_insertion_point(field_get:RPC.ReturnValue.matrix_result)
+  return _internal_matrix_result();
+}
+inline ::RPC::Matrix* ReturnValue::unsafe_arena_release_matrix_result() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:RPC.ReturnValue.matrix_result)
+  if (_internal_has_matrix_result()) {
+    clear_has_result();
+    ::RPC::Matrix* temp = _impl_.result_.matrix_result_;
+    _impl_.result_.matrix_result_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ReturnValue::unsafe_arena_set_allocated_matrix_result(::RPC::Matrix* matrix_result) {
+  clear_result();
+  if (matrix_result) {
+    set_has_matrix_result();
+    _impl_.result_.matrix_result_ = matrix_result;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:RPC.ReturnValue.matrix_result)
+}
+inline ::RPC::Matrix* ReturnValue::_internal_mutable_matrix_result() {
+  if (!_internal_has_matrix_result()) {
+    clear_result();
+    set_has_matrix_result();
+    _impl_.result_.matrix_result_ = CreateMaybeMessage< ::RPC::Matrix >(GetArenaForAllocation());
+  }
+  return _impl_.result_.matrix_result_;
+}
+inline ::RPC::Matrix* ReturnValue::mutable_matrix_result() {
+  ::RPC::Matrix* _msg = _internal_mutable_matrix_result();
+  // @@protoc_insertion_point(field_mutable:RPC.ReturnValue.matrix_result)
+  return _msg;
 }
 
 inline bool ReturnValue::has_result() const {
@@ -3085,6 +3761,10 @@ inline void AuthResponse::set_session_expiry(int64_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

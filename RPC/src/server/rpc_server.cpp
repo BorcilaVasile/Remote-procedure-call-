@@ -19,6 +19,9 @@ Server::Server(size_t pool_size,std::string ip, uint16_t port){
         //create the pool thread
         for(int i=0;i<pool_size;i++)
             thread_pool.emplace_back(&Server::workerThread,this);
+
+
+
     }catch(const RPCException& e){
         std::cerr<<"RPC server error: "<<e.what()<<std::endl;
         cleanup();
@@ -29,6 +32,13 @@ Server::Server(size_t pool_size,std::string ip, uint16_t port){
         cleanup(); 
         exit(EXIT_FAILURE);
     }
+    //mapping functions to their names
+    function_map["sayHello"] = [this](std::vector<RPC::Argument> args) { return sayHello(args); };
+    function_map["returnTypeName"]=[this](std::vector<RPC::Argument> args){ return returnTypeName(args);};
+    function_map["multiplyMatrix"]=[this](std::vector<RPC::Argument> args){return multiplyMatrix(args);};
+    function_map["open"]=[this](std::vector<RPC::Argument> args){ return open(args);};
+    function_map["close"]=[this](std::vector<RPC::Argument> args){ return close(args);};
+    function_map["read"]=[this](std::vector<RPC::Argument> args){ return read(args);};
 }
 
 void Server::loadClients(std::string filename){
@@ -315,13 +325,15 @@ RPC::Response Server::processRequest(RPC::Request& request){
         verifyRequestCredentials(request.function_request().token(), request.function_request().client_id());
 
         std::cout<<std::endl<<"Function name: "<<request.function_request().function_name()<<std::endl;
-        if(request.function_request().function_name()=="sayHello"){
-            std::string argument_value=request.function_request().args(0).string_val();
-
-            //configurare mesaj de raspuns
-            return_value->set_status(RPC::Status::OK);
-            return_value->set_string_result("Hello "+argument_value);
-        } else {
+        
+        auto it=function_map.find(request.function_request().function_name());
+        if(it!=function_map.end())
+        {
+            //i make a copy of the arguments in args because i can't use just what i have from protobuffers
+            std::vector<RPC::Argument> args(request.function_request().args().begin(), request.function_request().args().end());
+            *return_value = it->second(args);
+        }
+        else {
             if(request.function_request().function_name()=="disconnect")
             {   
                 return_value->set_status(RPC::Status::OK);

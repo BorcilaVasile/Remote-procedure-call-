@@ -5,6 +5,7 @@
 #include <iostream> 
 #include <string> 
 #include <stdexcept>
+#include <errno.h>
 #include <RPC/procedure_format.pb.h>
 
 

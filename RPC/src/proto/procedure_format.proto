@@ -21,19 +21,32 @@ message Argument {
     string string_val = 4;
     bytes binary_val = 5;
     bool bool_val = 6;
+    Matrix matrix=7;
   }
 }
+
+message Row{
+  repeated int32 int_val=1;
+}
+
+message Matrix{
+  repeated Row rows=1;
+  int32 dimension=2;
+}
+
 
 // Mesaj pentru rezultat - Returnează date sau erori către client
 message ReturnValue {
   Status status = 1;              // Statusul apelului RPC
   string message = 2;             // Mesaj informativ (de ex., detalii despre eroare)
+  int32 int_result = 3;
   oneof result {                  // Valoarea returnată, de tip dinamic
-    int32 int_result = 3;
-    double double_result = 4;
-    string string_result = 5;
-    bytes binary_result = 6;
-    bool bool_result = 7;
+    int32 error_result =  4;
+    double double_result = 5;
+    string string_result = 6;
+    bytes binary_result = 7;
+    bool bool_result = 8;
+    Matrix matrix_result=9;
   }
 }
 

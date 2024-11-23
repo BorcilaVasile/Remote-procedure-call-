@@ -27,6 +27,7 @@ file(GLOB_RECURSE SOURCES
     src/client/base_client_async.cpp 
     src/client/rpc_client_async.cpp
     src/common/encryption.cpp 
+    src/server/server_functions.cpp
     ${PROTO_SRCS}
 )
 

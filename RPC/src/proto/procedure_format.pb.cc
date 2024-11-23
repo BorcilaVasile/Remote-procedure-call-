@@ -36,10 +36,39 @@ struct ArgumentDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ArgumentDefaultTypeInternal _Argument_default_instance_;
+PROTOBUF_CONSTEXPR Row::Row(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.int_val_)*/{}
+  , /*decltype(_impl_._int_val_cached_byte_size_)*/{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct RowDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RowDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RowDefaultTypeInternal() {}
+  union {
+    Row _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RowDefaultTypeInternal _Row_default_instance_;
+PROTOBUF_CONSTEXPR Matrix::Matrix(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.rows_)*/{}
+  , /*decltype(_impl_.dimension_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct MatrixDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR MatrixDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~MatrixDefaultTypeInternal() {}
+  union {
+    Matrix _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MatrixDefaultTypeInternal _Matrix_default_instance_;
 PROTOBUF_CONSTEXPR ReturnValue::ReturnValue(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.int_result_)*/0
   , /*decltype(_impl_.result_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
@@ -129,7 +158,7 @@ struct AuthResponseDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthResponseDefaultTypeInternal _AuthResponse_default_instance_;
 }  // namespace RPC
-static ::_pb::Metadata file_level_metadata_procedure_5fformat_2eproto[7];
+static ::_pb::Metadata file_level_metadata_procedure_5fformat_2eproto[9];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_procedure_5fformat_2eproto[1];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_procedure_5fformat_2eproto = nullptr;
 
@@ -146,7 +175,23 @@ const uint32_t TableStruct_procedure_5fformat_2eproto::offsets[] PROTOBUF_SECTIO
   ::_pbi::kInvalidFieldOffsetTag,
   ::_pbi::kInvalidFieldOffsetTag,
   ::_pbi::kInvalidFieldOffsetTag,
+  ::_pbi::kInvalidFieldOffsetTag,
   PROTOBUF_FIELD_OFFSET(::RPC::Argument, _impl_.value_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::RPC::Row, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::RPC::Row, _impl_.int_val_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::RPC::Matrix, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::RPC::Matrix, _impl_.rows_),
+  PROTOBUF_FIELD_OFFSET(::RPC::Matrix, _impl_.dimension_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::RPC::ReturnValue, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -155,6 +200,8 @@ const uint32_t TableStruct_procedure_5fformat_2eproto::offsets[] PROTOBUF_SECTIO
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::RPC::ReturnValue, _impl_.status_),
   PROTOBUF_FIELD_OFFSET(::RPC::ReturnValue, _impl_.message_),
+  PROTOBUF_FIELD_OFFSET(::RPC::ReturnValue, _impl_.int_result_),
+  ::_pbi::kInvalidFieldOffsetTag,
   ::_pbi::kInvalidFieldOffsetTag,
   ::_pbi::kInvalidFieldOffsetTag,
   ::_pbi::kInvalidFieldOffsetTag,
@@ -212,16 +259,20 @@ const uint32_t TableStruct_procedure_5fformat_2eproto::offsets[] PROTOBUF_SECTIO
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::RPC::Argument)},
-  { 13, -1, -1, sizeof(::RPC::ReturnValue)},
-  { 27, -1, -1, sizeof(::RPC::Request)},
-  { 36, -1, -1, sizeof(::RPC::FunctionRequest)},
-  { 46, -1, -1, sizeof(::RPC::Response)},
-  { 55, -1, -1, sizeof(::RPC::AuthRequest)},
-  { 65, -1, -1, sizeof(::RPC::AuthResponse)},
+  { 14, -1, -1, sizeof(::RPC::Row)},
+  { 21, -1, -1, sizeof(::RPC::Matrix)},
+  { 29, -1, -1, sizeof(::RPC::ReturnValue)},
+  { 45, -1, -1, sizeof(::RPC::Request)},
+  { 54, -1, -1, sizeof(::RPC::FunctionRequest)},
+  { 64, -1, -1, sizeof(::RPC::Response)},
+  { 73, -1, -1, sizeof(::RPC::AuthRequest)},
+  { 83, -1, -1, sizeof(::RPC::AuthResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::RPC::_Argument_default_instance_._instance,
+  &::RPC::_Row_default_instance_._instance,
+  &::RPC::_Matrix_default_instance_._instance,
   &::RPC::_ReturnValue_default_instance_._instance,
   &::RPC::_Request_default_instance_._instance,
   &::RPC::_FunctionRequest_default_instance_._instance,
@@ -231,40 +282,45 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 
 const char descriptor_table_protodef_procedure_5fformat_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\026procedure_format.proto\022\003RPC\"\212\001\n\010Argume"
+  "\n\026procedure_format.proto\022\003RPC\"\251\001\n\010Argume"
   "nt\022\014\n\004name\030\001 \001(\t\022\021\n\007int_val\030\002 \001(\005H\000\022\024\n\nd"
   "ouble_val\030\003 \001(\001H\000\022\024\n\nstring_val\030\004 \001(\tH\000\022"
   "\024\n\nbinary_val\030\005 \001(\014H\000\022\022\n\010bool_val\030\006 \001(\010H"
-  "\000B\007\n\005value\"\275\001\n\013ReturnValue\022\033\n\006status\030\001 \001"
-  "(\0162\013.RPC.Status\022\017\n\007message\030\002 \001(\t\022\024\n\nint_"
-  "result\030\003 \001(\005H\000\022\027\n\rdouble_result\030\004 \001(\001H\000\022"
-  "\027\n\rstring_result\030\005 \001(\tH\000\022\027\n\rbinary_resul"
-  "t\030\006 \001(\014H\000\022\025\n\013bool_result\030\007 \001(\010H\000B\010\n\006resu"
-  "lt\"u\n\007Request\022(\n\014auth_request\030\001 \001(\0132\020.RP"
-  "C.AuthRequestH\000\0220\n\020function_request\030\002 \001("
-  "\0132\024.RPC.FunctionRequestH\000B\016\n\014request_typ"
-  "e\"g\n\017FunctionRequest\022\025\n\rfunction_name\030\001 "
-  "\001(\t\022\033\n\004args\030\002 \003(\0132\r.RPC.Argument\022\021\n\tclie"
-  "nt_id\030\003 \001(\005\022\r\n\005token\030\004 \001(\t\"q\n\010Response\022("
-  "\n\014return_value\030\001 \001(\0132\020.RPC.ReturnValueH\000"
-  "\022*\n\rauth_response\030\002 \001(\0132\021.RPC.AuthRespon"
-  "seH\000B\017\n\rresponse_type\"Q\n\013AuthRequest\022\021\n\t"
-  "client_id\030\001 \001(\t\022\025\n\rclient_secret\030\002 \001(\t\022\013"
-  "\n\003uid\030\003 \001(\005\022\013\n\003gid\030\004 \001(\005\"c\n\014AuthResponse"
-  "\022\033\n\006status\030\001 \001(\0162\013.RPC.Status\022\r\n\005token\030\002"
-  " \001(\t\022\017\n\007message\030\003 \001(\t\022\026\n\016session_expiry\030"
-  "\004 \001(\003*k\n\006Status\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\022\024\n\020IN"
-  "VALID_ARGUMENT\020\002\022\r\n\tNOT_FOUND\020\003\022\025\n\021PERMI"
-  "SSION_DENIED\020\004\022\022\n\016INTERNAL_ERROR\020\0052n\n\nRP"
-  "CService\0223\n\014Authenticate\022\020.RPC.AuthReque"
-  "st\032\021.RPC.AuthResponse\022+\n\014CallFunction\022\014."
-  "RPC.Request\032\r.RPC.Responseb\006proto3"
+  "\000\022\035\n\006matrix\030\007 \001(\0132\013.RPC.MatrixH\000B\007\n\005valu"
+  "e\"\026\n\003Row\022\017\n\007int_val\030\001 \003(\005\"3\n\006Matrix\022\026\n\004r"
+  "ows\030\001 \003(\0132\010.RPC.Row\022\021\n\tdimension\030\002 \001(\005\"\371"
+  "\001\n\013ReturnValue\022\033\n\006status\030\001 \001(\0162\013.RPC.Sta"
+  "tus\022\017\n\007message\030\002 \001(\t\022\022\n\nint_result\030\003 \001(\005"
+  "\022\026\n\014error_result\030\004 \001(\005H\000\022\027\n\rdouble_resul"
+  "t\030\005 \001(\001H\000\022\027\n\rstring_result\030\006 \001(\tH\000\022\027\n\rbi"
+  "nary_result\030\007 \001(\014H\000\022\025\n\013bool_result\030\010 \001(\010"
+  "H\000\022$\n\rmatrix_result\030\t \001(\0132\013.RPC.MatrixH\000"
+  "B\010\n\006result\"u\n\007Request\022(\n\014auth_request\030\001 "
+  "\001(\0132\020.RPC.AuthRequestH\000\0220\n\020function_requ"
+  "est\030\002 \001(\0132\024.RPC.FunctionRequestH\000B\016\n\014req"
+  "uest_type\"g\n\017FunctionRequest\022\025\n\rfunction"
+  "_name\030\001 \001(\t\022\033\n\004args\030\002 \003(\0132\r.RPC.Argument"
+  "\022\021\n\tclient_id\030\003 \001(\005\022\r\n\005token\030\004 \001(\t\"q\n\010Re"
+  "sponse\022(\n\014return_value\030\001 \001(\0132\020.RPC.Retur"
+  "nValueH\000\022*\n\rauth_response\030\002 \001(\0132\021.RPC.Au"
+  "thResponseH\000B\017\n\rresponse_type\"Q\n\013AuthReq"
+  "uest\022\021\n\tclient_id\030\001 \001(\t\022\025\n\rclient_secret"
+  "\030\002 \001(\t\022\013\n\003uid\030\003 \001(\005\022\013\n\003gid\030\004 \001(\005\"c\n\014Auth"
+  "Response\022\033\n\006status\030\001 \001(\0162\013.RPC.Status\022\r\n"
+  "\005token\030\002 \001(\t\022\017\n\007message\030\003 \001(\t\022\026\n\016session"
+  "_expiry\030\004 \001(\003*k\n\006Status\022\006\n\002OK\020\000\022\t\n\005ERROR"
+  "\020\001\022\024\n\020INVALID_ARGUMENT\020\002\022\r\n\tNOT_FOUND\020\003\022"
+  "\025\n\021PERMISSION_DENIED\020\004\022\022\n\016INTERNAL_ERROR"
+  "\020\0052n\n\nRPCService\0223\n\014Authenticate\022\020.RPC.A"
+  "uthRequest\032\021.RPC.AuthResponse\022+\n\014CallFun"
+  "ction\022\014.RPC.Request\032\r.RPC.Responseb\006prot"
+  "o3"
   ;
 static ::_pbi::once_flag descriptor_table_procedure_5fformat_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_procedure_5fformat_2eproto = {
-    false, false, 1114, descriptor_table_protodef_procedure_5fformat_2eproto,
+    false, false, 1282, descriptor_table_protodef_procedure_5fformat_2eproto,
     "procedure_format.proto",
-    &descriptor_table_procedure_5fformat_2eproto_once, nullptr, 0, 7,
+    &descriptor_table_procedure_5fformat_2eproto_once, nullptr, 0, 9,
     schemas, file_default_instances, TableStruct_procedure_5fformat_2eproto::offsets,
     file_level_metadata_procedure_5fformat_2eproto, file_level_enum_descriptors_procedure_5fformat_2eproto,
     file_level_service_descriptors_procedure_5fformat_2eproto,
@@ -299,8 +355,28 @@ bool Status_IsValid(int value) {
 
 class Argument::_Internal {
  public:
+  static const ::RPC::Matrix& matrix(const Argument* msg);
 };
 
+const ::RPC::Matrix&
+Argument::_Internal::matrix(const Argument* msg) {
+  return *msg->_impl_.value_.matrix_;
+}
+void Argument::set_allocated_matrix(::RPC::Matrix* matrix) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_value();
+  if (matrix) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(matrix);
+    if (message_arena != submessage_arena) {
+      matrix = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, matrix, submessage_arena);
+    }
+    set_has_matrix();
+    _impl_.value_.matrix_ = matrix;
+  }
+  // @@protoc_insertion_point(field_set_allocated:RPC.Argument.matrix)
+}
 Argument::Argument(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -345,6 +421,11 @@ Argument::Argument(const Argument& from)
     }
     case kBoolVal: {
       _this->_internal_set_bool_val(from._internal_bool_val());
+      break;
+    }
+    case kMatrix: {
+      _this->_internal_mutable_matrix()->::RPC::Matrix::MergeFrom(
+          from._internal_matrix());
       break;
     }
     case VALUE_NOT_SET: {
@@ -413,6 +494,12 @@ void Argument::clear_value() {
     }
     case kBoolVal: {
       // No need to clear
+      break;
+    }
+    case kMatrix: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.value_.matrix_;
+      }
       break;
     }
     case VALUE_NOT_SET: {
@@ -493,6 +580,14 @@ const char* Argument::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
         } else
           goto handle_unusual;
         continue;
+      // .RPC.Matrix matrix = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_matrix(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -566,6 +661,13 @@ uint8_t* Argument::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_bool_val(), target);
   }
 
+  // .RPC.Matrix matrix = 7;
+  if (_internal_has_matrix()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(7, _Internal::matrix(this),
+        _Internal::matrix(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -619,6 +721,13 @@ size_t Argument::ByteSizeLong() const {
       total_size += 1 + 1;
       break;
     }
+    // .RPC.Matrix matrix = 7;
+    case kMatrix: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.value_.matrix_);
+      break;
+    }
     case VALUE_NOT_SET: {
       break;
     }
@@ -665,6 +774,11 @@ void Argument::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
       _this->_internal_set_bool_val(from._internal_bool_val());
       break;
     }
+    case kMatrix: {
+      _this->_internal_mutable_matrix()->::RPC::Matrix::MergeFrom(
+          from._internal_matrix());
+      break;
+    }
     case VALUE_NOT_SET: {
       break;
     }
@@ -704,10 +818,435 @@ void Argument::InternalSwap(Argument* other) {
 
 // ===================================================================
 
-class ReturnValue::_Internal {
+class Row::_Internal {
  public:
 };
 
+Row::Row(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:RPC.Row)
+}
+Row::Row(const Row& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Row* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.int_val_){from._impl_.int_val_}
+    , /*decltype(_impl_._int_val_cached_byte_size_)*/{0}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:RPC.Row)
+}
+
+inline void Row::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.int_val_){arena}
+    , /*decltype(_impl_._int_val_cached_byte_size_)*/{0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+Row::~Row() {
+  // @@protoc_insertion_point(destructor:RPC.Row)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Row::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.int_val_.~RepeatedField();
+}
+
+void Row::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void Row::Clear() {
+// @@protoc_insertion_point(message_clear_start:RPC.Row)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.int_val_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Row::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated int32 int_val = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt32Parser(_internal_mutable_int_val(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 8) {
+          _internal_add_int_val(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Row::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RPC.Row)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated int32 int_val = 1;
+  {
+    int byte_size = _impl_._int_val_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteInt32Packed(
+          1, _internal_int_val(), byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RPC.Row)
+  return target;
+}
+
+size_t Row::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RPC.Row)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated int32 int_val = 1;
+  {
+    size_t data_size = ::_pbi::WireFormatLite::
+      Int32Size(this->_impl_.int_val_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._int_val_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Row::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    Row::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Row::GetClassData() const { return &_class_data_; }
+
+
+void Row::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Row*>(&to_msg);
+  auto& from = static_cast<const Row&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:RPC.Row)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.int_val_.MergeFrom(from._impl_.int_val_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Row::CopyFrom(const Row& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RPC.Row)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Row::IsInitialized() const {
+  return true;
+}
+
+void Row::InternalSwap(Row* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.int_val_.InternalSwap(&other->_impl_.int_val_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Row::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
+      file_level_metadata_procedure_5fformat_2eproto[1]);
+}
+
+// ===================================================================
+
+class Matrix::_Internal {
+ public:
+};
+
+Matrix::Matrix(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:RPC.Matrix)
+}
+Matrix::Matrix(const Matrix& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Matrix* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.rows_){from._impl_.rows_}
+    , decltype(_impl_.dimension_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.dimension_ = from._impl_.dimension_;
+  // @@protoc_insertion_point(copy_constructor:RPC.Matrix)
+}
+
+inline void Matrix::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.rows_){arena}
+    , decltype(_impl_.dimension_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+Matrix::~Matrix() {
+  // @@protoc_insertion_point(destructor:RPC.Matrix)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Matrix::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.rows_.~RepeatedPtrField();
+}
+
+void Matrix::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void Matrix::Clear() {
+// @@protoc_insertion_point(message_clear_start:RPC.Matrix)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.rows_.Clear();
+  _impl_.dimension_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Matrix::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .RPC.Row rows = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_rows(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 dimension = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _impl_.dimension_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* Matrix::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:RPC.Matrix)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .RPC.Row rows = 1;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_rows_size()); i < n; i++) {
+    const auto& repfield = this->_internal_rows(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // int32 dimension = 2;
+  if (this->_internal_dimension() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_dimension(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:RPC.Matrix)
+  return target;
+}
+
+size_t Matrix::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:RPC.Matrix)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .RPC.Row rows = 1;
+  total_size += 1UL * this->_internal_rows_size();
+  for (const auto& msg : this->_impl_.rows_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // int32 dimension = 2;
+  if (this->_internal_dimension() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_dimension());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Matrix::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    Matrix::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Matrix::GetClassData() const { return &_class_data_; }
+
+
+void Matrix::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Matrix*>(&to_msg);
+  auto& from = static_cast<const Matrix&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:RPC.Matrix)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.rows_.MergeFrom(from._impl_.rows_);
+  if (from._internal_dimension() != 0) {
+    _this->_internal_set_dimension(from._internal_dimension());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Matrix::CopyFrom(const Matrix& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:RPC.Matrix)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Matrix::IsInitialized() const {
+  return true;
+}
+
+void Matrix::InternalSwap(Matrix* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.rows_.InternalSwap(&other->_impl_.rows_);
+  swap(_impl_.dimension_, other->_impl_.dimension_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Matrix::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
+      file_level_metadata_procedure_5fformat_2eproto[2]);
+}
+
+// ===================================================================
+
+class ReturnValue::_Internal {
+ public:
+  static const ::RPC::Matrix& matrix_result(const ReturnValue* msg);
+};
+
+const ::RPC::Matrix&
+ReturnValue::_Internal::matrix_result(const ReturnValue* msg) {
+  return *msg->_impl_.result_.matrix_result_;
+}
+void ReturnValue::set_allocated_matrix_result(::RPC::Matrix* matrix_result) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_result();
+  if (matrix_result) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(matrix_result);
+    if (message_arena != submessage_arena) {
+      matrix_result = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, matrix_result, submessage_arena);
+    }
+    set_has_matrix_result();
+    _impl_.result_.matrix_result_ = matrix_result;
+  }
+  // @@protoc_insertion_point(field_set_allocated:RPC.ReturnValue.matrix_result)
+}
 ReturnValue::ReturnValue(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -720,6 +1259,7 @@ ReturnValue::ReturnValue(const ReturnValue& from)
   new (&_impl_) Impl_{
       decltype(_impl_.message_){}
     , decltype(_impl_.status_){}
+    , decltype(_impl_.int_result_){}
     , decltype(_impl_.result_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_._oneof_case_)*/{}};
@@ -733,11 +1273,13 @@ ReturnValue::ReturnValue(const ReturnValue& from)
     _this->_impl_.message_.Set(from._internal_message(), 
       _this->GetArenaForAllocation());
   }
-  _this->_impl_.status_ = from._impl_.status_;
+  ::memcpy(&_impl_.status_, &from._impl_.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.int_result_) -
+    reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.int_result_));
   clear_has_result();
   switch (from.result_case()) {
-    case kIntResult: {
-      _this->_internal_set_int_result(from._internal_int_result());
+    case kErrorResult: {
+      _this->_internal_set_error_result(from._internal_error_result());
       break;
     }
     case kDoubleResult: {
@@ -756,6 +1298,11 @@ ReturnValue::ReturnValue(const ReturnValue& from)
       _this->_internal_set_bool_result(from._internal_bool_result());
       break;
     }
+    case kMatrixResult: {
+      _this->_internal_mutable_matrix_result()->::RPC::Matrix::MergeFrom(
+          from._internal_matrix_result());
+      break;
+    }
     case RESULT_NOT_SET: {
       break;
     }
@@ -770,6 +1317,7 @@ inline void ReturnValue::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_.message_){}
     , decltype(_impl_.status_){0}
+    , decltype(_impl_.int_result_){0}
     , decltype(_impl_.result_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , /*decltype(_impl_._oneof_case_)*/{}
@@ -805,7 +1353,7 @@ void ReturnValue::SetCachedSize(int size) const {
 void ReturnValue::clear_result() {
 // @@protoc_insertion_point(one_of_clear_start:RPC.ReturnValue)
   switch (result_case()) {
-    case kIntResult: {
+    case kErrorResult: {
       // No need to clear
       break;
     }
@@ -825,6 +1373,12 @@ void ReturnValue::clear_result() {
       // No need to clear
       break;
     }
+    case kMatrixResult: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.result_.matrix_result_;
+      }
+      break;
+    }
     case RESULT_NOT_SET: {
       break;
     }
@@ -840,7 +1394,9 @@ void ReturnValue::Clear() {
   (void) cached_has_bits;
 
   _impl_.message_.ClearToEmpty();
-  _impl_.status_ = 0;
+  ::memset(&_impl_.status_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.int_result_) -
+      reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.int_result_));
   clear_result();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -873,22 +1429,30 @@ const char* ReturnValue::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
       // int32 int_result = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          _internal_set_int_result(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          _impl_.int_result_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // double double_result = 4;
+      // int32 error_result = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 33)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _internal_set_error_result(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // double double_result = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 41)) {
           _internal_set_double_result(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
           ptr += sizeof(double);
         } else
           goto handle_unusual;
         continue;
-      // string string_result = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+      // string string_result = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_string_result();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -896,19 +1460,27 @@ const char* ReturnValue::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
         } else
           goto handle_unusual;
         continue;
-      // bytes binary_result = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+      // bytes binary_result = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_binary_result();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool bool_result = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+      // bool bool_result = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _internal_set_bool_result(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .RPC.Matrix matrix_result = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr = ctx->ParseMessage(_internal_mutable_matrix_result(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -960,37 +1532,50 @@ uint8_t* ReturnValue::_InternalSerialize(
   }
 
   // int32 int_result = 3;
-  if (_internal_has_int_result()) {
+  if (this->_internal_int_result() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_int_result(), target);
   }
 
-  // double double_result = 4;
-  if (_internal_has_double_result()) {
+  // int32 error_result = 4;
+  if (_internal_has_error_result()) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteDoubleToArray(4, this->_internal_double_result(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_error_result(), target);
   }
 
-  // string string_result = 5;
+  // double double_result = 5;
+  if (_internal_has_double_result()) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(5, this->_internal_double_result(), target);
+  }
+
+  // string string_result = 6;
   if (_internal_has_string_result()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_string_result().data(), static_cast<int>(this->_internal_string_result().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "RPC.ReturnValue.string_result");
     target = stream->WriteStringMaybeAliased(
-        5, this->_internal_string_result(), target);
+        6, this->_internal_string_result(), target);
   }
 
-  // bytes binary_result = 6;
+  // bytes binary_result = 7;
   if (_internal_has_binary_result()) {
     target = stream->WriteBytesMaybeAliased(
-        6, this->_internal_binary_result(), target);
+        7, this->_internal_binary_result(), target);
   }
 
-  // bool bool_result = 7;
+  // bool bool_result = 8;
   if (_internal_has_bool_result()) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_bool_result(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_bool_result(), target);
+  }
+
+  // .RPC.Matrix matrix_result = 9;
+  if (_internal_has_matrix_result()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(9, _Internal::matrix_result(this),
+        _Internal::matrix_result(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1022,34 +1607,46 @@ size_t ReturnValue::ByteSizeLong() const {
       ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
+  // int32 int_result = 3;
+  if (this->_internal_int_result() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_int_result());
+  }
+
   switch (result_case()) {
-    // int32 int_result = 3;
-    case kIntResult: {
-      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_int_result());
+    // int32 error_result = 4;
+    case kErrorResult: {
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_error_result());
       break;
     }
-    // double double_result = 4;
+    // double double_result = 5;
     case kDoubleResult: {
       total_size += 1 + 8;
       break;
     }
-    // string string_result = 5;
+    // string string_result = 6;
     case kStringResult: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_string_result());
       break;
     }
-    // bytes binary_result = 6;
+    // bytes binary_result = 7;
     case kBinaryResult: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
           this->_internal_binary_result());
       break;
     }
-    // bool bool_result = 7;
+    // bool bool_result = 8;
     case kBoolResult: {
       total_size += 1 + 1;
+      break;
+    }
+    // .RPC.Matrix matrix_result = 9;
+    case kMatrixResult: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.result_.matrix_result_);
       break;
     }
     case RESULT_NOT_SET: {
@@ -1080,9 +1677,12 @@ void ReturnValue::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   if (from._internal_status() != 0) {
     _this->_internal_set_status(from._internal_status());
   }
+  if (from._internal_int_result() != 0) {
+    _this->_internal_set_int_result(from._internal_int_result());
+  }
   switch (from.result_case()) {
-    case kIntResult: {
-      _this->_internal_set_int_result(from._internal_int_result());
+    case kErrorResult: {
+      _this->_internal_set_error_result(from._internal_error_result());
       break;
     }
     case kDoubleResult: {
@@ -1099,6 +1699,11 @@ void ReturnValue::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
     }
     case kBoolResult: {
       _this->_internal_set_bool_result(from._internal_bool_result());
+      break;
+    }
+    case kMatrixResult: {
+      _this->_internal_mutable_matrix_result()->::RPC::Matrix::MergeFrom(
+          from._internal_matrix_result());
       break;
     }
     case RESULT_NOT_SET: {
@@ -1128,7 +1733,12 @@ void ReturnValue::InternalSwap(ReturnValue* other) {
       &_impl_.message_, lhs_arena,
       &other->_impl_.message_, rhs_arena
   );
-  swap(_impl_.status_, other->_impl_.status_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ReturnValue, _impl_.int_result_)
+      + sizeof(ReturnValue::_impl_.int_result_)
+      - PROTOBUF_FIELD_OFFSET(ReturnValue, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
   swap(_impl_.result_, other->_impl_.result_);
   swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
@@ -1136,7 +1746,7 @@ void ReturnValue::InternalSwap(ReturnValue* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ReturnValue::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
-      file_level_metadata_procedure_5fformat_2eproto[1]);
+      file_level_metadata_procedure_5fformat_2eproto[3]);
 }
 
 // ===================================================================
@@ -1441,7 +2051,7 @@ void Request::InternalSwap(Request* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Request::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
-      file_level_metadata_procedure_5fformat_2eproto[2]);
+      file_level_metadata_procedure_5fformat_2eproto[4]);
 }
 
 // ===================================================================
@@ -1755,7 +2365,7 @@ void FunctionRequest::InternalSwap(FunctionRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata FunctionRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
-      file_level_metadata_procedure_5fformat_2eproto[3]);
+      file_level_metadata_procedure_5fformat_2eproto[5]);
 }
 
 // ===================================================================
@@ -2060,7 +2670,7 @@ void Response::InternalSwap(Response* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Response::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
-      file_level_metadata_procedure_5fformat_2eproto[4]);
+      file_level_metadata_procedure_5fformat_2eproto[6]);
 }
 
 // ===================================================================
@@ -2373,7 +2983,7 @@ void AuthRequest::InternalSwap(AuthRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AuthRequest::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
-      file_level_metadata_procedure_5fformat_2eproto[5]);
+      file_level_metadata_procedure_5fformat_2eproto[7]);
 }
 
 // ===================================================================
@@ -2689,7 +3299,7 @@ void AuthResponse::InternalSwap(AuthResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AuthResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_procedure_5fformat_2eproto_getter, &descriptor_table_procedure_5fformat_2eproto_once,
-      file_level_metadata_procedure_5fformat_2eproto[6]);
+      file_level_metadata_procedure_5fformat_2eproto[8]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -2698,6 +3308,14 @@ PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::RPC::Argument*
 Arena::CreateMaybeMessage< ::RPC::Argument >(Arena* arena) {
   return Arena::CreateMessageInternal< ::RPC::Argument >(arena);
+}
+template<> PROTOBUF_NOINLINE ::RPC::Row*
+Arena::CreateMaybeMessage< ::RPC::Row >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::RPC::Row >(arena);
+}
+template<> PROTOBUF_NOINLINE ::RPC::Matrix*
+Arena::CreateMaybeMessage< ::RPC::Matrix >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::RPC::Matrix >(arena);
 }
 template<> PROTOBUF_NOINLINE ::RPC::ReturnValue*
 Arena::CreateMaybeMessage< ::RPC::ReturnValue >(Arena* arena) {
