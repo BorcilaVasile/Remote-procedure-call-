@@ -1,8 +1,4 @@
  Exclude build artifacts except for the library
-/build/*
-!/build/lib/
-!/build/lib/libRPC.so
-
 # Exclude binary files
 Client/main_client
 Server/main_server
@@ -15,7 +11,18 @@ Server/main_server
 *.bak
 *.swp
 
+#Exclude the build file because the libRPC.so and header files are in the release archive
+build
+
+#Exclude this script because is only for local usage 
 build_and_run.sh
+
+#The user doesn't need the script for making an archive from the library and headers
+package.sh
+
 RPC/certificate.crt 
 RPC/private.key
 Server/test.txt
+
+#The user doesn't need the folder for the archive
+rpc_package

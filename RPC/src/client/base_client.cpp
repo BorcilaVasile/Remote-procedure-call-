@@ -149,6 +149,8 @@ RPC::Response BaseClient::receiveResponse(){
     return future.get();
 }
 
+
+
 SSL_CTX* BaseClient::createContext() {
     const SSL_METHOD* method;
     SSL_CTX* ctx;
@@ -202,4 +204,43 @@ void BaseClient::configureContext(SSL_CTX* ctx) {
 
     X509_free(x509);
     EVP_PKEY_free(pkey);
+}
+
+
+
+RPC::Matrix BaseClient::convertToRPCMatrix(int** array, int dimension) {
+    RPC::Matrix matrix;
+    matrix.set_dimension(dimension);
+
+    for (int i = 0; i < dimension; ++i) {
+        RPC::Row* row = matrix.add_rows();
+        for (int j = 0; j < dimension; ++j) {
+            row->add_int_val(array[i][j]);
+        }
+    }
+    return matrix;
+}
+
+int** BaseClient::convertFromRPCMatrix(const RPC::Matrix& matrix) {
+    int dimension = matrix.dimension();
+    int** array = new int*[dimension];
+    for (int i = 0; i < dimension; ++i) {
+        array[i] = new int[dimension];
+        const RPC::Row& row = matrix.rows(i);
+        for (int j = 0; j < row.int_val_size(); ++j) {
+            array[i][j] = row.int_val(j);
+        }
+    }
+    return array;
+}
+
+
+void BaseClient::checkForErrors(RPC::ReturnValue value){
+    if(value.status()==RPC::Status::ERROR)
+    {
+        if(value.has_error_result())
+            errno=value.error_result();
+        std::string error_message = value.message();
+        throw RPCException(error_message);
+    }
 }
