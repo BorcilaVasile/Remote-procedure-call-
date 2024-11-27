@@ -2,6 +2,7 @@
 # Exclude binary files
 Client/main_client
 Server/main_server
+Server/test.txt
 
 # Exclude IDE-specific files
 .vscode/
@@ -26,3 +27,4 @@ Server/test.txt
 
 #The user doesn't need the folder for the archive
 rpc_package
+install_rpc.sh
