@@ -1,36 +1,33 @@
 #!/bin/bash
 
-# Locațiile de instalare
+# Definește directoarele de instalare
 LIB_DIR="/usr/local/lib"
-INCLUDE_DIR="/usr/local/include/RPC"
+INCLUDE_DIR="/usr/local/include"
 PKG_CONFIG_DIR="/usr/local/lib/pkgconfig"
 
-# Verifică dacă scriptul este rulat cu privilegii de root
-if [ "$(id -u)" -ne 0 ]; then
-    echo "Eroare: Trebuie să rulezi acest script cu privilegii de root (sudo)."
-    exit 1
+# Verifică dacă scriptul este rulat cu permisiuni de root
+if [ "$EUID" -ne 0 ]; then
+  echo "Te rog rulează scriptul cu permisiuni de root."
+  exit 1
 fi
 
-# Verifică dacă fișierele necesare sunt prezente
-if [ ! -f "libRPC.so" ]; then
-    echo "Eroare: Fișierul libRPC.so nu a fost găsit. Asigură-te că ai compilat biblioteca."
-    exit 1
+# Verifică și instalează protobuf dacă nu este instalat
+if ! dpkg -s protobuf-compiler libprotobuf-dev >/dev/null 2>&1; then
+  echo "Protobuf nu este instalat. Instalare protobuf..."
+  apt-get update
+  apt-get install -y protobuf-compiler libprotobuf-dev
+else
+  echo "Protobuf este deja instalat."
 fi
 
-if [ ! -d "include/RPC" ]; then
-    echo "Eroare: Directorul include/RPC nu a fost găsit. Asigură-te că fișierele de antet sunt prezente."
-    exit 1
+# Verifică și instalează openssl dacă nu este instalat
+if ! dpkg -s openssl libssl-dev >/dev/null 2>&1; then
+  echo "OpenSSL nu este instalat. Instalare OpenSSL..."
+  apt-get update
+  apt-get install -y openssl libssl-dev
+else
+  echo "OpenSSL este deja instalat."
 fi
-
-# Creează directoarele de destinație dacă nu există
-echo "Creare directoare de destinație..."
-mkdir -p ${LIB_DIR}
-mkdir -p ${INCLUDE_DIR}
-mkdir -p ${PKG_CONFIG_DIR}
-
-# Copiază biblioteca dinamică
-echo "Copiere libRPC.so în ${LIB_DIR}..."
-cp libRPC.so ${LIB_DIR}
 
 # Copiază fișierele de antet
 echo "Copiere fișiere de antet în ${INCLUDE_DIR}..."
