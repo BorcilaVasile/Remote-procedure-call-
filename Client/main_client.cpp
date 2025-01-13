@@ -1,6 +1,8 @@
 #include <iostream>
-#include <stdio.h> 
-#include <stdlib.h>
+#include <thread>
+#include <vector>
+#include <cstring>
+#include <fstream>
 #include <RPC/rpc_client.h>
 
 void printMatrix(int** matrix, int dimension) {
@@ -19,87 +21,93 @@ void freeMatrix(int** matrix, int dimension) {
     delete[] matrix;
 }
 
+void clientTask(int client_id, const std::string& username, const std::string& password) {
+    try {
+        Client client(true);  // creează un client nou
+        client.connectToServer("0.0.0.0", 8000);
+        client.authenticate(username, password);
 
-int main(){
-    Client* client = new Client(true);
-    client->connectToServer("0.0.0.0", 8000);
-    client->authenticate("username1", "password1");
+        // fiecare client execută mai multe operațiuni
+        std::cout << "[Client " << client_id << "] sayHello: " 
+                  << client.sayHello("Client " + std::to_string(client_id)) << std::endl;
 
-    //simple function
-    std::cout << "sayHello:\n" <<client->sayHello("Jasmine") << std::endl;
+        // operatiuni de matrice
+        int dimension = 2;
+        int** A = new int*[dimension];
+        int** B = new int*[dimension];
+        for (int i = 0; i < dimension; i++) {
+            A[i] = new int[dimension] {1, 2};
+            B[i] = new int[dimension] {3, 4};
+        }
 
-    //functie inexistenta
-    std::cout<<"nonExistentFunction: "<<std::endl;
-    client->nonExistentFunction();
+        int** result = client.multiplyMatrix(A, B, dimension);
 
-    //pointer type arguments function
-    char* message=(char*)malloc(4055*sizeof(char));
-    std::cout<<"\nreturnTypeNameAndSize:\n"<<client->returnTypeName(message)<<std::endl;
+        std::cout << "[Client " << client_id << "] Matrix multiplication result:" << std::endl;
+        printMatrix(result, dimension);
 
-    //aritmetic operation function
-    int dimension = 3;
+        freeMatrix(A, dimension);
+        freeMatrix(B, dimension);
+        freeMatrix(result, dimension);
 
-    int** A = new int*[dimension];
-    int** B = new int*[dimension];
-    for (int i = 0; i < dimension; i++) {
-        A[i] = new int[dimension];
-        B[i] = new int[dimension];
+        // operațiuni pe fișiere
+        std::string filename = "test_file_" + std::to_string(client_id) + ".txt";
+
+        // deschidere fișier
+        int fd = client.open(filename.c_str(), O_CREAT | O_RDWR);
+        if (fd == -1) {
+            std::cerr << "[Client " << client_id << "] Error opening file: " << strerror(errno) << std::endl;
+            return;
+        }
+
+        // scriere în fișier
+        std::string write_data = "Hello from Client " + std::to_string(client_id);
+        ssize_t bytes_written = client.write(fd, write_data.c_str(), static_cast<size_t>(write_data.length()));
+        if (bytes_written == -1) {
+            std::cerr << "[Client " << client_id << "] Error writing to file: " << strerror(errno) << std::endl;
+        } else {
+            std::cout << "[Client " << client_id << "] Successfully wrote to file." << std::endl;
+        }
+
+        // citire din fișier
+        char buffer[1024] = {0};
+        ssize_t bytes_read = client.read(fd, buffer, sizeof(buffer));
+        if (bytes_read == -1) {
+            std::cerr << "[Client " << client_id << "] Error reading from file: " << strerror(errno) << std::endl;
+        } else {
+            std::cout << "[Client " << client_id << "] Read from file: " << buffer << std::endl;
+        }
+
+        // închidere fișier
+        if (client.close(fd) == -1) {
+            std::cerr << "[Client " << client_id << "] Error closing file: " << strerror(errno) << std::endl;
+        } else {
+            std::cout << "[Client " << client_id << "] File closed successfully." << std::endl;
+        }
+
+        // deconectare
+        std::cout << "[Client " << client_id << "] disconnect: " 
+                  << client.disconnect() << std::endl;
+
+    } catch (const std::exception& e) {
+        std::cerr << "[Client " << client_id << "] Error: " << e.what() << std::endl;
     }
-
-    A[0][0] = 1; A[0][1] = 1; A[0][2] = 1;
-    A[1][0] = 1; A[1][1] = 1; A[1][2] = 1;
-    A[2][0] = 1; A[2][1] = 1; A[2][2] = 1;
-
-    B[0][0] = 1; B[0][1] = 1; B[0][2] = 1;
-    B[1][0] = 1; B[1][1] = 1; B[1][2] = 1;
-    B[2][0] = 1; B[2][1] = 1; B[2][2] = 1;
-    
-    int** C=client->multiplyMatrix(A,B,dimension);
-
-    printMatrix(C,dimension);
-
-    freeMatrix(A,dimension);
-    freeMatrix(B,dimension);
-    freeMatrix(C,dimension);
-
-    //file functions
-     // open file
-    int fd = client->open("test.txt", O_RDONLY);
-    std::cout << "Valoarea file descriptorului: " << fd << std::endl;
-    char buffer[1024];
-    std::strcpy(buffer, "Hello World!");
-
-    //write to file 
-    std::cout<<"Descriptor value: "<<fd<<std::endl;
-    ssize_t bytesWrite =client->write(fd,buffer,std::strlen(buffer));
-    if(bytesWrite==-1)
-        std::cerr<<"Eroare la scrierea in fisier: "<<std::strerror(errno)<<std::endl;
-
-    // read from file
-    ssize_t bytesRead = client->read(fd, buffer, 1020);
-    if (bytesRead == -1) {
-        std::cerr << "Eroare la citirea din fișier: " << std::strerror(errno) << std::endl;
-    } else {
-        std::cout << "Text from Clients.txt: " << buffer << std::endl;
-    }
-
-
-
-    // close file
-    int result = client->close(fd);
-    if (result == -1) {
-        std::cerr << "Eroare la închiderea fișierului: " << std::strerror(errno) << std::endl;
-    } else {
-        std::cout << "Fișier închis cu succes" << std::endl;
-    }
-
-    //disconnect function
-    std::string disconnectFuture = client->disconnect();
-    std::cout << "disconnect:"<<std::endl<< disconnectFuture<< std::endl;
-    
-    delete client;
-    return 0;
 }
 
+// Main Test
+int main() {
+    const int num_clients = 5;  
+    std::vector<std::thread> client_threads;
 
+    std::cout << "Starting test with " << num_clients << " clients...\n";
 
+    for (int i = 0; i < num_clients; i++) {
+        client_threads.emplace_back(clientTask, i, "username" + std::to_string(i + 1), "password" + std::to_string(i + 1));
+    }
+
+    for (auto& thread : client_threads) {
+        thread.join();
+    }
+
+    std::cout << "All clients have completed their tasks.\n";
+    return 0;
+}

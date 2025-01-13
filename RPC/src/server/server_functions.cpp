@@ -146,21 +146,25 @@ RPC::ReturnValue Server::open(std::vector<RPC::Argument> args){
     
     const std::string& path = args[0].string_val();
     int flags = args[1].int_val();
-    mode_t mode = (args.size() == 3) ? args[2].int_val() : 0;
 
-    int result = ::open(path.c_str(), flags, mode);
+
+    mode_t mode = (args.size() == 3) ? args[2].int_val() : 0644;
+    std::cout << "Path: " << path 
+          << ", Flags: " << flags 
+          << ", Mode (octal): " << std::oct << mode << std::endl;
+
+    int result =::open(path.c_str(), flags, mode);
     if (result == -1) {
+
+        std::cout<<"Error opening file: "<<std::strerror(errno)<<std::endl;
         value.set_status(RPC::Status::ERROR);
         value.set_message(std::strerror(errno));
-        value.set_error_result(errno); // Setează errno pentru eroarea specifică
-        return value;
+        value.set_error_result(errno);
+    } else {
+        value.set_status(RPC::Status::OK);
+        value.set_int_result(result);
     }
-
-    value.set_status(RPC::Status::OK);
-    value.set_message("File opened succesfully");
-    value.set_int_result(result);
-
-    return value; 
+    return value;
 }
 
 RPC::ReturnValue Server::close(std::vector<RPC::Argument> args){
@@ -224,8 +228,24 @@ RPC::ReturnValue Server::read(std::vector<RPC::Argument> args){
     std::string buffer = args[1].string_val();
     int size = args[2].int_val();
 
+    std::cout<<"Descriptor value: "<<fd<<std::endl;
+    std::cout<<"Buffer value: "<<buffer<<std::endl;
+    std::cout<<"Size value: "<<size<<std::endl;
+
+    off_t position = lseek(fd, 0, SEEK_SET);
+    if (position == -1) {
+        std::cerr << "Error setting file cursor to the beginning: " << std::strerror(errno) << std::endl;
+    } else {
+        std::cout << "Cursor set to the beginning of the file." << std::endl;
+    }
+
+    position = lseek(fd, 0, SEEK_CUR);
+    std::cout << "Current file position: " << position << std::endl;
+    
     char* result = new char[size];
     int bytesRead = ::read(fd, result, size);
+
+
 
     if (bytesRead == -1) {
         value.set_status(RPC::Status::ERROR);

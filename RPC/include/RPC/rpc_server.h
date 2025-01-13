@@ -9,6 +9,7 @@
 #include <typeinfo> 
 #include <RPC/encryption.h>
 #include <RPC/server_socket.h>
+#include <RPC/errors.h>
 #include <RPC/procedure_format.pb.h>
 
 struct ClientData{
@@ -23,21 +24,25 @@ private:
     std::vector<std::thread> thread_pool; 
     std::queue<ClientData> client_queue;
     std::vector<std::pair<std::string, std::string>> clients;              //<username, password>
-    std::unordered_map<int, std::string> client_tokens;
+    std::unordered_map<int, std::string> client_tokens;                     //uid, token    
+    std::unordered_map<int, int> client_permissions;                        //uid, permissions
     std::mutex mutexLock;
     std::condition_variable condition;
     bool shutdown_request=false;
     bool useTLS=true;
     SSL_CTX* ctx;
 
+    ErrorHandler errorHandler;
 
-    std::future<void> acceptConnectionsOnServer();
+
+    void acceptConnectionsOnServer();
     SSL_CTX* createContext();
     void configureContext(SSL_CTX* ctx);
     RPC::AuthResponse authenticateClient(std::string username, std::string password, int uid, int guid,std::string token);
     std::string generateUniqueToken();
     void verifyRequestCredentials(std::string token, int uid);
-    bool verifyAuthentificationCredentials(std::string username, std::string password);
+    void verifyRequestPermissions(int uid, int function_permission);
+    int verifyAuthentificationCredentials(std::string username, std::string password);
 
     using FunctionHandler = std::function<RPC::ReturnValue(std::vector<RPC::Argument>)>;
     std::map<std::string, FunctionHandler> function_map;
@@ -68,8 +73,7 @@ public:
 
     RPC::Response processRequest(RPC::Request& request);
     void sendResponse(Socket* client_socket, RPC::Response& response,SSL* ssl);
-    void closeConnection(Socket* client_socket);
-    void disconnectClient(Socket* client_socket);
+    void disconnectClient(Socket* client_socket,SSL* ssl);
     void shutdown();
     ~Server(){
         SSL_CTX_free(ctx);

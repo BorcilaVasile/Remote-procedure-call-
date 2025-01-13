@@ -2,15 +2,15 @@
 
 std::future<void> BaseClient::connectToServerAsync(std::string ip, uint16_t port){
     return std::async(std::launch::async, [this, ip, port](){
-        try{
             client_socket->connectToServer(ip,port);
-        }catch(RPCException& e){
-            std::cerr<<"RPC error: "<<e.what()<<std::endl;
-            exit(-1);
-        }catch(std::exception& e){
-            std::cerr<<"Error: "<<e.what()<<std::endl;
-            exit(-1);
-        }
+            if(useTLS){
+                ssl = SSL_new(ctx);
+                SSL_set_fd(ssl, client_socket->getSocketFd());
+                if (SSL_connect(ssl) <= 0) {
+                    ERR_print_errors_fp(stderr);
+                    exit(-1);
+                }
+            }
     });
 }
 
@@ -62,15 +62,9 @@ std::future<RPC::Response> BaseClient::receiveResponseAsync(){
         int length=sizeof(buffer);
         RPC::Response response;
 
-        try{
             this->receiveDataAsync(buffer, &length);
             if(!response.ParseFromArray(buffer,length))
                 throw std::runtime_error("Failed to parse response"); 
-        }catch(RPCException& e){
-            std::cerr<<"RPC error receiving the response from the server: "<<e.what()<<std::endl;
-        }catch(std::exception& e){
-            std::cerr<<"Error receiving the response from the server: "<<e.what()<<std::endl;
-        }
         return response; 
     });
 }

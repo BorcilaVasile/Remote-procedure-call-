@@ -26,9 +26,9 @@ This project provides a Remote Procedure Call (RPC) library that facilitates com
 [project latest release](https://github.com/BorcilaVasile/Remote-procedure-call-/releases/tag/RPC_libraryVersion1).
 
 
-2. **Extract the archive**:
+2. **Extract the archive**
 
-3. **Open a new terminal and move to the folder which contains the extracted archive**:
+3. **Open a new terminal and move to the folder which contains the extracted archive**
 
 4. **Install the library and the dependencies**
     ```sh

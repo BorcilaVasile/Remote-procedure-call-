@@ -9,7 +9,7 @@ class BaseClient {
 protected:
     ClientSocket* client_socket;
     ErrorHandler errorHandler;
-    std::string token;
+    RPC::Token token;
     int client_id;
     bool useTLS=true; 
 
@@ -71,28 +71,42 @@ template <typename ReturnType, typename... Args>
     ReturnType BaseClient::callRemoteFunction(const std::string& function_name, Args... args) {
         try{
             RPC::FunctionRequest function_request;
+            //set the function name
             function_request.set_function_name(function_name); 
-            function_request.set_token(this->token);
+
+            //i obtain a pointer to function_request token and i modify his values
+            RPC::Token* token= function_request.mutable_token();
+            token->set_generatedtoken(this->token.generatedtoken());
+            token->set_permisions(this->token.permisions());
+
+
+            //set the cliend id
             function_request.set_client_id(client_id);
 
+            //initialize the argument list for every procedure call
             (void)std::initializer_list<int>{(addArgument(function_request, args), 0)...};
             RPC::Request request;
             *request.mutable_function_request() = function_request;
-
+            
             this->sendRequest(request);
 
             RPC::Response response = receiveResponse();
             
-            errorHandler.handle(response.return_value().status(), response.return_value().message());
+            if(response.return_value().status()!=RPC::Status::OK)
+                throw RPCException(response.return_value().message());
 
-            std::cout<<std::endl<<"Returned message: "<<response.return_value().message()<<std::endl;
+            //extract the result from the response obtained from server
             return extractResult<ReturnType>(response.return_value());
+
         }catch(const RPCException& e){
-            std::cerr<<"RPC error:"<<e.what()<<std::endl;
+            errorHandler.handle(RPC::Status::INTERNAL_ERROR,std::string(e.what()));
+            callRemoteFunction<void>("disconnect");
+            return ReturnType();
         }catch(const std::exception& e){
-            std::cerr<<"Unexpected error: "<<e.what()<<std::endl;
+            errorHandler.handle(RPC::Status::INTERNAL_ERROR, std::string(e.what()));
+            callRemoteFunction<void>("disconnect");
+            return ReturnType();
         }
-        return ReturnType();
     }
 
 
@@ -103,28 +117,30 @@ std::future<ReturnType> BaseClient::callRemoteFunctionAsync(const std::string& f
         try{
             RPC::FunctionRequest function_request;
             function_request.set_function_name(function_name); 
-            function_request.set_token(this->token);
+
+
+            RPC::Token* token= function_request.mutable_token();
+            token->set_generatedtoken(this->token.generatedtoken());
+            token->set_permisions(this->token.permisions());
+
             function_request.set_client_id(client_id);
 
 
             (void)std::initializer_list<int>{(addArgument(function_request, args), 0)...};
-
-            std::cout << "Sending request for function: " << function_name << std::endl;
 
             RPC::Request request;
             *request.mutable_function_request() = function_request;
             this->sendRequestAsync(request);
                 
             RPC::Response response = receiveResponse();
-            errorHandler.handle(response.return_value().status(), response.return_value().message());
             return extractResult<ReturnType>(response.return_value());
-        }catch(const RPCException& e)
-        {
-            std::cerr<<"RPC error:"<<e.what()<<std::endl;
+        }catch(const RPCException& e){
+             errorHandler.handle(RPC::Status::INTERNAL_ERROR,std::string(e.what()));
+             throw;
         }catch(const std::exception& e){
-            std::cerr<<"Unexpected error: "<<e.what()<<std::endl;
+            errorHandler.handle(RPC::Status::INTERNAL_ERROR, std::string(e.what()));
+            throw;
         }
-        return ReturnType();
     });
 }
 

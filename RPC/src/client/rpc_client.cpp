@@ -22,7 +22,7 @@ std::string Client::sayHello(std::string name){
 
 
 void Client::nonExistentFunction(){
-    return callRemoteFunction<void>("nonExistentFunction");
+        callRemoteFunction<void>("nonExistentFunction");
 }
 
 std::string Client::returnTypeName(void* variable){
@@ -52,7 +52,7 @@ ssize_t Client::read(int fd, int* buf, int count){
     return callRemoteFunction<int>("read", fd, buf, count);
 }
 
-ssize_t Client::write(int fd,char* buf, int count){
+ssize_t Client::write(int fd,const char* buf, int count){
     std::string buffer=buf;
     return callRemoteFunction<int>("write",fd, buffer, count);
 }

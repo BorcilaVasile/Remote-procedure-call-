@@ -4,6 +4,7 @@ Client/main_client
 Server/main_server
 Server/test.txt
 
+
 # Exclude IDE-specific files
 .vscode/
 

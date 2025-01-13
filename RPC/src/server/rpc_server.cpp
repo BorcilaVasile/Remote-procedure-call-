@@ -23,12 +23,12 @@ Server::Server(size_t pool_size,std::string ip, uint16_t port){
 
 
     }catch(const RPCException& e){
-        std::cerr<<"RPC server error: "<<e.what()<<std::endl;
+        errorHandler.handle(RPC::Status::INTERNAL_ERROR, "RPC error at server constructor: " + std::string(e.what()));
         cleanup();
         exit(EXIT_FAILURE);   
     }
     catch(const std::exception& e){
-        std::cerr<<"Server internal error: "<<e.what()<<std::endl;
+        errorHandler.handle(RPC::Status::INTERNAL_ERROR, "Internal error at server constructor: " + std::string(e.what()));
         cleanup(); 
         exit(EXIT_FAILURE);
     }
@@ -43,7 +43,6 @@ Server::Server(size_t pool_size,std::string ip, uint16_t port){
 }
 
 void Server::loadClients(std::string filename){
-    try{
     char cwd[PATH_MAX];
     if (getcwd(cwd, sizeof(cwd)) != NULL) {
         std::string fullPath = std::string(cwd) + "/" + filename;
@@ -65,27 +64,25 @@ void Server::loadClients(std::string filename){
         }
         file.close();
 
+        std::cout<<"Clients loaded from file: "<<filename<<std::endl;
         for(std::pair<std::string, std::string> client: clients)
-            std::cout<<std::endl<<"Client: "<<client.first<<" "<<client.second<<std::endl;
+            std::cout<<"Client: "<<client.first<<" "<<client.second<<std::endl;
     }else
         throw std::runtime_error("Failed to get current working directory");
-    }catch(const RPCException& e){
-        std::cerr<<"RPC error loading clients: "<<e.what()<<std::endl;
-        exit(EXIT_FAILURE);
-    }catch(const std::exception& e){
-        std::cerr<<"Internal error loading clients: "<<e.what()<<std::endl;
-        exit(EXIT_FAILURE); 
-    }
 }
 
 RPC::AuthResponse Server::authenticateClient(std::string username, std::string password, int uid, int guid,std::string token)
 {
     RPC::AuthResponse auth_response;
     std::cout<<std::endl<<"Client: "<<username<<" "<<password<<std::endl;
-    if(uid>=1000 && guid>=1000 && verifyAuthentificationCredentials(username,password))
+    int verificationResult=verifyAuthentificationCredentials(username, password);    
+    if(uid>=1000 && guid>=1000 && verificationResult!=-1)
     {   
+        RPC::Token* server_token= auth_response.mutable_token();
+        server_token->set_generatedtoken(token);
+        server_token->set_permisions(verificationResult);
+
         auth_response.set_status(RPC::Status::OK);
-        auth_response.set_token(token);
         auth_response.set_message("Authentificated succesfully to the server.");
         auth_response.set_session_expiry(4000);
 
@@ -94,6 +91,7 @@ RPC::AuthResponse Server::authenticateClient(std::string username, std::string p
         auth_response.set_status(RPC::Status::PERMISSION_DENIED);
         auth_response.set_message("Authentification failed due to the invalid credentials");
     }
+    
     return auth_response;
 }
 
@@ -105,17 +103,29 @@ void Server::verifyRequestCredentials(std::string token, int uid)
     }
 }
 
-bool Server::verifyAuthentificationCredentials(std::string username, std::string password){
+void Server::verifyRequestPermissions(int uid, int function_permission) {
+    auto it = client_permissions.find(uid);
+    if (it == client_permissions.end()) {
+        throw RPCException("User ID not found");
+    }
+
+    int user_permissions = it->second;
+    if ((user_permissions & function_permission) != function_permission) {
+        throw RPCException("Insufficient permissions");
+    }
+}
+int Server::verifyAuthentificationCredentials(std::string username, std::string password){
     for(std::pair<std::string,std::string> client:clients)
         if(username==client.first)
         {
             if(password==client.second)
-                return true;
+                return 1000;
             else 
-                return false;
+                return -1;
         }
-    return false;
+    return -1;
 }
+
 std::string Server::generateUniqueToken(){
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -135,8 +145,7 @@ void Server::start()
 }
 
 //accept connections on the server asynchronous
-std::future<void> Server::acceptConnectionsOnServer(){
-    return std::async(std::launch::async, [this](){
+void Server::acceptConnectionsOnServer(){
     while(true){
         try{
             Socket* client_socket=server_socket->acceptConnections();
@@ -171,14 +180,14 @@ std::future<void> Server::acceptConnectionsOnServer(){
             }
             //announce the thread that the condition has been acomplished
             condition.notify_one();
+
         }catch(const RPCException& e){
-            std::cerr<<"RPC error accepting connections on server: "<<e.what()<<std::endl;
+            errorHandler.logError(std::string("RPC error while accepting connection.") + e.what());
         }
         catch(const std::exception& e){
-            std::cerr<<"Error accepting connections on server: "<<e.what()<<std::endl;
+            errorHandler.logError(std::string("Unexpected error while accepting connection: ") + e.what());
         }
     }
-    });
 }
 
 SSL_CTX* Server::createContext(){
@@ -264,16 +273,13 @@ void Server::workerThread()
             token=client_queue.front().token;
             client_queue.pop();
         }
-         try {
-            handleClient(client_socket, ssl,token);
-        } catch (const std::exception& e) {
-            std::cerr << "Error handling client: " << e.what() << std::endl;
-        }    
+        handleClient(client_socket, ssl,token);  
     }
 
 }
 void Server::handleClient(Socket* client_socket, SSL* ssl,std::string token)
 {
+
     while(true){
         char buffer[1024]; 
         int length=sizeof(buffer);
@@ -286,12 +292,16 @@ void Server::handleClient(Socket* client_socket, SSL* ssl,std::string token)
 
             if(request.has_function_request()){
                 RPC::Response response=processRequest(request);
+
                 sendResponse(client_socket, response,ssl);
+                if (response.return_value().status() != RPC::Status::OK) {
+                    errorHandler.logError(response.return_value().message());
+                    break;
+                }
                 if(request.function_request().function_name()=="disconnect")
                     break;
             }
             else if(request.has_auth_request()){
-
                 std::string username=request.auth_request().client_id().c_str();
                 std::string password=request.auth_request().client_secret().c_str();
                 int uid=request.auth_request().uid();
@@ -305,17 +315,19 @@ void Server::handleClient(Socket* client_socket, SSL* ssl,std::string token)
                 if(auth_response.status()!=RPC::Status::OK)
                     throw RPCException("Authentification failed due to invalid credentials");
             }
-        }catch(RPCException& e){
-            std::cerr<<"RPC error: "<<e.what()<<std::endl;
+        }catch(const RPCException& e){
+            errorHandler.logError(e.what());
+            disconnectClient(client_socket,ssl);
             break;
-        }catch(std::exception& e){
-            std::cerr<<"Error handling the client: "<<e.what()<<std::endl;
+        }
+        catch(const std::exception& e){
+            std::cerr << "[Unexpected error] " << e.what() << std::endl;
+            disconnectClient(client_socket,ssl);
             break;
         }
     }
-    disconnectClient(client_socket);
-    if(ssl)
-        free(ssl);
+   
+    disconnectClient(client_socket,ssl);
 }
 
 
@@ -323,7 +335,7 @@ RPC::Response Server::processRequest(RPC::Request& request){
     RPC::Response response; 
     RPC::ReturnValue* return_value=response.mutable_return_value();
     try{
-        verifyRequestCredentials(request.function_request().token(), request.function_request().client_id());
+        verifyRequestCredentials(request.function_request().token().generatedtoken(), request.function_request().client_id());
 
         std::cout<<std::endl<<"Function name: "<<request.function_request().function_name()<<std::endl;
         
@@ -345,10 +357,12 @@ RPC::Response Server::processRequest(RPC::Request& request){
                 return_value->set_message("Function not found");
             }  
         }
-    }catch(RPCException& e){
-        std::cerr<<"RPC error: "<<e.what()<<std::endl;
+    } catch (const RPCException& e) {
         return_value->set_status(RPC::Status::INTERNAL_ERROR);
         return_value->set_message(e.what());
+    } catch (const std::exception& e) {
+        return_value->set_status(RPC::Status::INTERNAL_ERROR);
+        return_value->set_message(std::string("Internal server error: ") + e.what());
     }
 
     return response;
@@ -367,26 +381,27 @@ void Server::sendResponse(Socket* client_socket, RPC::Response& response,SSL* ss
         if(SSL_write(ssl,buffer.data(),size)<=0)
             throw RPCException("Failed to send secured response to client");
     }else{
-    if(client_socket->sendData(buffer.data(),size)==-1)
-        throw RPCException("Failed to send response to client"); 
+        if(client_socket->sendData(buffer.data(),size)==-1)
+            throw RPCException("Failed to send response to client"); 
     }
 }
 
-void Server::closeConnection(Socket* client_socket)
-{
+void Server::disconnectClient(Socket *client_socket,SSL* ssl)
+{   
+    if (ssl) {
+        SSL_free(ssl);
+        ssl = nullptr;
+    }
     if(client_socket!=nullptr)
     {
-        delete client_socket;
-        client_socket=nullptr;      
-        printf("Client connection closed\n");
+        if(client_socket->isValidSocket())
+        {
+            delete client_socket;
+            client_socket=nullptr;      
+            printf("Client connection closed\n");
+        }else 
+            std::cerr << "Warning: Attempted to disconnect an already closed socket." << std::endl;
     }
-
-}
-
-void Server::disconnectClient(Socket *client_socket)
-{
-    closeConnection(client_socket);
-    std::cout<<"Client disconnected"<<std::endl;
 }
 
 void Server::cleanup() {

@@ -63,7 +63,7 @@ message FunctionRequest {
   string function_name = 1;        // Numele funcției care va fi apelată
   repeated Argument args = 2;      // Lista de argumente pentru apelul RPC
   int32 client_id = 3;            // ID-ul clientului pentru autentificare
-  string token = 4;                // Token pentru autorizare (opțional)
+  Token token = 4;                // Token pentru autorizare (opțional)
 }
 
 // Mesaj pentru Response - trimis înapoi de server după executarea funcției
@@ -85,11 +85,16 @@ message AuthRequest {
 // Mesaj pentru răspunsul la autentificare
 message AuthResponse {
   Status status = 1;               // Statusul autentificării (OK sau eroare)
-  string token = 2;                // Token generat dacă autentificarea este reușită
+  Token token = 2;                // Token generat dacă autentificarea este reușită
   string message = 3;              // Mesaj informativ despre eroare sau succes
   int64 session_expiry=4;          // Timp de expirare pentru token.
 }
 
+//Mesaj pentru token
+message Token{
+  string generatedToken=1;
+  int32 permisions=2;
+}
 // Serviciul principal pentru RPC - expune metodele pentru apeluri și autentificare
 service RPCService {
   // Metodă de autentificare pentru client

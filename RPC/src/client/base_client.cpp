@@ -4,18 +4,13 @@ BaseClient::BaseClient(){
     SSL_library_init();
     OpenSSL_add_all_algorithms();
     SSL_load_error_strings();
-    try{
     ctx=createContext();
     configureContext(ctx);
 
     client_socket=new ClientSocket();
-    }catch(const RPCException& e){
-        std::cerr<<"RPC client error: " <<e.what()<<std::endl;
-        exit(EXIT_FAILURE);
-    }catch(const std::exception& e){
-        std::cerr<<"Client erorr: "<<e.what()<<std::endl;
-        exit(EXIT_FAILURE);
-    }
+    if(client_socket==nullptr)
+        throw RPCException("Failed to create client socket");
+   
 }
 
 BaseClient::~BaseClient(){
@@ -24,7 +19,6 @@ BaseClient::~BaseClient(){
 }
 
 void BaseClient::connectToServer(std::string ip,uint16_t port){
-    try{
         client_socket->connectToServer(ip,port);
         if(useTLS){
         ssl = SSL_new(ctx);
@@ -35,50 +29,36 @@ void BaseClient::connectToServer(std::string ip,uint16_t port){
             exit(-1);
         }
         }
-    }catch(RPCException& e){
-        std::cerr<<"RPC error: "<<e.what()<<std::endl;
-        exit(-1);
-    }catch(std::exception& e){
-        std::cerr<<"Error: "<<e.what()<<std::endl;
-        exit(-1);
-    }
 }
 
 void BaseClient::authenticateUser(std::string username, std::string password, int uid, int gid)
 {
-    try{
-        RPC::AuthRequest auth_request;
-        auth_request.set_client_id(username);
-        auth_request.set_client_secret(password);
-        auth_request.set_uid(uid);
-        auth_request.set_gid(gid);
-        this->client_id=uid;
+    RPC::AuthRequest auth_request;
+    auth_request.set_client_id(username);
+    auth_request.set_client_secret(password);
+    auth_request.set_uid(uid);
+    auth_request.set_gid(gid);
+    this->client_id=uid;
 
 
-        RPC::Request request; 
-        *request.mutable_auth_request() = auth_request;
+    RPC::Request request; 
+    *request.mutable_auth_request() = auth_request;
 
-        std::string message_request;
-        request.auth_request().SerializeToString(&message_request);
+    std::string message_request;
+    request.auth_request().SerializeToString(&message_request);
 
-        sendRequest(request);
+    sendRequest(request);
 
-        RPC::Response response = receiveResponse();
+    RPC::Response response = receiveResponse();
         
-        RPC::AuthResponse auth_response=response.auth_response();
+    RPC::AuthResponse auth_response=response.auth_response();
 
-        errorHandler.handle(auth_response.status(), auth_response.message());
+    errorHandler.handle(auth_response.status(), auth_response.message());
 
-        std::cout<<"Client authenticated succesfully to server"<<std::endl;
-        this->token=auth_response.token().c_str();
-
-    }catch(RPCException& e){
-        std::cerr<<"RPC error at authentification: "<<e.what()<<std::endl;
-        exit(-1);
-    }catch(std::exception& e){
-        std::cerr<<"Error at authentification: "<<e.what()<<std::endl;
-        exit(-1);
-    }
+    std::cout<<"Client authenticated succesfully to server"<<std::endl;
+    this->token.set_generatedtoken(auth_response.token().generatedtoken());
+    this->token.set_permisions(auth_response.token().permisions());
+        
 }
 
 
@@ -94,16 +74,11 @@ void BaseClient::sendData(char *message, int length){
 void BaseClient::sendRequest(RPC::Request& request){
     int size=request.ByteSizeLong();
     char* buffer=new char[size];
-    try{
-        if(!request.SerializeToArray(buffer,size))
-            throw std::runtime_error("Failed to serialize request");
+    if(!request.SerializeToArray(buffer,size))
+        throw std::runtime_error("Failed to serialize request");
 
-        this->sendData(buffer, size);
-    }catch(RPCException& e){
-        std::cerr<<"RPC error communicating with the server: "<<e.what()<<std::endl;
-    }catch(std::exception& e){
-        std::cerr<<"Error communicating with the server: "<<e.what()<<std::endl;
-    }
+    this->sendData(buffer, size);
+   
     delete[] buffer;
 }
 
@@ -125,19 +100,11 @@ RPC::Response BaseClient::receiveResponse(){
         char buffer[1024];
         int length = sizeof(buffer);
         RPC::Response response;
-        try {
             receiveData(buffer, &length);
 
             if (!response.ParseFromArray(buffer, length)) {
                 throw std::runtime_error("Failed to parse response");
             }
-        } catch (RPCException& e) {
-            std::cerr << "RPC error receiving the response from the server: " << e.what() << std::endl;
-            throw;
-        } catch (std::exception& e) {
-            std::cerr << "Error receiving the response from the server: " << e.what() << std::endl;
-            throw;
-        }
         return response;
     });
 
@@ -167,7 +134,14 @@ SSL_CTX* BaseClient::createContext() {
 }
 
 void BaseClient::configureContext(SSL_CTX* ctx) {
-    if (SSL_CTX_load_verify_locations(ctx, "build/bin/certificate.crt", nullptr) <= 0) {
+    const char* cert_path = std::getenv("RPC_CERTIFICATE_PATH");
+    if (cert_path == nullptr) {
+        cert_path = "build/bin/certificate.crt"; // adaug calea implicita
+        std::cout << "RPC_CERTIFICATE_PATH not set. Using default path: " << cert_path << std::endl;
+    }
+
+
+    if (SSL_CTX_load_verify_locations(ctx, cert_path, nullptr) <= 0) {
         ERR_print_errors_fp(stderr);
         throw RPCException("Failed to set the certificate location. Ensure 'certificate.crt' exists and is accessible.");
     }
