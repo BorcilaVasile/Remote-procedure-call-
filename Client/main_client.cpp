@@ -23,7 +23,7 @@ void freeMatrix(int** matrix, int dimension) {
 
 void clientTask(int client_id, const std::string& username, const std::string& password) {
     try {
-        Client client(true);  // creează un client nou
+        Client client(true);  
         client.connectToServer("0.0.0.0", 8000);
         client.authenticate(username, password);
 
@@ -31,7 +31,7 @@ void clientTask(int client_id, const std::string& username, const std::string& p
         std::cout << "[Client " << client_id << "] sayHello: " 
                   << client.sayHello("Client " + std::to_string(client_id)) << std::endl;
 
-        // operatiuni de matrice
+        // operatiuni pe matrice
         int dimension = 2;
         int** A = new int*[dimension];
         int** B = new int*[dimension];
