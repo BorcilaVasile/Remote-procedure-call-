@@ -120,7 +120,7 @@ echo "Asigurați-vă că variabila de mediu RPC_CERTIFICATE_PATH este configurat
 ### Steps
 
 1. **Download the last release**
-[project latest release](https://github.com/BorcilaVasile/Remote-procedure-call-/releases/tag/RPC_libraryVersion1).
+[project latest release](https://github.com/BorcilaVasile/Remote-procedure-call-/releases/tag/RPC_libraryVersion2).
 
 
 2. **Extract the archive**
