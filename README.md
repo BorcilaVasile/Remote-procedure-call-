@@ -186,6 +186,19 @@ int main() {
 }
 ```
 
+### Example script to compile the client application
+
+The following script compiles the `main_client` file for the client application, linking the required libraries and including the necessary headers. Replace `your_path` with the appropriate paths to your project files.
+
+```bash
+g++ -g your_path/Remote-procedure-call-/Client/main_client.cpp your_path/Remote-procedure-call-/RPC/src/proto/procedure_format.pb.cc \
+    -I your_path/Remote-procedure-call-/RPC/include            \
+    -o your_path/Remote-procedure-call-/Client/main_client     \
+    -L your_path/Remote-procedure-call-/build/lib/ \
+    -lRPC -Wl,-rpath,your_path/Remote-procedure-call-/build/lib/ \
+    -lprotobuf -lssl -lcrypto
+```
+
 ## Example server code 
 ```cpp
 #include <stdio.h>
@@ -210,6 +223,19 @@ int main() {
 }
 ```
 
+### Example script to compile the server application
+
+The following script compiles the `server_client` file for the server application, linking the required libraries and including the necessary headers. Replace `your_path` with the appropriate paths to your project files.
+
+```bash
+g++ -g your_path/Remote-procedure-call-/Server/main_server.cpp   your_path/Remote-procedure-call-/RPC/src/proto/procedure_format.pb.cc \
+    -I your_path/Remote-procedure-call-/RPC/include            \
+    -I your_path/Remote-procedure-call-/RPC/src/proto          \
+    -o your_path/Remote-procedure-call-/Server/main_server     \
+    -L your_path/Remote-procedure-call-/build/lib/      \
+    -lRPC -Wl,-rpath,/home/vasile/Desktop/Remote-procedure-call-/build/lib/ \
+    -lprotobuf -lssl -lcrypto
+```
 ## Future Implementations
 
 - **Cross-Platform Compatibility**: Extend support for macOS and Windows.

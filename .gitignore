@@ -1,8 +1,16 @@
  Exclude build artifacts except for the library
 # Exclude binary files
 Client/main_client
+Client/error_log.txt
 Server/main_server
 Server/test.txt
+Server/test_file_0.txt
+Server/test_file_1.txt
+Server/test_file_2.txt
+Server/test_file_3.txt
+Server/test_file_4.txt
+Server/error_log.txt
+
 
 
 # Exclude IDE-specific files
@@ -21,6 +29,7 @@ build_and_run.sh
 
 #The user doesn't need the script for making an archive from the library and headers
 package.sh
+rpc_package.tar.gz
 
 RPC/certificate.crt 
 RPC/private.key
